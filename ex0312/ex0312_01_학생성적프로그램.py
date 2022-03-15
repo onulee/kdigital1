@@ -22,17 +22,26 @@ while True:
         kor = int(input('국어 점수를 입력하세요.>>'))
         eng = int(input('영어 점수를 입력하세요.>>')) 
         
-        temp =[sCount+1,sName,kor,eng,kor+eng,(kor+eng)/2]
+        temp =[sCount+1,sName,kor,eng,kor+eng,(kor+eng)/2,0]
         stuSave.append(temp)
         sCount += 1 #학생인원 count 1증가
         print('학생성적이 저장되었습니다.')
         print(stuSave)
-        
-        
     elif choice==2:
         print('학생성적 수정을 선택하셨습니다.')
     elif choice==3:
         print('학생성적 삭제를 선택하셨습니다.')
+    elif choice==4:
+        print('번호\t이름\t국어영어합계평균등수'))  
+        # print('{:10s}{:10s}{:10s}{:10s}{:10s}{:10}{:10s}'.format('번호','이름',\
+        #     '국어','영어','합계','평균','등수'))  
+        print('-'*45)
+        # [[1,홍길동,100,100,200,100.0,0]]
+        for stu in stuSave:
+            for i in stu:
+               print('{:10s}'.format(str(i)),end='') 
+            print() #줄바꿈  
+                
     elif choice==0:
         print('프로그램을 종료합니다.')
         break
