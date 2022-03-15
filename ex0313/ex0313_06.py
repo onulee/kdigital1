@@ -1,8 +1,37 @@
 aa=[1,2,333,6,555,6,77,8,9]
-print(aa)
+print("1 : ",aa)
 
-aa.extend([1,2,3])
-print(aa)
+# 깊은 복사 aa가 바뀌어도 bb는 바뀌지 않음.
+# bb = aa.copy()
+# aa[0] = 500
+# print('aa list[aa[0]=500] : ',aa)
+# print('bb list : ',bb)
+
+# 얕은 복사는 주소값을 복사해서 aa가 바뀌면 bb도 바뀜
+# bb = aa
+# aa[0] = 500
+# print('aa list[aa[0]=500] : ',aa)
+# print('bb list : ',bb)
+
+
+
+
+# bb = aa.sort()
+# print("2 : ",bb)
+
+# cc = sorted(aa)
+# print('3 : ',cc)
+
+# aa[0]=500
+
+# print("4 : ",aa)
+# print("5 : ",cc)
+
+
+
+# 추가 list로 추가
+# aa.extend([1,2,3])
+# print(aa)
 
 
 # 찾고자 하는 데이터가 몇개있는지 확인
@@ -12,8 +41,8 @@ print(aa)
 # idx = aa.index(77)
 # print(idx)
 
-if 77 in aa:
-    print('77 값이 있습니다.')
+# if 77 in aa:
+#     print('77 값이 있습니다.')
 
 
 # 특정위치에 값을 추가
