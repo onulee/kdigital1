@@ -8,13 +8,24 @@ sCount = 0
 while True:
     print('[ 학생성적프로그램 ]')
     print('-'*25)
-    print('1. 학생성적입력')
+    print('1. 학생성적입력') # 완료
     print('2. 학생성적수정')
     print('3. 학생성적삭제')
-    print('4. 학생성적전체출력')
-    print('0. 프로그램종료')
+    print('4. 학생성적전체출력') #완료
+    print('5. 학생검색출력') 
+    print('6. 등수처리')    
+    print('0. 프로그램종료')     #완료
     print('-'*25)
-    choice = int(input('원하는 번호를 입력하세요.>>'))
+    # 숫자만 받는데, 문자를 입력하면 에러
+    # 숫자만 받도록 변경
+    choice = input('원하는 번호를 입력하세요.>>')
+    
+    # isdigit() 숫자인지아닌지 확인함수
+    if not choice.isdigit():  # 숫자
+        print('숫자만 입력가능합니다.!!')
+        continue
+    # int형 변경
+    choice = int(choice)
     
     if choice==1:
         print('-- {}번째 학생등록 -- '.format(sCount+1))
@@ -33,14 +44,13 @@ while True:
         print('학생성적 삭제를 선택하셨습니다.')
     elif choice==4:
         print('번호\t이름\t국어\t영어\t합계\t평균\t등수')  
-        # print('{:10s}{:10s}{:10s}{:10s}{:10s}{:10}{:10s}'.format('번호','이름',\
-        #     '국어','영어','합계','평균','등수'))  
-        print('-'*45)
+        print('-'*60)
         # [[1,홍길동,100,100,200,100.0,0]]
         for stu in stuSave:
             for i in stu:
                print('{}\t'.format(i),end='') 
-            print() #줄바꿈  
+            print() #줄바꿈
+            print() #줄바꿈 
                 
     elif choice==0:
         print('프로그램을 종료합니다.')
