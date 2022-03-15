@@ -32,14 +32,14 @@ while True:
     elif choice==3:
         print('학생성적 삭제를 선택하셨습니다.')
     elif choice==4:
-        print('번호\t이름\t국어영어합계평균등수'))  
+        print('번호\t이름\t국어\t영어\t합계\t평균\t등수')  
         # print('{:10s}{:10s}{:10s}{:10s}{:10s}{:10}{:10s}'.format('번호','이름',\
         #     '국어','영어','합계','평균','등수'))  
         print('-'*45)
         # [[1,홍길동,100,100,200,100.0,0]]
         for stu in stuSave:
             for i in stu:
-               print('{:10s}'.format(str(i)),end='') 
+               print('{}\t'.format(i),end='') 
             print() #줄바꿈  
                 
     elif choice==0:
