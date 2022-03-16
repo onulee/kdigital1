@@ -3,13 +3,13 @@ import random
 # 1. 리스트 생성
 # 2. 리스트 1-25까지 숫자입력
 randNum = [ i+1 for i in range(25) ]
-print(randNum)
+# print(randNum)
 # 3. 랜덤섞기
 for i in range(200):
     rno = randint(0,24)  # 0-24  randrange(0,25)
     # 숫자를 서로 자리 변경
     randNum[0],randNum[rno] = randNum[rno],randNum[0]
-print(randNum)    
+# print(randNum)    
 
 # 4. 2차원배열 리스트 생성
 arrs = []
@@ -18,7 +18,7 @@ for i in range(0,5):
     # arr2 = [5*i+j for j in range(1,6)] # [1,2,3,4,5]순차적으로 숫자를 넣음
     arr2 = [randNum[5*i+j] for j in range(0,5)] # [랜덤리스트넣음]
     arrs.append(arr2)
-print(arrs)    
+# print(arrs)    
     
 # 6. 2차원리스트 출력
 # 7. 무한루프
