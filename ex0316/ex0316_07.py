@@ -7,7 +7,8 @@ words = {
     '호랑이':'tiger',
     '직업':'job',
     '사과':'apple',
-    '사자':'lion'
+    '사자':'lion',
+    '여우':'fox'
 }
 words2 = {
     '연필':'pencil',
