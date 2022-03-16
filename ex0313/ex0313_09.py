@@ -26,7 +26,6 @@ for i in range(0,5):
 #     arr2=[5*i+j for j in range(1,6)]
 #     arrs.append(arr2)
 
-
 # 무한 반복
 while True:
     # 2차원list에서 출력
