@@ -40,6 +40,7 @@ while True:
                 print('키가 없습니다.') 
     elif ch1 == 2:
         while True:
+            kchk=0
             # 1. value값 검색
             key1=input('value값을 입력하세요.(0:상위메뉴 이동)>>')
 
@@ -48,15 +49,14 @@ while True:
                     print('상위메뉴로 이동합니다.!!')
                     break
                 
-            kchk=0
             for k in student:
                 if student[k]==key1:
                     print('{} : {} 값이 있습니다.'.format(k,student[k]))
                     kchk=1
                     break
         
-        if kchk==0:
-            print('{}의 value값은 없습니다.'.format(key1))     
+            if kchk==0:
+                print('{}의 value값은 없습니다.'.format(key1))     
     elif ch1 == 3:
         for key in student:
             print('{} : {}'.format(key,student[key]))
