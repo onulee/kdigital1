@@ -1,18 +1,48 @@
-studic = {'stuno':1,'stuname':'홍길동','kor':100,'eng':100,\
-            'total':100+100,'avg':(100+100)/2,'rank':0}
+stulist=[
+    {'stuno':1,'stuname':'홍길동','kor':100,'eng':100,\
+            'total':100+100,'avg':(100+100)/2,'rank':0},
+    {'stuno':2,'stuname':'이순신','kor':99,'eng':100,\
+            'total':99+100,'avg':(99+100)/2,'rank':0},
+    {'stuno':3,'stuname':'유관순','kor':99,'eng':99,\
+            'total':99+99,'avg':(99+99)/2,'rank':0}
+]
 
-print(studic.items())
+while True:
+    print(stulist)
+    searchName = input('이름을 검색하세요.>>')
+    count=0
+    for i,stu in enumerate(stulist):
+        if searchName in stu.values():
+            print('{}이 있습니다.'.format(searchName))
+            del(stulist[i])
+            print('{}이 삭제되었습니다.'.format(searchName))
+            count=1
+            break
+    if count==0:
+        print('{}이 없습니다.'.format(searchName))    
+    
 
-# 키값만 가져옴.
-for k in studic.keys():
-    print(k,studic[k]) # value값 출력
+# searchName = input('찾고하는 이름을 입력하세요.>>')
+# for stu in stulist:
+     
 
-# value값만 가져옴
-for v in studic.values():
-    print(v)
 
-for k,v in studic.items():
-    print('{}:{}'.format(k,v),end=' ')
+
+# studic = {'stuno':1,'stuname':'홍길동','kor':100,'eng':100,\
+#             'total':100+100,'avg':(100+100)/2,'rank':0}
+
+# print(studic.items())
+
+# # 키값만 가져옴.
+# for k in studic.keys():
+#     print(k,studic[k]) # value값 출력
+
+# # value값만 가져옴
+# for v in studic.values():
+#     print(v)
+
+# for k,v in studic.items():
+#     print('{}:{}'.format(k,v),end=' ')
 
 
 

@@ -38,11 +38,48 @@ while True:
         stuSave.append(temp)
         sCount += 1 #학생인원 count 1증가
         print('학생성적이 저장되었습니다.')
-        print(stuSave)
     elif choice==2:
         print('학생성적 수정을 선택하셨습니다.')
+        searchName = input('수정할 이름을 입력하세요.>>')
+        count=0
+        for i,stu in enumerate(stuSave):
+            if searchName in stu.values():
+                print('{} 학생이 검색되었습니다.'.format(searchName))
+                print('[ 점수 수정 ]')
+                print('1.국어점수 수정')
+                print('2.영어점수 수정')
+                print('0.상위메뉴 이동')
+                searchNo = int(input('원하는 번호를 선택하세요.'))
+                
+                if searchNo==1:   # 국어점수수정
+                    pass
+                    
+                elif searchNo==2: # 영어점수수정
+                    pass
+                
+                elif searchNo==0: # 상위메뉴이동
+                    pass
+                
+                break 
+                
+                
+                count=1
+                break
+        if count==0:
+            print('{} 학생이 없습니다.'.format(searchName))
     elif choice==3:
         print('학생성적 삭제를 선택하셨습니다.')
+        searchName = input('삭제할 이름을 입력하세요.>>')
+        count=0
+        for i,stu in enumerate(stuSave):
+            if searchName in stu.values():
+                del(stuSave[i])
+                print('{} 학생이 삭제되었습니다.'.format(searchName))
+                count=1
+                break
+        if count==0:
+            print('{} 학생이 없습니다.'.format(searchName)) 
+        
     elif choice==4:
         print('번호','이름','국어','영어','합계','평균','등수',sep='\t')  
         print('-'*60)
@@ -51,7 +88,6 @@ while True:
             for k,v in stu.items():
                print('{}\t'.format(v),end='') 
             print() #줄바꿈
-            print() #줄바꿈 
                 
     elif choice==0:
         print('프로그램을 종료합니다.')
