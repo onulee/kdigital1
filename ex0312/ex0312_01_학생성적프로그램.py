@@ -32,8 +32,9 @@ while True:
         sName = input('학생이름을 입력하세요.>>')
         kor = int(input('국어 점수를 입력하세요.>>'))
         eng = int(input('영어 점수를 입력하세요.>>')) 
-        
-        temp =[sCount+1,sName,kor,eng,kor+eng,(kor+eng)/2,0]
+        # 리스트 추가
+        temp ={'stuno':sCount+1,'stuname':sName,'kor':kor,'eng':eng,\
+            'total':kor+eng,'avg':(kor+eng)/2,'rank':0}
         stuSave.append(temp)
         sCount += 1 #학생인원 count 1증가
         print('학생성적이 저장되었습니다.')
@@ -43,12 +44,12 @@ while True:
     elif choice==3:
         print('학생성적 삭제를 선택하셨습니다.')
     elif choice==4:
-        print('번호\t이름\t국어\t영어\t합계\t평균\t등수')  
+        print('번호','이름','국어','영어','합계','평균','등수',sep='\t')  
         print('-'*60)
         # [[1,홍길동,100,100,200,100.0,0]]
         for stu in stuSave:
-            for i in stu:
-               print('{}\t'.format(i),end='') 
+            for k,v in stu.items():
+               print('{}\t'.format(v),end='') 
             print() #줄바꿈
             print() #줄바꿈 
                 
