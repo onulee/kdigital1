@@ -86,9 +86,11 @@ while True:
         print('-'*60)
         # [[1,홍길동,100,100,200,100.0,0]]
         for stu in stuSave:
-            for k,v in stu.items():
-               print('{}\t'.format(v),end='') 
-            print() #줄바꿈
+            print(stu['stuno'],stu['stuname'],stu['kor'],stu['eng'],\
+                stu['total'],stu['avg'],stu['rank'],sep='\t')
+            # for k,v in stu.items():
+            #    print('{}\t'.format(v),end='') 
+            # print() #줄바꿈
                 
     elif choice==0:
         print('프로그램을 종료합니다.')
