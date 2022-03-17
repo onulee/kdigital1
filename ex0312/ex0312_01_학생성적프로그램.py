@@ -1,8 +1,8 @@
 # 번호,이름,국어,영어,합계,평균,등수 - 10명의 학생입력공간 생성
 
 # stuSave = [[0]*7 for i in range(0)]
+# 데이터 최종저장리스트
 stuSave = []
-# print(stuSave)
 # 학생가입인원 확인count
 sCount = 0
 while True:
@@ -26,7 +26,7 @@ while True:
         continue
     # int형 변경
     choice = int(choice)
-    
+    count=0  # 학생검색 되었는지 체크하는 변수
     if choice==1:
         print('-- {}번째 학생등록 -- '.format(sCount+1))
         sName = input('학생이름을 입력하세요.>>')
@@ -39,9 +39,9 @@ while True:
         sCount += 1 #학생인원 count 1증가
         print('학생성적이 저장되었습니다.')
     elif choice==2:
-        print('학생성적 수정을 선택하셨습니다.')
+        print('[ 학생성적 수정페이지 ]')
+        print('-'*50)
         searchName = input('수정할 이름을 입력하세요.>>')
-        count=0
         for i,stu in enumerate(stuSave):
             if searchName in stu.values():
                 print('{} 학생이 검색되었습니다.'.format(searchName))
@@ -49,23 +49,24 @@ while True:
                 print('1.국어점수 수정')
                 print('2.영어점수 수정')
                 print('0.상위메뉴 이동')
-                searchNo = int(input('원하는 번호를 선택하세요.'))
+                searchNo = int(input('수정할 과목 번호를 입력하세요.>>'))
                 
                 if searchNo==1:   # 국어점수수정
-                    pass
-                    
+                    print('현재 국어점수 :',stu['kor'])
+                    score = int(input('변경할 국어점수 입력>>'))
+                    stu['kor']=score    #현재국어점수 = 변경국어점수
+                    # 합계,평균 점수 변경
+                    stu['total'] = stu['kor']+stu['eng']
+                    stu['avg'] = stu['total']/2
+                    print('국어점수가 변경되었습니다.!!')
                 elif searchNo==2: # 영어점수수정
                     pass
                 
                 elif searchNo==0: # 상위메뉴이동
-                    pass
-                
-                break 
-                
-                
-                count=1
+                    print('상위메뉴로 이동합니다.')
+                count=1 # 학생검색이 됨.
                 break
-        if count==0:
+        if count==0:    
             print('{} 학생이 없습니다.'.format(searchName))
     elif choice==3:
         print('학생성적 삭제를 선택하셨습니다.')
