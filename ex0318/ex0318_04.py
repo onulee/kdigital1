@@ -5,17 +5,17 @@
 # 010101-3105555
 # 010101-4105555
 
-in_str = input('주민번호를 입력하세요.>>')
-temp = in_str[7]
+# in_str = input('주민번호를 입력하세요.>>')
+# temp = in_str[7]
 
-if temp=='1' or temp=='2' or temp=='5' or temp =='6':
-    in_str = '19'+in_str
-elif temp=='3' or temp=='4' or temp=='7' or temp=='8':
-    in_str = '20'+in_str
-else:
-    print('번호를 잘못입력했습니다. 다시 입력하세요.!!')    
+# if temp=='1' or temp=='2' or temp=='5' or temp =='6':
+#     in_str = '19'+in_str
+# elif temp=='3' or temp=='4' or temp=='7' or temp=='8':
+#     in_str = '20'+in_str
+# else:
+#     print('번호를 잘못입력했습니다. 다시 입력하세요.!!')    
 
-print(in_str)    
+# print(in_str)    
        
     
     
