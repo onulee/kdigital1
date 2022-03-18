@@ -1,11 +1,11 @@
 from random import *
 mark_lotto=[i+1 for i in range(45)]   #표시하는 번호 리스트
-in_num = [] #입력하는 번호 리스트
+in_num = []    # 입력하는 번호 리스트
+lotto=[]    # 당첨번호 리스트
+in_lotto=[] # 당첨된 번호 리스트
 lotto_num=[i+1 for i in range(45)] #로또번호 리스트
-lotto=[] #당첨번호 리스트
 reward = ['꽝!','1천원','5백만원','5천만원','1억원','50억원','100억원']
 # lotto = sample(lotto_num,6)
-
 
 ### 1. 로또당첨 번호 생성
 for i in range(500):
@@ -15,25 +15,32 @@ lotto = lotto_num[:6]
 print('당첨번호 :',lotto)  
 
 ### 2. 로또번호 입력
-# for i in range(6):
-#     count=0 #45까지 출력되도록 체크하는 변수
-#     print('[ LOTTO CARD ]')
-#     for i in range(5):
-#         for j in range(10):
-#             if count < 45:
-#                 print('{:2s}'.format(str(mark_lotto[10*i+j])),end=' ')
-#                 count += 1
-#             else:
-#                 break    
-#         print() 
+for i in range(6):
+    count=0 #45까지 출력되도록 체크하는 변수
+    print('[ LOTTO CARD ]')
+    for i in range(5):
+        for j in range(10):
+            if count < 45:
+                print('{:2s}'.format(str(mark_lotto[10*i+j])),end=' ')
+                count += 1
+            else:
+                break    
+        print() 
     
-#     tempNum = int(input('로또번호를 입력하세요.>>'))
-#     in_num.append(tempNum)  #입력한 숫자 입력리스트에 추가
-#     mark_lotto[tempNum-1]='X'
+    tempNum = int(input('로또번호를 입력하세요.>>'))
+    in_num.append(tempNum)  #입력한 숫자 입력리스트에 추가
+    mark_lotto[tempNum-1]='X'
     
-# print('입력번호 :',in_num)    
 
+### 3. 당첨확인
+for num in in_num: #(index번호,데이터값)
+    if num in lotto:
+        in_lotto.append(num)
 
+print('당첨번호 :',lotto)          
+print('입력번호 :',in_num)    
+print('당첨 개수 :{}개, {} '.format(len(in_lotto),in_lotto)) 
+print('당첨 금액 :',reward[len(in_lotto)])
 
 
 
