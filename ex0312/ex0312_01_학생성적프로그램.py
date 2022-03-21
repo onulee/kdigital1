@@ -9,12 +9,12 @@ while True:
     print('[ 학생성적프로그램 ]')
     print('-'*25)
     print('1. 학생성적입력') # 완료
-    print('2. 학생성적수정')
-    print('3. 학생성적삭제')
-    print('4. 학생성적전체출력') #완료
-    print('5. 학생검색출력') 
-    print('6. 등수처리')    
-    print('0. 프로그램종료')     #완료
+    print('2. 학생성적수정') # 완료
+    print('3. 학생성적삭제') # 완료
+    print('4. 학생성적전체출력') # 완료
+    print('5. 학생검색출력')     # 완료
+    print('6. 등수처리')         
+    print('0. 프로그램종료')     # 완료
     print('-'*25)
     # 숫자만 받는데, 문자를 입력하면 에러
     # 숫자만 받도록 변경
@@ -60,7 +60,13 @@ while True:
                     stu['avg'] = stu['total']/2
                     print('국어점수가 변경되었습니다.!!')
                 elif searchNo==2: # 영어점수수정
-                    pass
+                    print('현재 영어점수 :',stu['eng'])
+                    score = int(input('변경할 영어점수 입력>>'))
+                    stu['eng']=score    #현재국어점수 = 변경국어점수
+                    # 합계,평균 점수 변경
+                    stu['total'] = stu['kor']+stu['eng']
+                    stu['avg'] = stu['total']/2
+                    print('영어점수가 변경되었습니다.!!')
                 
                 elif searchNo==0: # 상위메뉴이동
                     print('상위메뉴로 이동합니다.')
@@ -92,6 +98,29 @@ while True:
             # for k,v in stu.items():
             #    print('{}\t'.format(v),end='') 
             # print() #줄바꿈
+    elif choice==5:
+        searchName = input('출력할 학생이름을 입력하세요.>>')
+        count=0
+        for i,stu in enumerate(stuSave):
+            if searchName in stu.values():
+                print('번호','이름','국어','영어','합계','평균','등수',sep='\t')  
+                print('-'*60)
+                print(stu['stuno'],stu['stuname'],stu['kor'],stu['eng'],\
+                stu['total'],stu['avg'],stu['rank'],sep='\t')
+                count=1
+                break
+        if count==0:
+            print('{} 학생이 없습니다.'.format(searchName)) 
+    
+    elif choice==6:
+        for stu in stuSave:
+            rcount=1
+            for stu2 in stuSave:
+                if stu['total'] < stu2['total']: #total점수 비교
+                    rcount += 1    # stu2가 더 클경우 1증가
+            stu['rank'] = rcount   # 등수입력        
+        
+        print('등수처리가 완료되었습니다.')        
                 
     elif choice==0:
         print('프로그램을 종료합니다.')
