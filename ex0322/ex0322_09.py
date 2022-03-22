@@ -1,13 +1,15 @@
-import os
-print(os.listdir())
-# 1. 파일이름을 1.txt 
-# 2. 내용은 "파일이름저장완료" 글자를 저장
-# 3. 파일을 저장
-# 조건 : 동일한 파일이름이 있으면
-# 파일이름을 1_1.txt 변경해서 저장시키시오.
-# 동일한 파일이름이 없으면 1.txt 저장시키시오.
+from tempfile import strInput,strFileSave
+content=[]
+str1=''
 
-str1='1.txt'
+# 파일이름,파일내용을 입력받는 함수
+str1 = strInput(str1,content)
+
+# 파일저장 함수
+strFileSave(str1,content)
+
+    
+    
 
 
 

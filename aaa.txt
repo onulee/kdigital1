@@ -1,0 +1,6 @@
+data =[
+    {'stuno':1,'stuname':'홍길동','kor':100,'eng':100,\
+            'total':200,'avg':(200)/2,'rank':0},
+    {'stuno':2,'stuname':'이순신','kor':100,'eng':100,\
+            'total':200,'avg':(200)/2,'rank':0}
+]
