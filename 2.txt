@@ -1,0 +1,1 @@
+{'stuno': 1, 'stuname': '홍길동', 'kor': 100, 'eng': 100, 'total': 200, 'avg': 100.0, 'rank': 0}
