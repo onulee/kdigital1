@@ -1,5 +1,10 @@
 from random import *
 
+def lottoLuck(lotto6,lottoInput,lottoLuckNo):
+    for temp in lottoInput:
+        if temp in lotto6:
+            lottoLuckNo.append(temp)
+
 # 로또번호 입력함수
 def inputNo(lottoInput):
     for i in range(6):
