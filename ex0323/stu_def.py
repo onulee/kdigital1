@@ -16,13 +16,15 @@ def jsonSave():
 
 # 학생번호 증가함수    
 def stuCount():
-    return stuSave[-1]['stuno']+1   
+    global sCount
+    sCount = stuSave[-1]['stuno']+1
+    return sCount   
 
 
 # 화면출력함수
 def screen_print():
     jsonRead()
-    sCount = stuCount()
+    stuCount()
     print('[ 학생성적프로그램 ]')
     print('-'*25)
     print('1. 학생성적입력') # 완료
@@ -43,14 +45,13 @@ def screen_print():
 
 # 성적입력함수
 def stu_input():
-    # sCount = stuSave list개수+1
-    jsonRead()
-    print('-- {}번째 학생등록 -- '.format(stuCount()))
+    global sCount
+    print('-- {}번째 학생등록 -- '.format(sCount))
     sName = input('학생이름을 입력하세요.>>')
     kor = int(input('국어 점수를 입력하세요.>>'))
     eng = int(input('영어 점수를 입력하세요.>>')) 
     # 리스트 추가
-    temp ={'stuno':sCount+1,'stuname':sName,'kor':kor,'eng':eng,\
+    temp ={'stuno':sCount,'stuname':sName,'kor':kor,'eng':eng,\
         'total':kor+eng,'avg':(kor+eng)/2,'rank':0}
     stuSave.append(temp)
     print(stuSave)
@@ -82,6 +83,7 @@ def stu_modify():
                 # 합계,평균 점수 변경
                 stu['total'] = stu['kor']+stu['eng']
                 stu['avg'] = stu['total']/2
+                jsonSave()
                 print('국어점수가 변경되었습니다.!!')
             elif searchNo==2: # 영어점수수정
                 print('현재 영어점수 :',stu['eng'])
@@ -90,6 +92,7 @@ def stu_modify():
                 # 합계,평균 점수 변경
                 stu['total'] = stu['kor']+stu['eng']
                 stu['avg'] = stu['total']/2
+                jsonSave()
                 print('영어점수가 변경되었습니다.!!')
             
             elif searchNo==0: # 상위메뉴이동
