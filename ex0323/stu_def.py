@@ -2,7 +2,7 @@ import os
 import json
 from logging import exception
 
-stuSave=[]
+stuSave=[]  #전역변수
 sCount=0
 count=0       # 학생검색 되었는지 체크하는 변수
 # json읽기 함수

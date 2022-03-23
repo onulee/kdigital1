@@ -5,8 +5,6 @@
 from stu_def import *
 import json
 
-# stuSave = jsonRead()    # 학생리스트 읽기 호출
-# sCount = stuCount()     # 학생번호 증가함수 호출
 while True:
     choice=0  #화면출력 선택번호변수
     choice = screen_print()  # 화면출력함수 호출
