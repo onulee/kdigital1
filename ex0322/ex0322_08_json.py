@@ -7,8 +7,8 @@ data =[
 ]
 
 #json파일 저장함수
-json.dump(data,open('1.json','w',encoding='utf-8'))
+json.dump(data,open('2.json','w',encoding='utf-8'))
 
 #json파일 읽어오기
-data2 = json.load(open('1.json',encoding='utf-8'))
+data2 = json.load(open('2.json',encoding='utf-8'))
 print(data2)
