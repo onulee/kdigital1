@@ -1,6 +1,5 @@
 import os
 import json
-from logging import exception
 
 stuSave=[]  #전역변수
 sCount=0
@@ -8,7 +7,10 @@ count=0       # 학생검색 되었는지 체크하는 변수
 # json읽기 함수
 def jsonRead():
     global stuSave
-    stuSave = json.load(open('stuData.json','r'))
+    if 'stuData.json' in os.listdir():
+        stuSave = json.load(open('stuData.json','r'))
+    else:
+        stuSave=[]    
 
 # json저장 함수
 def jsonSave():
@@ -21,7 +23,10 @@ def jsonSave():
 # 학생번호 증가함수    
 def stuCount():
     global sCount
-    sCount = stuSave[-1]['stuno']+1
+    if len(stuSave)==0:
+        sCount=1
+    else:
+        sCount = stuSave[-1]['stuno']+1
     return sCount   
 
 
