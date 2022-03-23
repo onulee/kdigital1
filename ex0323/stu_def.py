@@ -1,5 +1,22 @@
+import os
 import json
-from os import *
+from logging import exception
+
+stuSave=[]
+count=0       # 학생검색 되었는지 체크하는 변수
+# json읽기 함수
+def jsonRead():
+    stuSave = json.load(open('stuData.json','r'))
+
+# json저장 함수
+def jsonSave():
+    json.dump(stuSave,open('stuData.json','w'))
+
+# 학생번호 증가함수    
+def stuCount():
+    return stuSave[-1]['stuno']+1   
+
+
 # 화면출력함수
 def screen_print():
     print('[ 학생성적프로그램 ]')
@@ -15,13 +32,16 @@ def screen_print():
     # 숫자만 받는데, 문자를 입력하면 에러
     # 숫자만 받도록 변경
     choice = input('원하는 번호를 입력하세요.>>')
-    
-    return choice
+    # isdigit() 숫자인지아닌지 확인함수
+    if not choice.isdigit():  # 숫자
+        print('숫자만 입력가능합니다.!!')
+    return int(choice)
 
 # 성적입력함수
-def stu_input(sCount,stuSave):
-    
-    print('-- {}번째 학생등록 -- '.format(sCount+1))
+def stu_input():
+    # sCount = stuSave list개수+1
+    jsonRead()
+    print('-- {}번째 학생등록 -- '.format(stuCount()))
     sName = input('학생이름을 입력하세요.>>')
     kor = int(input('국어 점수를 입력하세요.>>'))
     eng = int(input('영어 점수를 입력하세요.>>')) 
@@ -30,14 +50,15 @@ def stu_input(sCount,stuSave):
         'total':kor+eng,'avg':(kor+eng)/2,'rank':0}
     stuSave.append(temp)
     print(stuSave)
+    jsonSave()  # json저장함수 호출
     sCount += 1 #학생인원 count 1증가
     print('학생성적이 저장되었습니다.')
-    json.dump(stuSave,open('4.json','w'))
-
     return sCount
 
 # 학생성적 수정함수
-def stu_modify(stuSave):
+def stu_modify():
+    count=0
+    jsonRead()
     print('[ 학생성적 수정페이지 ]')
     print('-'*50)
     searchName = input('수정할 이름을 입력하세요.>>')
