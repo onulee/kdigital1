@@ -12,7 +12,11 @@ def jsonRead():
 
 # json저장 함수
 def jsonSave():
-    json.dump(stuSave,open('stuData.json','w'))
+    if 'stuData.json' in os.listdir():
+        json.dump(stuSave,open('stuData.json','w'))
+    else:
+        json.dump(stuSave,open('stuData.json','w'))
+            
 
 # 학생번호 증가함수    
 def stuCount():
