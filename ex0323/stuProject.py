@@ -5,25 +5,18 @@
 from stu_def import *
 import json
 
-stuSave = []  # 데이터 최종저장리스트
-sCount = 0    # 학생가입인원 확인count
+stuSave = jsonRead()    # 학생리스트 읽기 호출
+sCount = stuCount()     # 학생번호 증가함수 호출
 while True:
     choice=0  #화면출력 선택번호변수
     choice = screen_print()  # 화면출력함수 호출
     
-    # isdigit() 숫자인지아닌지 확인함수
-    if not choice.isdigit():  # 숫자
-        print('숫자만 입력가능합니다.!!')
-        continue
-    # int형 변경
-    choice = int(choice)
-    count=0       # 학생검색 되었는지 체크하는 변수
     if choice==1: # 학생성적입력
         # 학생성적입력함수 호출 (sCount,stuSave)
-        sCount = stu_input(sCount,stuSave)
+        sCount = stu_input()
     elif choice==2:
         # 학생성적 수정 (stuSave)
-        stu_modify(stuSave)
+        stu_modify()
         
     elif choice==3:
         print('학생성적 삭제를 선택하셨습니다.')
