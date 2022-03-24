@@ -13,7 +13,11 @@ class Student:
        self.kor = kor
        self.eng = eng
        self.total = kor+eng
-       self.avg = (kor+eng)/2 
+       self.avg = (kor+eng)/2
+       
+    def __str__(self):
+        return '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.stuno,self.stuname,\
+            self.kor,self.eng,self.total,self.avg,self.rank)    
        
     def setKor(self,kor):
         if kor>=0:

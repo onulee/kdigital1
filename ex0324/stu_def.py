@@ -1,5 +1,6 @@
 import os
 import json
+import student
 
 stuSave=[]  #전역변수
 sCount=[0]
@@ -64,6 +65,8 @@ def stu_input():
     # 리스트 추가
     temp ={'stuno':sCount,'stuname':sName,'kor':kor,'eng':eng,\
         'total':kor+eng,'avg':(kor+eng)/2,'rank':0}
+    # Student객체 저장
+    # temp = student.Student(sCount,sName,kor,eng)
     stuSave.append(temp)
     print(stuSave)
     jsonSave()  # json저장함수 호출
