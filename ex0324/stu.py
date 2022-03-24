@@ -22,3 +22,19 @@ class Student:
     def __str__(self):
         return '{},{},{},{}'.format(self.stuNo,self.stuName,\
             self.stuKor,self.stuTotal )
+    
+    def setStukor(self,stuKor):
+        if stuKor>=0:
+            self.stuKor = stuKor
+            self.stuTotal = stuKor + self.stuEng
+            self.stuAvg = self.stuTotal/2
+        else:
+            print('입력값이 잘못되었습니다.')  
+    
+    
+    # 실행하는 곳이 자신인지 확인    
+    if __name__ == '__main__':
+        print('현재 자신에서 호출되어 실행함. 클래스 이름은 '+'Student') 
+        # print(stuNo) 
+    else:
+        print('Student클래스가 호출 됨')      
