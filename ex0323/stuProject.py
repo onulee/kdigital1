@@ -11,7 +11,7 @@ while True:
     
     if choice==1: # 학생성적입력
         # 학생성적입력함수 호출 
-        sCount = stu_input()
+        stu_input()
     elif choice==2:
         # 학생성적 수정 호출
         stu_modify()
@@ -31,3 +31,8 @@ while True:
     elif choice==0:
         print('프로그램을 종료합니다.')
         break
+    else:
+        pass
+    
+
+    

@@ -2,9 +2,9 @@ import os
 import json
 
 stuSave=[]  #전역변수
-sCount=0
+sCount=[0]
 count=0       # 학생검색 되었는지 체크하는 변수
-# json읽기 함수
+# 1. json읽기 함수
 def jsonRead():
     global stuSave
     if 'stuData.json' in os.listdir():
@@ -23,6 +23,7 @@ def jsonSave():
 # 학생번호 증가함수    
 def stuCount():
     global sCount
+    
     if len(stuSave)==0:
         sCount=1
     else:
@@ -50,6 +51,7 @@ def screen_print():
     # isdigit() 숫자인지아닌지 확인함수
     if not choice.isdigit():  # 숫자
         print('숫자만 입력가능합니다.!!')
+        # choice=0
     return int(choice)
 
 # 성적입력함수
@@ -67,7 +69,6 @@ def stu_input():
     jsonSave()  # json저장함수 호출
     sCount += 1 #학생인원 count 1증가
     print('학생성적이 저장되었습니다.')
-    return sCount
 
 # 학생성적 수정함수
 def stu_modify():
