@@ -1,3 +1,4 @@
+
 class Student:
     stuno=0
     stuname=''
@@ -18,6 +19,17 @@ class Student:
     def __str__(self):
         return '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.stuno,self.stuname,\
             self.kor,self.eng,self.total,self.avg,self.rank)    
+    
+    def setStuname(self,stuname): #홍길동aaa1
+        tempno=0
+        for name in stuname:
+            if not name.isdigit():
+                print('문자만 입력이 가능합니다.')
+                tempno=1
+                break
+        if tempno==0:    
+            self.stuname = stuname       
+    
        
     def setKor(self,kor):
         if kor>=0:

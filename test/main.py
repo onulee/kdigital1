@@ -1,4 +1,6 @@
-from ..test_sub.stu1 import Stu_seoul
+# import sys
+# sys.path.append('./.')
+import stu1
 
-school1 = Stu_seoul()
+school1 = stu1.Stu_seoul()
 school1.schoolseoul()
