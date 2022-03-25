@@ -12,7 +12,10 @@ while True:
         stuInput()    # 학생성적입력
         
     elif choice == 2:
-        stuoutput()   # 학생전체출력   
+        stuoutput()   # 학생전체출력 
+        
+    elif choice == 3:
+        stusearch()      
         
     
 

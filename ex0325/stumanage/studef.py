@@ -10,6 +10,10 @@ def screenPrint():
     print('1. 학생성적입력')
     print('2. 학생성적출력')
     print('3. 학생검색출력')
+    print('4. 학생성적수정')
+    print('5. 학생성적삭제')
+    print('6. 학생등수처리')
+    print('0. 프로그램종료')
     print()
     choice = int(input('원하는 번호를 입력하세요.>>'))
     
@@ -35,4 +39,9 @@ def stuoutput():
     print('번호','이름','국어','영어','합계','평균','등수',sep='\t')  
     print('-'*60)
     for stu in stuSave:
-        print(stu)                
+        print(stu) 
+        
+        
+# 학생검색출력 - eq
+def stusearch():
+   pass                      

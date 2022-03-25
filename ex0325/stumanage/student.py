@@ -7,7 +7,7 @@ class Student:
     avg=0
     rank=0
     
-    def __init__(self,stuname,kor,eng):
+    def __init__(self,stuname='',kor=0,eng=0):
         Student.stuno += 1
         self.stuno = Student.stuno
         self.stuname = stuname
@@ -17,10 +17,10 @@ class Student:
         self.total = kor+eng
         self.avg = self.total/2
     
-    def __str__(self):
-        stuprint = '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.stuno,\
-            self.stuname,self.kor,self.eng,self.total,self.avg,self.rank)
-        return stuprint    
+    # def __str__(self):
+    #     stuprint = '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.stuno,\
+    #         self.stuname,self.kor,self.eng,self.total,self.avg,self.rank)
+    #     return stuprint    
         
     def __eq__(self,other):
         return self.stuname == other.stuname   
