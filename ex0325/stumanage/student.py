@@ -16,14 +16,20 @@ class Student:
         self.eng = eng
         self.total = kor+eng
         self.avg = self.total/2
+        self.rank = 0
     
     def __str__(self):
         stuprint = '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.stuno,\
             self.stuname,self.kor,self.eng,self.total,self.avg,self.rank)
         return stuprint    
-        
+    
+    # 객체 같은지 비교    
     def __eq__(self,stuname):
-        return self.stuname == stuname   
+        return self.stuname == stuname  
+     
+    # 객체  
+    def __lt__(self,other):
+        return self.total == other.total   
     
     def getKor(self):
         return self.__kor

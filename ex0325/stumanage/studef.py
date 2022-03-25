@@ -89,5 +89,34 @@ def stuModify():
             break
     
     if count == 0:
-        print('검색된 이름이 없습니다. 다시 한번 입력하세요.!!')        
+        print('검색된 이름이 없습니다. 다시 한번 입력하세요.!!') 
+
+# 학생성적 삭제               
+def stuDelete():
+    print()
+    print('[ 학생성적삭제 ]')
+    sname = input('학생이름을 입력하세요.>>')
+    count=0
+    for i,stu in enumerate(stuSave):
+        if stu == sname:
+            print('{} 학생이 검색되었습니다.'.format(sname)) 
+            flag = input('정말 삭제하시겠습니까?')
+            if flag == 'y' or flag =='Y':
+               del(stuSave[i])
+               print('{} 학생이 삭제되었습니다.'.format(sname))
+            else:
+               print('삭제가 최소되었습니다.')
+            count=1
+            break
+    
+    if count == 0:
+        print('검색된 이름이 없습니다. 다시 한번 입력하세요.!!')
         
+# 학생등수처리        
+def sturank():
+    for stu1 in stuSave:
+        rankCount=1
+        for stu2 in stuSave:
+            if stu1<stu2:   # 클래스 __lt__자동호출
+                rankCount += 1
+                stu1.rank = rankCount                        
