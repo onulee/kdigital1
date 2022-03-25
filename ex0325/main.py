@@ -9,7 +9,10 @@ while True:
     choice = screenPrint()
 
     if choice==1:
-        stuInput() # 학생성적입력
+        stuInput()    # 학생성적입력
+        
+    elif choice == 2:
+        stuoutput()   # 학생전체출력   
         
     
 

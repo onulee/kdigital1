@@ -8,7 +8,7 @@ class Student:
     rank=0
     
     def __init__(self,stuname,kor,eng):
-        Student.stuno = Student.stuno+1
+        Student.stuno += 1
         self.stuno = Student.stuno
         self.stuname = stuname
         # self.__kor = kor   # private변수선언-같은클래스 내에서만 입력가능
@@ -16,10 +16,14 @@ class Student:
         self.eng = eng
         self.total = kor+eng
         self.avg = self.total/2
+    
+    def __str__(self):
+        stuprint = '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.stuno,\
+            self.stuname,self.kor,self.eng,self.total,self.avg,self.rank)
+        return stuprint    
         
     def __eq__(self,other):
-        return self.stuname == other.stuname and \
-            self.stuno == other.stuno   
+        return self.stuname == other.stuname   
     
     def getKor(self):
         return self.__kor
