@@ -29,7 +29,7 @@ class Student:
      
     # 객체  
     def __lt__(self,other):
-        return self.total == other.total   
+        return self.total < other.total   
     
     def getKor(self):
         return self.__kor

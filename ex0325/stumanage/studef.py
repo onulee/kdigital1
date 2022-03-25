@@ -119,4 +119,6 @@ def sturank():
         for stu2 in stuSave:
             if stu1<stu2:   # 클래스 __lt__자동호출
                 rankCount += 1
-                stu1.rank = rankCount                        
+        stu1.rank = rankCount
+    print('등수처리가 완료되었습니다.!')
+    print()                            
