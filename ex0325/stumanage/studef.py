@@ -34,14 +34,60 @@ def stuInput():
         print('{}번.{} 학생이 저장되었습니다.'.format(temp.stuno,stuname))
         print()
 
-# 학생전체출력        
-def stuoutput():
+# 상단타이틀 출력
+def topTitle():
     print('번호','이름','국어','영어','합계','평균','등수',sep='\t')  
     print('-'*60)
+
+# 학생전체출력        
+def stuoutput():
+    topTitle()
     for stu in stuSave:
         print(stu) 
         
-        
 # 학생검색출력 - eq
 def stusearch():
-   pass                      
+    print()
+    print('[ 학생검색출력 ]')
+    sname = input('학생이름을 입력하세요.>>')
+    count=0
+    for stu in stuSave:
+        if stu == sname:
+            topTitle()
+            print(stu) 
+            count=1
+            break
+    
+    if count == 0:
+        print('검색된 이름이 없습니다. 다시 한번 입력하세요.!!')                         
+        
+        
+# 학생성적수정 
+def stuModify():
+    print()
+    print('[ 학생성적수정 ]')
+    sname = input('학생이름을 입력하세요.>>')
+    count=0
+    for stu in stuSave:
+        if stu == sname:
+            print('{} 학생이 검색되었습니다.'.format(sname)) 
+            print('[성적수정]')
+            print('1. 국어점수')
+            print('2. 영어점수')
+            tempNum = int(input('수정과목 번호를 입력하세요.>>'))
+            if tempNum == 1:
+               print('현재 국어점수 : {}'.format(stu.kor))
+               score = int(input('수정할 점수를 입력하세요.>>'))
+               stu.setKor(score)
+               print('국어점수가 {}으로 변경되었습니다.'.format(score))
+            elif tempNum == 2:
+               print('현재 영어점수 : {}'.format(stu.eng))
+               score = int(input('수정할 점수를 입력하세요.>>'))
+               stu.setEng(score)    
+               print('영어점수가 {}으로 변경되었습니다.'.format(score))
+            count=1
+            break
+    
+    if count == 0:
+        print('검색된 이름이 없습니다. 다시 한번 입력하세요.!!')        
+        

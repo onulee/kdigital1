@@ -15,7 +15,7 @@ while True:
         stuoutput()   # 학생전체출력 
         
     elif choice == 3:
-        stusearch()      
+        stusearch()   # 학생검색출력    
         
     
 

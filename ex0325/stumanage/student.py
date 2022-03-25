@@ -17,25 +17,31 @@ class Student:
         self.total = kor+eng
         self.avg = self.total/2
     
-    # def __str__(self):
-    #     stuprint = '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.stuno,\
-    #         self.stuname,self.kor,self.eng,self.total,self.avg,self.rank)
-    #     return stuprint    
+    def __str__(self):
+        stuprint = '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(self.stuno,\
+            self.stuname,self.kor,self.eng,self.total,self.avg,self.rank)
+        return stuprint    
         
-    def __eq__(self,other):
-        return self.stuname == other.stuname   
+    def __eq__(self,stuname):
+        return self.stuname == stuname   
     
     def getKor(self):
         return self.__kor
         
     def setKor(self,kor):
         if kor>=0:
-            self.__kor=kor
+            self.kor=kor
+            self.total=kor+self.eng
+            self.avg = self.total/2
         else:
             print('입력이 잘못되었습니다.')
-            # try:
-            #     raise Exception('입력이 잘못됨.')
-            # except:
-            #     pass
+            
+    def setEng(self,eng):
+        if eng>=0:
+            self.eng=eng
+            self.total=self.kor+eng
+            self.avg = self.total/2
+        else:
+            print('입력이 잘못되었습니다.')
                     
     
