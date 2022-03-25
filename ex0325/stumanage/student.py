@@ -7,8 +7,8 @@ class Student:
     avg=0
     rank=0
     
-    def __init__(self,stuno,stuname,kor,eng):
-        self.stuno = stuno
+    def __init__(self,stuname,kor,eng):
+        self.stuno = Student.stuno+1
         self.stuname = stuname
         # self.__kor = kor   # private변수선언-같은클래스 내에서만 입력가능
         self.kor = kor   
