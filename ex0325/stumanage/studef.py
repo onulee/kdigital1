@@ -1,4 +1,4 @@
-from student import Student
+from stumanage.student import Student
 
 # 학생저장 전역변수 선언
 stuSave=[]
@@ -24,6 +24,7 @@ def stuInput():
         kor = int(input('학생이름을 입력하세요.>>'))
         eng = int(input('학생이름을 입력하세요.>>'))
         # 객체선언후 리스트에 저장
-        stuSave.append(Student(stuname,kor,eng))
-        print('{} 학생이 저장되었습니다.'.format(stuname))
+        temp = Student(stuname,kor,eng)
+        stuSave.append(temp)
+        print('{}번.{} 학생이 저장되었습니다.'.format(temp.stuno,stuname))
         print()
