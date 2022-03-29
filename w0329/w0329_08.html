@@ -7,15 +7,35 @@
     <title>Document</title>
     <link href="./css/style1.css" rel="stylesheet" type="text/css">
     <style>
-        *{ margin:0; padding:0;}
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        *{ margin:0; padding:0; font-family: 'Noto Sans KR', sans-serif;}
         .main{width:100%; height:595px; background: #002c5f;
         margin-top:150px; margin-bottom:150px;
         box-sizing: border-box; padding-top:150px;
-    }
+        }
         #divmiddle {
-            width:896px; height:295px; border:1px solid white;
+            width:896px; height:295px; 
             margin:0 auto;
         }
+        #cimg{width:544px; height:295px; float:left; }
+        #cimg2{width:352px; height:295px; float:left; color:white;
+            box-sizing: border-box; 
+            padding:20px 0 0 32px; 
+        }
+        #cimg2 h2{
+            font-size:40px; line-height:53px; margin-bottom:10px;
+        }
+        #cimg2 p{ height:28px;
+            font-size:16px; margin-bottom:3px;
+        }
+        #cimg2 a{
+            display:inline-block;
+            text-align:center; line-height:32px;
+            width:140px; height:36px; background: #777673;
+            color:white;
+            text-decoration-style: none;
+            text-decoration-line: none;
+        } 
     </style>
     
 </head>
@@ -23,7 +43,14 @@
     <div class="main">
         <div id="divmiddle">
             <div id="cimg">
-                <img src="">
+                <img src="../images/main-hyundai-in-your-country-pc.png">
+            </div>
+            <div id="cimg2">
+                <h2>국가별 사이트를<br>방문해 보세요.</h2>
+                <p>국가별 사이트를 방문하면 더 자세한 정보를</p>
+                <p>확인할 수 있습니다.</p>
+                <p></p>
+                <a href="#">바로가기</a>
             </div>
         </div>
     </div>
