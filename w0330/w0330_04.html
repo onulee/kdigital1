@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sk주식회사</title>
     <style>
-        *{margin:0; padding:0; list-style-type: none;}
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+        *{margin:0; padding:0; list-style-type: none;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
         #header{width:100%; height:80px; }
         #logo{ 
             width:150px; height:80px;
@@ -15,11 +18,11 @@
             float:left;
         }
         #nav{ float:left; width:1300px; height:80px; }
-        #nav ul{width:1000px; margin:0 auto;}
+        #nav ul{width:1002px; margin:0 auto; }
         #nav ul li {float:left; width:250px; height:80px;
             box-sizing: border-box;
             text-align: center; line-height:80px;
-            font-size:20px; color:#333;
+            font-size:20px; color:#333; font-weight: 700;
         }
         #nav ul li:hover{ background:pink; color:white;
         font-weight:600; }
@@ -30,6 +33,9 @@
         }
         #section h3,#section p{color:white; font-size:28px;}
         #section h3{font-size:72px;}
+        #quick{ line-height:82px; font-size:12px; float:right;
+        padding-right:50px;  }
+        #quick span{ color:#e1002a;}
         
     </style>
 </head>
@@ -44,9 +50,7 @@
                 <li>미디어센터</li>
             </ul>
         </div>
-        <div id="quick">
-            영문,국문
-        </div>
+        <div id="quick">ENG | <span>KOR</span></div>
     </div>
     <div id="section">
         <h3>SK주식회사</h3>
