@@ -7,9 +7,11 @@
     <title>Document</title>
     <style>
         .box{width:100px; height:100px; background:red;
+            margin:100px auto;
         }
         .box:hover{
-            animation: rotate1 1.5s infinite alternate;
+            animation: rotate1 1.5s infinite alternate,
+            back01 1.5s infinite;
         }
         @keyframes rotate1{
             from{transform: perspective(120px) rotateX(0) rotateY(0);}
@@ -20,6 +22,10 @@
             from{background:red;}
             50%{background:green;}
             to{background:blue;}
+        }
+        @keyframes scale1{
+            from{transform:scale(1);}
+            to{transform:scale(1.6);}
         }
 
     </style>
