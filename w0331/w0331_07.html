@@ -35,11 +35,27 @@
                 width:300px; height:300px;
             }
         }
+        img{width:300px;}
+        .origin{perspective: 900px; width:300px; margin:0 auto;}
+        .rotatex{transform: rotate(45deg);}
+
+        .rotatexyz{ 
+            transition-property: all;
+            transition-duration: 2s;
+           }
+        .rotatexyz:hover{  transform:rotate3d(0,2,0,180deg);}    
     </style>
 </head>
 <body>
     <div id="section">
         <div id="d01"></div>
+    </div>
+
+    <div class="origin">
+        <div class="rotatex"><img src='../images/sec1_img1_full.jpg'></div>
+    </div>
+    <div class="origin">
+        <div class="rotatexyz"><img src='../images/sec1_img1_full.jpg'></div>
     </div>
     
 </body>

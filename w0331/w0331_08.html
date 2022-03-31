@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{width:100px; height:100px; background:red;
+        }
+        .box:hover{
+            animation: rotate1 1.5s infinite alternate;
+        }
+        @keyframes rotate1{
+            from{transform: perspective(120px) rotateX(0) rotateY(0);}
+            50%{transform: perspective(120px) rotateX(-180deg) rotateY(0);}
+            to{transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);}
+        }
+        @keyframes back01{
+            from{background:red;}
+            50%{background:green;}
+            to{background:blue;}
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    
+</body>
+</html>
