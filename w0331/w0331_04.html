@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input:checked+label{color:red;}
+    </style>
+</head>
+<body>
+    <form action="#" method="get" name="frm">
+        <fieldset>
+            <label>이름</label>
+            <input type="text" name="name"><br>
+        </fieldset>
+
+        <fieldset>
+            <label>이 달에 신청할 과목을 선택하세요.</label>
+            <input type="radio" name="subject" value="speaking" id="speaking">
+            <label for="speaking">회화</label>
+            <input type="radio" name="subject" value="grammer" id="grammer">
+            <label for="grammer">문법</label>
+            <input type="radio" name="subject" value="writing" id="writing">
+            <label for="writing">작문</label>
+        </fieldset>
+    </form>
+    
+</body>
+</html>

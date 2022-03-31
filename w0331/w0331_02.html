@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* a[href]{background:yellow;} [속성]선택자 */
+        input[checked]+label{color:red;}
+        a[target='_blank']{background:green;}
+    </style>
+</head>
+<body>
+    <a href="#" target="_blank">메뉴</a>
+    <a href="#" target="_self">메뉴</a>
+    <a href="#" target="_self">메뉴</a>
+    <form action="#" method="get" name="frm">
+        <label>성별</label><br>
+        <input type="checkbox" name="gender" value="male" id="male" checked>
+        <label for="male">남자</label>
+        <input type="checkbox" name="gender" value="female" id="female">
+        <label for="female">여자</label>
+        <br>
+
+    </form>
+    
+</body>
+</html>
