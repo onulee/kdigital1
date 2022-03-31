@@ -6,7 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        input:checked+label{color:red;}
+        input[type="radio"]{
+            display: none;
+        }
+        input[type="radio"] + label{
+            border:3px solid #707070;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: relative;
+            top:2px;
+            margin-right:3px;
+        }
+        input[id="speaking"]:checked + label::after{
+            content:'●';
+            font-size: 10px;
+            text-align: center;
+            position: absolute;
+            left:1px;
+            top:-2px;
+          }
     </style>
 </head>
 <body>
@@ -19,11 +39,11 @@
         <fieldset>
             <label>이 달에 신청할 과목을 선택하세요.</label>
             <input type="radio" name="subject" value="speaking" id="speaking">
-            <label for="speaking">회화</label>
+            <label for="speaking"></label><span>회화</span>
             <input type="radio" name="subject" value="grammer" id="grammer">
-            <label for="grammer">문법</label>
+            <label for="grammer"></label>
             <input type="radio" name="subject" value="writing" id="writing">
-            <label for="writing">작문</label>
+            <label for="writing"></label>
         </fieldset>
     </form>
     
