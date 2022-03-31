@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/script.js"></script>
+    <script>
+        var sum=0;
+        var arr=[11,2,33,4,55,6,77,8,9,10];
+        for(var i=0;i<arr.length;i++){ //기본for문
+            sum += arr[i];
+            document.write(sum);
+            document.write('<br>');
+        }
+        
+        for(var i in arr){ //향상된for문
+            sum += arr[i];
+            document.write(sum);
+            document.write('<br>');
+        }
+        /*
+        for(var i=0;i<=10;i++){
+            sum += i;
+            document.write(sum);
+            document.write('<br>');
+        } 
+        */
+
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
