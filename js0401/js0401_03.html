@@ -10,18 +10,25 @@
     </style>
 </head>
 <body>
-    <form action="#" method="get" name="frm">
-        <label>글자</label>
-        <input type="text" name="id" id="id"><br>
+    <form action="hs0401_02.html" method="get" name="frm">
+        <label>이름</label>
+        <input type="text" name="name" id="name"><br>
         <select name="birth" id="birth">
-            <!-- 태그를 넣어줌. -->
-
         </select>
         <label>년</label>
+        <br>
+        <input type="submit" value="전송">
     </form>
     <script>
-        let str1='<option value="1900">1900</option><option value="1901">1901</option>'
-        let str2='생일축하합니다.'
+        let str1=''
+        for(let i=1900;i<=2022;i++){
+            str2 ='<option value="'        
+            str5 = i
+            str6 = '">'    
+            str3 = i
+            str4 = '</option>'
+            str1 += str2+str5+str6+str3+str4
+        }        
         document.getElementById('birth').innerHTML=str1;
     </script>
    
