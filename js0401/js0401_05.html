@@ -5,13 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="js/js0401_10.js"></script>
+    <script src="js/js0401_11.js"></script>
     <script>
+        let today;
+        let hh,mi,ss;
+
+        function currTime(){
+            today = new Date();
+            hh = today.getHours()
+            mi = today.getMinutes()
+            ss = today.getSeconds()
+            document.getElementById('result').innerText=hh+':'+mi+':'+ss
+        }
         
+        function startClock(){
+            //currTime()
+            //mi += ''
+            //alert('시간 mi 길이 : '+mi.length);
+            timech = setInterval(currTime,1000)
+        }
+
+        function stopClock(){
+            clearInterval(timech)
+        }
         
     </script>
+    <style>
+        h2,#result{width:500px; height:140px; font-size:100px;
+        font-weight: 600; margin:0 auto; text-align:center;}
+        h2{margin:0 auto;}
+        button{width:180px; height:80px; font-size:30px;}
+        div{width:380px; margin: 0 auto;}
+    </style>
 </head>
 <body>
+    <h2>현재시각</h2>
+    <div id="result">17:46:55</div>
+    
+    <div>
+        <button onclick="startClock()">시작</button>
+        <button onclick="stopClock()">중지</button>
+    </div>
     
     
 </body>
