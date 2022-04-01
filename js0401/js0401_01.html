@@ -5,12 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="js/js0401_02.js"></script>
+    <script src="js/js0401_07.js"></script>
     <script>
-        
+        function loginCheck(){
+            let u_id = document.getElementById('id').value;
+            let u_pw = document.getElementById('pw').value;
+            let str1='아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다.<br> 입력하신 내용을 다시 확인해주세요.'
+            if (u_id != 'admin'){
+                alert('아이디가 잘못입력되었습니다. 다시 입력하세요.');
+                document.getElementById('txt').innerText=str1
+                return false;
+            }
+        }
+
     </script>
+    <style>
+        table,td{border:1px solid black; border-collapse: collapse;}
+        table{width:400px; margin:0 auto; text-align: center;}
+        td{height:40px; }
+        td:nth-child(1){width:200px;}
+        td:nth-child(2){text-align: left;}
+        #txt{color:red;font-size:12px;}
+    </style>
 </head>
 <body>
+    <form action="http://www.naver.com" method="get" name="frm">
+    <table>
+        <tr>
+            <td>아이디</td>
+            <td><input type="text" name="id" id="id"></td>
+        </tr>
+        <tr>
+            <td>패스워드</td>
+            <td><input type="password" name="pw" id="pw"></td>
+        </tr>
+        <tr>
+            <td colspan="2" id="txt"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" onclick="loginCheck()" value="로그인submit">
+                <button type="button" onclick="loginCheck()">로그인</button>
+            </td>
+        </tr>
+    </table>
+    </form>
     
 </body>
 </html>
