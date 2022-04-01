@@ -7,8 +7,58 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- select       
-        1900-2022년   1-12월    1-31일  -->
+    <form action="hs0401_02.html" method="get" name="frm">
+        <label>이름</label>
+        <input type="text" name="name" id="name"><br>
+        <label>가입일</label><br>
+        <select name="year" id="year"></select>
+        <label>년</label>
+        <select name="month" id="month"></select>
+        <label>월</label>
+        <select name="day" id="day"></select>
+        <label>일</label>
+        <br>
+        <input type="submit" value="전송">
+    </form>
+    <script>
+        //자바스크립트 날짜 함수
+        let today = new Date();
+        let todayYear = today.getFullYear(); //2022
+        let todayMonth = today.getMonth()+1; //0월->0+1월,1,2,....11
+        let todayDate = today.getDate();     //1,2,3,....31
+        let todayDay = today.getDay()        //0-월요일,1-화,수...금,6-일   
+        
+        let year1=''
+        let month1=''
+        let day1=''
+        for(let i=1900;i<=2022;i++){
+            // todayYear 같다면 selected추가
+            // if 비교 <option selected>
+            if(todayYear==i){
+                year1 +='<option value="'+i+'"selected>'+i+'</option>'
+            }else{
+                year1 +='<option value="'+i+'">'+i+'</option>'
+            }    
+        }        
+        for(let i=1;i<=12;i++){
+            if(todayMonth==i){
+                month1 +='<option value="'+i+'"selected>'+i+'</option>'
+            }else{
+                month1 +='<option value="'+i+'">'+i+'</option>'
+            } 
+        }        
+        for(let i=1;i<=31;i++){
+            if(todayDate==i){
+                day1 +='<option value="'+i+'"selected>'+i+'</option>'
+            }else{
+                day1 +='<option value="'+i+'">'+i+'</option>'
+            } 
+        }        
+        document.getElementById('year').innerHTML=year1;
+        document.getElementById('month').innerHTML=month1;
+        document.getElementById('day').innerHTML=day1;
+
+    </script>
     
 </body>
 </html>
