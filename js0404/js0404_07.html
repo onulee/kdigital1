@@ -5,8 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        //제이쿼리 단축선언
+        $(function(){
+            //$('#txt').html('<h2>한글</h2>');
+            $('.saveBtn').click(function(){
+                alert('제이쿼리함수 호출')
+            })
+
+        });
+        // 자바스크립트
+        function sBtn(){
+            alert('자바스크립트 함수호출')
+            alert('국어점수 읽어옴 : '+$('#kor').val())
+            //document.getElementById('kor').value=100
+        }
+
+    </script>
 </head>
 <body>
-    
+    <form>
+        <label>이름</label>
+        <input type="text" name="name" id="name"><br>
+        <label>국어</label>
+        <input type="text" name="kor" id="kor"><br>
+        <label>영어</label>
+        <input type="text" name="eng" id="eng"><br>
+    </form>
+    <button class="" onclick="sBtn()" >저장</button>
+    <div id="txt"></div>
 </body>
 </html>
