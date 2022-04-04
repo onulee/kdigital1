@@ -16,12 +16,23 @@
             })
 
             $('.btn2').click(function(){
+                
                 alert('호출2')
+                let str1 = '<img src="images/2.jpg">'
+                console.log(str1) 
+               $('.btn2').parent().next().css("background","url('images/1.jpg') no-repeat") 
             })
 
 
         })
     </script>
+    <style>
+        /* p내용2 width 700px height 500px  */
+        p:nth-child(5){width:700px; height:500px; border:1px solid black;
+        
+        
+        }
+    </style>
 </head>
 <body>
     <p>
