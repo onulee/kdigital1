@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+    <script>
+        $(function(){
+            $('.btn1').click(function(){
+                alert('호출')
+                let str1 = '<img src="images/1.jpg">'
+                console.log(str1) 
+               $('.btn1').parent().next().html(str1) 
+            })
+
+            $('.btn2').click(function(){
+                alert('호출2')
+            })
+
+
+        })
+    </script>
+</head>
+<body>
+    <p>
+        <button class="btn1">버튼1</button>
+    </p>
+    <p>내용1</p>
+    <hr>
+    <p>
+        <button class="btn2">버튼2</button>
+    </p>
+    <p>내용2</p>
+
+
+
+    
+</body>
+</html>

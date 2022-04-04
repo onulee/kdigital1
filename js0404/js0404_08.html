@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            $('#pw2').keyup(function(){
+                if($('#pw').val()==$("#pw2").val()){
+                    $('#idCheck').attr('class','off')
+                    $('#idCheck').text('패스워드가 일치합니다.')
+                }else{
+                    $('#idCheck').attr('class','on')
+                    $('#idCheck').text('패스워드가 일치하지 않습니다.')
+                    //$('#pw').val('')  //빈문자를 입력해서 글자를 지움.
+                    //$('#pw2').val('')  //빈문자를 입력해서 글자를 지움.
+                    //$('#pw').focus()  //포커스를 pw로 이동
+                    
+                }
+            })
+
+        })
+    </script>
+    <style>
+        .on{color:red; font-weight: 600;}
+        .off{color:blue; font-weight: 600;}
+    </style>
+    <title>회원가입</title>
+</head>
+<body>
+    <form>
+        <label>아이디</label>
+        <input type="text" name="id" id="id"><br>
+        <label>패스워드</label>
+        <input type="text" name="pw" id="pw" placeholder="패스워드는 7자리이상 입력하세요.">
+        <span id="idCheck" class=""></span>
+        <br>
+        <label>패스워드확인</label>
+        <input type="password" name="pw2" id="pw2">
+        <button type="button" id="pwBtn">패스워드확인</button>
+        <br> 
+    </form>
+    
+</body>
+</html>
