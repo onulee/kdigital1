@@ -6,16 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        sum(10,20,30);
+        function vbtn(){
+            let name1 =document.getElementById('name').value;
+            //프로그램 하시오.
+            let kor1 =Number(document.getElementById('kor').value);
+            let eng1 =Number(document.getElementById('eng').value);
+            let math1 =Number(document.getElementById('math').value);
+            let sum1 = kor1+eng1+math1
+            let avg1 = (kor1+eng1+math1)/3
+            sum(name1,kor1,eng1,math1,sum1,avg1);
+        }
+        let title=['이름','국어','영어','수학','합계','평균']
         function sum(){
-            let sum = arguments[0]+arguments[1]+arguments[2];
-            document.write(sum);
+            for(let i=0;i<title.length;i++){
+                document.write(title[i]+' : '+arguments[i]+'<br>')
+            }
         }
 
     </script>
 </head>
 <body>
-    <!-- <button>값전달</button> -->
+    <form>
+        <label>이름</label>
+        <input type="text" name="name" id="name"><br>
+        <label>국어</label>
+        <input type="text" name="kor" id="kor"><br>
+        <label>영어</label>
+        <input type="text" name="eng" id="eng"><br>
+        <label>수학</label>
+        <input type="text" name="math" id="math"><br>
+    </form>
+    <button onclick="vbtn()">저장</button>
     
 </body>
 </html>
