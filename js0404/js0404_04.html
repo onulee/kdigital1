@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/script.js"></script>
+    <style>
+        *{margin:0; padding:0;}
+        #main{width:500px; height:400px; border:1px solid black;
+            overflow:hidden; margin:0 auto; margin-top:50px;
+        }
+        #viewNum,#sub{width:150px; margin:20px auto;}
+        #viewNum{font-size:30px;}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <img src="images/1.jpg" id="photo">
+    </div>
+    <div id="sub">
+        <button onclick="gallery(-1)">◀ 이전</button>&nbsp;&nbsp;
+        <button onclick="gallery(1)">다음 ▶</button>
+    </div>
+    <div id="viewNum">1</div>
+    
+</body>
+</html>

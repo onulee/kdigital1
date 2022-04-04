@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * { margin:0; padding:0;}
+        table,td{border:1px solid black; border-collapse: collapse;}
+        table{ width:1000px; margin:50px auto; }
+    </style>
+    <script>
+        function deleteBtn(){
+            if(confirm('글을 삭제하시겠습니까?')){
+                alert('해당 글이 삭제 되었습니다.')
+            }else{
+                alert('글 삭제가 취소되었습니다.');
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>번호</td>
+            <td>글제목</td>
+            <td>작성자</td>
+            <td>조회수</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>글을 작성합니다.</td>
+            <td>홍길동</td>
+            <td>13<button onclick="deleteBtn()">삭제</button></td>
+        </tr>
+    </table>
+    
+</body>
+</html>
