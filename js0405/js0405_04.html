@@ -13,12 +13,12 @@
             $("#pre").click(function(){
                 n -= 1
                 if(n<1) n=5
-                $("#photo").attr("src","images/"+n+".jpg")
+                $("#main").css("background","url('images/"+n+".jpg')")
             })
             $("#next").click(function(){
                 n += 1
                 if(n>5) n=1
-                $("#photo").attr("src","images/"+n+".jpg")
+                $("#main").css("background","url('images/"+n+".jpg')")
             })
         })
     </script>
@@ -27,6 +27,8 @@
         *{margin:0; padding:0;}
         #main{width:500px; height:400px; border:1px solid black;
             overflow:hidden; margin:0 auto; margin-top:50px;
+            background:url('images/3.jpg');
+            background-size: cover;
         }
         #viewNum,#sub{width:150px; margin:20px auto;}
         #viewNum{font-size:30px;}
@@ -34,7 +36,7 @@
 </head>
 <body>
     <div id="main">
-        <img src="images/1.jpg" id="photo">
+        
     </div>
     <div id="sub">
         <button id="pre">◀ 이전</button>&nbsp;&nbsp;
