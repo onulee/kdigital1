@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+    <script>
+        $(function(){
+
+            // 
+            let saveHobby=['golf','swim']
+            $('#memberBtn').click(function(){
+
+
+
+            })
+
+            
+            /* 
+            let arr=[]
+            let arr2=['golf','swim']
+            
+            $("#memberBtn").click(function(){
+                $("input[name=hobby]:checked").each(function(){
+                    console.log("제이쿼리 : "+$(this).val())
+                    arr.push($(this).val())
+                })
+                console.log("arr : "+ arr)
+            })
+            */
+
+            /*
+            $("#memberBtn").click(function(){
+                let num = $("input[name=hobby]:checked").length
+                if(num<=3){
+                    alert('취미는 3개이상 선택해야 합니다.')
+                    return false
+                } 
+            })
+            */
+
+        })
+    </script>
+</head>
+<body>
+    <form action="http://www.naver.com" method="get" name="frm">
+        <label>취미</label><br>
+        <input type="checkbox" name="hobby" id="game" value="game">
+        <label for="game">게임</label>
+        <input type="checkbox" name="hobby" id="golf" value="golf">
+        <label for="golf">골프</label>
+        <input type="checkbox" name="hobby" id="swim" value="swim">
+        <label for="swim">수영</label>
+        <input type="checkbox" name="hobby" id="book" value="book">
+        <label for="book">독서</label>
+        <br>
+        <label>개인정보수집 동의1</label>
+        <input type="checkbox" name="agree" id="agree1" value="yes">
+        <br>
+        <label>개인정보수집 동의2</label>
+        <input type="checkbox" name="agree" id="agree2" value="yes">
+        <br>
+        <button type="button" id="memberBtn" >회원가입</button>
+    </form>
+    
+    
+</body>
+</html>
