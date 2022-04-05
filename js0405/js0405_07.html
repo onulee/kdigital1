@@ -9,10 +9,12 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         $(function(){
+            let arr1=[]
             $("#zipBtn").click(function(){
                 new daum.Postcode({
                     oncomplete: function(data) {
-                        $("#zip").val(data.zonecode);
+                        $("#zip").val(data.zonecode)
+                        $("#addr1").val(data.address)
                     }
                 }).open();  
             })
@@ -34,18 +36,15 @@
     </style>
 </head>
 <body>
-    <form action="#" method="get" name="frm">
+    <form action="http://www.naver.com" method="get" name="frm">
         <label>주소</label><br>
         <input type="text" name="zip" id="zip">
         <button type="button" id="zipBtn">우편번호 검색</button>
         <br>
         <input type="text" name="addr1" id="addr1" placeholder="기본주소가 들어갑니다."><br>
         <input type="text" name="addr2" id="addr2" placeholder="상세주소를 입력하세요."><br>
-
-
-
-
+        <button type="button" id="zipsave">우편번호저장</button>
     </form>
-    
+    <div id="txt"></div>    
 </body>
 </html>
