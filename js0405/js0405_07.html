@@ -6,13 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
-        let arr=[1,2,3]
-        arr.push(5)
-        document.write(arr[0])
+        $(function(){
+            $("#zipBtn").click(function(){
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        $("#zip").val(data.zonecode);
+                    }
+                }).open();  
+            })
+        })
+        /*
+        function zipBtn(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    $("#zip").val(data.zonecode);
+                }
+            }).open();
+        }
+        */
+        
     </script>
+    
+    <style>
+        input{width:300px; height:30px; margin-bottom:10px;}
+    </style>
 </head>
 <body>
+    <form action="#" method="get" name="frm">
+        <label>주소</label><br>
+        <input type="text" name="zip" id="zip">
+        <button type="button" id="zipBtn">우편번호 검색</button>
+        <br>
+        <input type="text" name="addr1" id="addr1" placeholder="기본주소가 들어갑니다."><br>
+        <input type="text" name="addr2" id="addr2" placeholder="상세주소를 입력하세요."><br>
+
+
+
+
+    </form>
     
 </body>
 </html>
