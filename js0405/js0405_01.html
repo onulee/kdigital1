@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+    <script>
+        // mouseover<->mouseleave , focus<->blur
+        $(function(){
+            $("#pw").on({
+                "mouseover focus click":function(){
+                    $("#pw").css({'background':'aqua'})
+                }
+            })
+            $("#pw").mouseleave(function(){
+                $('#pw').css({'background':'white'})
+            })
+
+        })
+    </script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <form action="#" method="get" name="frm">
+        <label>아이디</label>
+        <input type="text" name="id" id="id"><br>
+        <label>패스워드</label>
+        <input type="password" name="pw" id="pw">
+        <span id="idCheck"></span>
+        <br>
+        <label>패스워드 확인</label>
+        <input type="password" name="pw2" id="pw2"><br>
+        <button type="button" id="memberBtn">회원가입</button>
+    </form>
+    
+</body>
+</html>

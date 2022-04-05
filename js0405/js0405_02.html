@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+    <script>
+        // 마우스가 올라갔을때 테두리는 검정색
+        // 배경색이 노란색을 들어가도록 설정
+        //.css().css() , css({"":"","":""})
+        //css적용방법, 2개이상 css적용방법, 자기자신 this
+        // event 1개, 2개이상 사용하려면 on
+        // css적용하려면 css, 속성에 적용하려면 attr
+        $(function(){
+            $('li').click(function(){
+                $(this).css({"background":"yellow","border":"1px solid black"})
+            })
+
+        })
+    </script>
+    <style>
+        ul{list-style: none;}
+    </style>
+</head>
+<body>
+    <ul>
+        <li>다음페이지</li>
+        <li>구글</li>
+        <li>네이버</li>
+    </ul>
+    
+</body>
+</html>
