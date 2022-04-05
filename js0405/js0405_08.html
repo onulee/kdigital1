@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+    <script>
+        // 검색된 단어가 있으면 검색된 단어를 blue 굵기 : 600으로 설정하시오.
+
+
+
+        $(function(){
+            $("#fBtn").click(function(){
+                $("#section").find(".important")
+                .css({"color":"red","font-weight":"600"})
+            })
+            $("#txtBtn").click(function(){
+                let a = $("#f2").text()
+                alert("a : "+a)
+            })
+        })
+
+    </script>
+</head>
+<body>
+    <ul id="section">
+        <li class="important">사과</li>
+        <li id="f2">배</li>
+        <li>귤</li>
+        <li class="important">수박</li>
+        <li class="important">딸기</li>
+        <li>바나나</li>
+        <li>참외</li>
+        <li>자두</li>
+        <li>오렌지</li>
+    </ul>
+    <input type="text" id="search"><br>
+    <button id="fBtn">찾기</button>
+    <button id="txtBtn">글자확인</button>
+    
+</body>
+</html>
