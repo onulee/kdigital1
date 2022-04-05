@@ -11,6 +11,21 @@
   <link rel="stylesheet" href="css/notice_list.css">
   <script>
     $(function(){
+      // 페이지 로딩시 실행
+      let arr=['홍길동','이순신','유관순','김구','김유신','강감찬','을지문덕','홍길자','홍길순','김김']
+      //10번 반복해서 tbody추가 하시오.
+      for(let i=1;i<=10;i++){
+        //
+        str = str + "<tr>"
+        str = str + "<td>"+i+"</td>"
+        str = str + "<td>좋은 하루"+i+"</td>"
+        str = str + "<td>2022/04/05</td>"
+        str = str + "<td>"+arr[i-1]+"</td>"
+        str = str + "<td>1</td>"
+        str = str + "</tr>"
+      }  
+      $("#tbody").html(str)
+
       $("#fBtn").click(function(){
         str = "<tr>"
         str = str + "<td>"+$("#fno").val()+"</td>"
@@ -19,7 +34,7 @@
         str = str + "<td>"+$("#fuser").val()+"</td>"
         str = str + "<td>"+$("#fhit").val()+"</td>"
         str = str + "</tr>"
-
+        //prepend-위쪽,append-아래쪽,html-기존삭제후 추가
         $("#tbody").prepend(str)
         
       })
@@ -71,10 +86,6 @@
       <!-- 내용부분 -->
       <tbody id="tbody">
         <!-- 여기에 넣고 싶어요. -->
-
-
-
-
         <tr>
           <td>1</td>
           <td>좋은 하루</td>
@@ -82,23 +93,6 @@
           <td>홍길동</td>
           <td>1</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>좋은 하루</td>
-          <td>2022/04/05</td>
-          <td>홍길동</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>좋은 하루</td>
-          <td>2022/04/05</td>
-          <td>홍길동</td>
-          <td>1</td>
-        </tr>
-        
-       
-        
       </tbody>
       
     </table>
