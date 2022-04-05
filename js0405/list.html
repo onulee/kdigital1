@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시판</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/notice_list.css">
+  <script>
+    $(function(){
+      $("#fBtn").click(function(){
+        str = "<tr>"
+        str = str + "<td>"+$("#fno").val()+"</td>"
+        str = str + "<td>"+$("#ftitle").val()+"</td>"
+        str = str + "<td>"+$("#fdate").val()+"</td>"
+        str = str + "<td>"+$("#fuser").val()+"</td>"
+        str = str + "<td>"+$("#fhit").val()+"</td>"
+        str = str + "</tr>"
+
+        $("#tbody").prepend(str)
+        
+      })
+
+    })
+      
+  </script>
+  <style>
+    #frm{  width:500px; margin:0 auto; margin-top:100px;}
+    #frm input{border:1px solid black; margin:5px;}
+    #fBtn{width:150px; height:30px; text-align: center; }
+  </style>
+</head>
+<body>
+<section>
+    <h1>NOTICE</h1>
+    <div class="wrapper">
+      <form action="/search" name="search" method="post">
+        <select name="category" id="category">
+          <option value="0">전체</option>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
+        </select>
+
+        <div class="title">
+          <input type="text" size="16">
+        </div>
+  
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+
+    <table>
+      <colgroup>
+        <col width="15%">
+        <col width="40%">
+        <col width="15%">
+        <col width="15%">
+        <col width="15%">
+      </colgroup>
+      <!-- 제목부분 -->
+      <tr>
+        <th>No.</th>
+        <th>제목</th>
+        <th>작성일</th>
+        <th>작성자</th>
+        <th>조회수</th>
+      </tr>
+      <!-- 내용부분 -->
+      <tbody id="tbody">
+        <!-- 여기에 넣고 싶어요. -->
+
+
+
+
+        <tr>
+          <td>1</td>
+          <td>좋은 하루</td>
+          <td>2022/04/05</td>
+          <td>홍길동</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>좋은 하루</td>
+          <td>2022/04/05</td>
+          <td>홍길동</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>좋은 하루</td>
+          <td>2022/04/05</td>
+          <td>홍길동</td>
+          <td>1</td>
+        </tr>
+        
+       
+        
+      </tbody>
+      
+    </table>
+
+    <ul class="page-num">
+      <li class="first"></li>
+      <li class="prev"></li>
+      <li class="num"><div>1</div></li>
+      <li class="next"></li>
+      <li class="last"></li>
+    </ul>
+
+    <div class="write">쓰기</div>
+  </section>
+
+  <form action="#" method="get" name="frm" id="frm">
+    <label>번호</label>
+    <input type="text" name="fno" id="fno"><br>
+    <label>제목</label>
+    <input type="text" name="ftitle" id="ftitle"><br>
+    <label>작성일</label>
+    <input type="text" name="fdate" id="fdate"><br>
+    <label>작성자</label>
+    <input type="text" name="fuser" id="fuser"><br>
+    <label>조회수</label>
+    <input type="text" name="fhit" id="fhit"><br>
+    <input type="button" id="fBtn" value="쓰기">
+
+  </form>
+  
+
+</body>
+</html>

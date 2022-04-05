@@ -17,8 +17,12 @@
                 .css({"color":"red","font-weight":"600"})
             })
             $("#txtBtn").click(function(){
-                let a = $("#f2").text()
-                alert("a : "+a)
+                let sh = $("#search").val()
+                $("#section li").each(function(){
+                    if($(this).text()==sh){
+                        $(this).css({"color":"blue","font-weight":"600"})
+                    }
+                })
             })
         })
 
