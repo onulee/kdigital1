@@ -11,6 +11,12 @@
             // div클릭을 하면 클릭된 부분이 
             // 배경이 blue, 글자색은 white
             // 
+            $("div").mouseenter(function(){
+                $(this).css({"background":"blue","color":"white"})
+            })
+            $("div").mouseleave(function(){
+                $(this).css({"background":"white","color":"black"})
+            })
         })
     </script>
     <style>

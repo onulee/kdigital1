@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        //제이쿼리 선언
+        $(function(){
+            let n=0
+            //이전버튼 클릭, css-background
+            $("#pre").click(function(){
+                n -= 1
+                if(n<1) n=5
+                $("#photo").attr("src","images/"+n+".jpg")
+            })
+            $("#next").click(function(){
+                n += 1
+                if(n>5) n=1
+                $("#photo").attr("src","images/"+n+".jpg")
+            })
+        })
+    </script>
+    <title>Document</title>
+    <style>
+        *{margin:0; padding:0;}
+        #main{width:500px; height:400px; border:1px solid black;
+            overflow:hidden; margin:0 auto; margin-top:50px;
+        }
+        #viewNum,#sub{width:150px; margin:20px auto;}
+        #viewNum{font-size:30px;}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <img src="images/1.jpg" id="photo">
+    </div>
+    <div id="sub">
+        <button id="pre">◀ 이전</button>&nbsp;&nbsp;
+        <button id="next">다음 ▶</button>
+    </div>
+    <div id="viewNum">1</div>
+    
+</body>
+</html>
