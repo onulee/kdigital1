@@ -43,8 +43,6 @@
 
             //글쓰기 버튼클릭
             $("#fwrite").click(function(){
-                $("#fname").val()
-                $("#ftitle").val()
                 str=''
                 str += '<tr>'
                 str += '<td>'+ count +'</td>'              //번호 count
@@ -53,12 +51,10 @@
                 str += '<td>'+ $("#fname").val() +'</td>'  //이름
                 str += '<td>1</td>'                        //조회수
                 str += '</tr>'
-
-                $("#section").append()
+                
+                $("#section").append(str)
                 count++
             })
-
-
         })
     </script>
    
