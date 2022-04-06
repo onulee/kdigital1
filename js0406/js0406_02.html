@@ -5,13 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Document</title>
+    <title>게시판</title>
     <style>
         table{width:800px; margin:0 auto; margin-top:50px;}
         table,th,td{border:1px solid black; border-collapse: collapse;}
         th{background: rgb(218, 218, 218);}
         th,td{text-align: center; height:40px;}
+        form{width:800px; font-size:20px; margin:0 auto;}
     </style>
+    <script>
+        let count=1
+        $(function(){
+            //날짜 객체생성
+            let today = new Date()
+            let year = today.getFullYear()
+            let month = today.getMonth()
+            let day = today.getDate()
+            let todayDate = year+'-'+(month+1)+'-'+day
+            $("#fdate").val(todayDate)
+
+            let str=''
+            let arr=[['홍길동',1],['홍길자',10],['홍길순',5],['이순신',7],
+            ['한소희',1],['한소정',10],['송선유',100],['조승완',150],
+            ['공유진',50],['윤지현',70]]
+            
+            for(let i=0;i<10;i++){
+                str += '<tr>'
+                str += '<td>'+(i+1)+'</td>'
+                str += '<td>게시글작성'+(i+1)+'</td>'
+                str += '<td>2022/04/06</td>'
+                str += '<td>'+arr[i][0]+'</td>'
+                str += '<td>'+arr[i][1]+'</td>'
+                str += '</tr>'
+                count++
+            }
+            $("tbody").html(str)
+
+            //글쓰기 버튼클릭
+            $("#fwrite").click(function(){
+                $("#fname").val()
+                $("#ftitle").val()
+                str=''
+                str += '<tr>'
+                str += '<td>'+ count +'</td>'              //번호 count
+                str += '<td>'+ $("#ftitle").val() +'</td>' //제목
+                str += '<td>'+todayDate+'</td>'            //날짜
+                str += '<td>'+ $("#fname").val() +'</td>'  //이름
+                str += '<td>1</td>'                        //조회수
+                str += '</tr>'
+
+                $("#section").append()
+                count++
+            })
+
+
+        })
+    </script>
+   
 </head>
 <body>
     <table>
@@ -24,7 +74,7 @@
                 <th>조회수</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="section">
             <tr>
                 <td>1</td>
                 <td>게시글작성</td>
@@ -33,9 +83,21 @@
                 <td>1</td>
             </tr>
         </tbody>
-        
-
     </table>
+    <div>
+        <form action="#" method="get" name="frm">
+            <h3>글쓰기</h3>
+            <label>작성자</label>
+            <input type="text" name="fname" id="fname"><br>
+            <label>제목</label>
+            <input type="text" name="ftitle" id="ftitle"><br>
+            <label>날짜</label>
+            <input type="text" name="fdate" id="fdate" readonly><br>
+            <button type="button" id="fwrite">쓰기</button>
+        </form>
+
+    </div>
     
 </body>
+
 </html>
