@@ -33,7 +33,7 @@
             ['공유진',50],['윤지현',70]]
             
             for(let i=0;i<10;i++){
-                str += '<tr id="'+(i+1)+'">'
+                str += '<tr id="'+count+'">'
                 str += '<td>'+(i+1)+'</td>'
                 str += '<td>게시글작성'+(i+1)+'</td>'
                 str += '<td>2022/04/06</td>'
@@ -47,7 +47,7 @@
             //글쓰기 버튼클릭
             $("#fwrite").click(function(){
                 str=''
-                str += '<tr>'
+                str += '<tr id="'+count+'">'
                 str += '<td>'+ count +'</td>'              //번호 count
                 str += '<td>'+ $("#ftitle").val() +'</td>' //제목
                 str += '<td>'+todayDate+'</td>'            //날짜
@@ -60,11 +60,28 @@
             }) //글쓰기
 
             $("#fdelete").click(function(){
-                let fid = $("#fdelno").val()
+                let fid = '#'+ $("#fno").val()
                 if(confirm('데이터를 삭제하시겠습니까?'))
-                $("#"+fid).remove()
+                $(fid).remove()
 
             })//글삭제
+
+            $('#fopen').click(function(){
+                let fid = '#'+ $("#fno").val()
+                console.log("fid : "+fid)
+                $(fid+">td:nth-child(3)").text()
+                
+                $("#fname").val( $(fid+">td:nth-child(4)").text() )
+                $("#ftitle").val($(fid+">td:nth-child(2)").text())
+                $("#fdate").val($(fid+">td:nth-child(3)").text())
+                $("#tdid").val(fid)
+
+                console.log("작성자 : "+$(fid+">td:nth-child(4)").text())
+                console.log("제목 : "+$(fid+">td:nth-child(2)").text())
+                console.log("작성일 : "+$(fid+">td:nth-child(3)").text())
+            })
+
+
         })
     </script>
    
@@ -81,7 +98,7 @@
             </tr>
         </thead>
         <tbody id="section">
-            <tr>
+            <tr id="5">
                 <td>1</td>
                 <td>게시글작성</td>
                 <td>2022/04/06</td>
@@ -93,17 +110,21 @@
     <div>
         <form action="#" method="get" name="frm">
             <h3>글쓰기</h3>
+            <input type="hidden" name="tdid" id="tdid"><br>
             <label>작성자</label>
             <input type="text" name="fname" id="fname"><br>
             <label>제목</label>
             <input type="text" name="ftitle" id="ftitle"><br>
             <label>날짜</label>
             <input type="text" name="fdate" id="fdate" readonly><br>
-            <button type="button" id="fwrite">쓰기</button>
+            <button type="button" id="fwrite">쓰기</button>&nbsp;<button type="button" id="fmodify">수정</button>
             <br>
-            <label>삭제번호</label>
-            <input type="text" name="fdelno" id="fdelno"><br>
+            <label>번호</label>
+            <input type="text" name="fno" id="fno"><br>
+            <button type="button" id="fopen">불러오기</button>
             <button type="button" id="fdelete">삭제</button>
+            <br>
+            
 
 
         </form>
