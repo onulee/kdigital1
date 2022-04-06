@@ -33,7 +33,7 @@
             ['공유진',50],['윤지현',70]]
             
             for(let i=0;i<10;i++){
-                str += '<tr id="t'+(i+1)+'">'
+                str += '<tr id="'+(i+1)+'">'
                 str += '<td>'+(i+1)+'</td>'
                 str += '<td>게시글작성'+(i+1)+'</td>'
                 str += '<td>2022/04/06</td>'
@@ -60,7 +60,10 @@
             }) //글쓰기
 
             $("#fdelete").click(function(){
-                $("#fdelno").val()
+                let fid = $("#fdelno").val()
+                if(confirm('데이터를 삭제하시겠습니까?'))
+                $("#"+fid).remove()
+
             })//글삭제
         })
     </script>
