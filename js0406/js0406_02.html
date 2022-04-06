@@ -20,8 +20,11 @@
             let today = new Date()
             let year = today.getFullYear()
             let month = today.getMonth()
+            if((month+1)<10) month = "0"+(month+1)
+            else month = month+1
             let day = today.getDate()
-            let todayDate = year+'-'+(month+1)+'-'+day
+            day = day+1<10?"0"+day:day
+            let todayDate = year+'/'+month+'/'+day
             $("#fdate").val(todayDate)
 
             let str=''
@@ -30,7 +33,7 @@
             ['공유진',50],['윤지현',70]]
             
             for(let i=0;i<10;i++){
-                str += '<tr>'
+                str += '<tr id="t'+(i+1)+'">'
                 str += '<td>'+(i+1)+'</td>'
                 str += '<td>게시글작성'+(i+1)+'</td>'
                 str += '<td>2022/04/06</td>'
@@ -54,7 +57,11 @@
                 
                 $("#section").append(str)
                 count++
-            })
+            }) //글쓰기
+
+            $("#fdelete").click(function(){
+                $("#fdelno").val()
+            })//글삭제
         })
     </script>
    
@@ -90,6 +97,12 @@
             <label>날짜</label>
             <input type="text" name="fdate" id="fdate" readonly><br>
             <button type="button" id="fwrite">쓰기</button>
+            <br>
+            <label>삭제번호</label>
+            <input type="text" name="fdelno" id="fdelno"><br>
+            <button type="button" id="fdelete">삭제</button>
+
+
         </form>
 
     </div>
