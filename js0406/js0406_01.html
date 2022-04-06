@@ -8,14 +8,12 @@
     <title>Document</title>
     <script>
         
-        //함수
+        //자바스크립트 함수
         function loginCheck(num){
-            let uid = $("#id").val()
-            let utxt = $("#txt").text()
-            location.href='js0406_02.html?id='+uid+'&utxt='+utxt
-            
-            
-
+            $("#id2").text($("#id").val())
+            $("#pw2").text($("#pw").val())
+            alert($("#memo").val())
+            $("#memo2").html($("#memo").val())
         }
         
 
@@ -29,14 +27,16 @@
         <label>패스워드</label>
         <input type="password" name="pw" id="pw">
         <br>
-        <textarea rows="20" cols="60" name="memo"></textarea><br>
-        <button type="button" onclick="loginCheck(2)">로그인</button>
+        <textarea rows="20" cols="60" name="memo" id="memo">글자가 들어갑니다.
+        </textarea><br>
+        <button type="button" onclick="loginCheck()">로그인</button>
         <br>
-        <input type="submit" value="submit버튼">
-        <br>
+        
 
     </form>
-    <div id="txt">좋은 하루 되세요.</div>
+    <div id="id2">aaa</div>
+    <div id="pw2">1111</div>
+    <div id="memo2">글자</div>
     
 </body>
 </html>
