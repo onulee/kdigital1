@@ -71,15 +71,29 @@
                 console.log("fid : "+fid)
                 $(fid+">td:nth-child(3)").text()
                 
-                $("#fname").val( $(fid+">td:nth-child(4)").text() )
-                $("#ftitle").val($(fid+">td:nth-child(2)").text())
-                $("#fdate").val($(fid+">td:nth-child(3)").text())
+                $("#fname").val( $(fid+">td:nth-child(4)").text()) //작성자
+                $("#ftitle").val($(fid+">td:nth-child(2)").text()) //제목
+                $("#fdate").val($(fid+">td:nth-child(3)").text())  //작성일
                 $("#tdid").val(fid)
 
                 console.log("작성자 : "+$(fid+">td:nth-child(4)").text())
                 console.log("제목 : "+$(fid+">td:nth-child(2)").text())
                 console.log("작성일 : "+$(fid+">td:nth-child(3)").text())
             })
+
+            $("#fmodify").click(function(){
+                //td의 id를 가져옴.
+                let temp = $("#tdid").val()
+                // 위치: #5>td:nth-child(4)의 글자를 fname value값을 변경
+                $(temp+">td:nth-child(4)").text(   $("#fname").val()   )
+                $(temp+">td:nth-child(2)").text(   $("#ftitle").val()   )
+                $(temp+">td:nth-child(3)").text(   $("#fdate").val()   )
+
+                $("#fname").val("")
+                $("#ftitle").val("")
+            })
+
+
 
 
         })
@@ -117,7 +131,8 @@
             <input type="text" name="ftitle" id="ftitle"><br>
             <label>날짜</label>
             <input type="text" name="fdate" id="fdate" readonly><br>
-            <button type="button" id="fwrite">쓰기</button>&nbsp;<button type="button" id="fmodify">수정</button>
+            <button type="button" id="fwrite">쓰기</button>&nbsp;
+            <button type="button" id="fmodify">수정</button>
             <br>
             <label>번호</label>
             <input type="text" name="fno" id="fno"><br>
