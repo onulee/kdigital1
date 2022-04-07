@@ -15,16 +15,19 @@
                     url:"js/MOCK_DATA.json",
                     dataType:"json",
                     success:function(data){    //data=[{},{},....] data[0]  arr=[1,2,3] arr[0]
-                        alert('성공')
-                        console.log(data[0])
-                        console.log(data[0].id)
-                        console.log(data[0].first_name)
-                        console.log(data[0].last_name)
-                        console.log(data[1].id)
-                        console.log(data[1].first_name)
-                        console.log(data[1].last_name)
+                        alert('성공 : ' + data.length)
+                        let str=''
+                        for(let i=0;i<data.length;i++){
+                            str += '<tr>'
+                            str += '<td>'+data[i].id+'</td>'
+                            str += '<td>'+data[i].first_name+'</td>'
+                            str += '<td>'+data[i].last_name+'</td>'
+                            str += '<td>'+data[i].email+'</td>'
+                            str += '<td>'+data[i].gender+'</td>'
+                            str += '</tr>'
+                        }
 
-                        $("#txt").text(data)
+                        $("#btable").html(str)
                     },
                     error:function(){
                         alert('실패')

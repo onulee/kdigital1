@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            $("#searchBtn").click(function(){
+               //저장되어 있는 단어
+                let str = $("#btable td:nth-child(1)").text().toLowerCase()
+               //검색하는 단어
+               let searchWord = $("#search").val().toLowerCase()
+               if(str.indexOf(searchWord)!=-1){
+                    alert(searchWord+"를(을) 찾았습니다.")
+               }else{
+                   alert("찾는 단어가 없습니다.")
+               }
+            })
+
+        })
+
+    </script>
+</head>
+<body>
+    <input type="text" name="search" id="search"><br>
+    <button id="searchBtn">검색</button><br>
+
+    <table>
+        <tbody id="btable">
+            <tr>
+                <td>홍길동 이순신 유관순 @@ ab Ab AA BB String</td>
+                <td>1</td>
+                <td>남자</td>
+                <td>aaa@gmail.com</td>
+            </tr>
+        </tbody>
+    </table>    
+    
+</body>
+</html>
