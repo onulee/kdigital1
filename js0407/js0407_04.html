@@ -10,9 +10,35 @@
         //제이쿼리 선언
        $(function(){
 
-        // js/stuData.json
-        
-            
+        $("#ajaxBtn").click(function(){
+            //ajax선언
+            $.ajax({
+             url:"js/stuData.json",
+             dataType:"json",
+             success:function(data){    //data=[{},{},....] data[0]  arr=[1,2,3] arr[0]
+                 sCount=0
+                 alert('성공 : ' + data.length)
+                 let str=''
+                 for(let i=0;i<data.length;i++){
+                     str += '<tr>'
+                     str += '<td>'+data[i].stuNo+'</td>'
+                     str += '<td>'+data[i].stuName+'</td>'
+                     str += '<td>'+data[i].kor+'</td>'
+                     str += '<td>'+data[i].eng+'</td>'
+                     str += '<td>'+data[i].math+'</td>'
+                     str += '<td>'+(data[i].kor+data[i].eng+data[i].math)+'</td>'
+                     str += '<td>'+((data[i].kor+data[i].eng+data[i].math)/3).toFixed(2)+'</td>'
+                                                                              // 소수점2자리에서 반올림
+                     str += '</tr>'
+                     sCount++
+                 }
+                 $("#tbody").html(str)
+             },
+             error:function(){
+                 alert('실패')
+             }
+         })//ajax
+        })//ajaxBtn
 
        })//function
     </script>
