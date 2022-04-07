@@ -47,6 +47,7 @@
             dataType:"json",
             success:function(data){    //data=[{},{},....] data[0]  arr=[1,2,3] arr[0]
                 let str=''
+                let sCount=0
                 for(let i=0;i<data.length;i++){
                     let temp = data[i].first_name.toLowerCase()
                     // 검색한 단어가 없는 경우 다음으로 넘어감.
@@ -59,8 +60,11 @@
                     str += '<td>'+data[i].email+'</td>'
                     str += '<td>'+data[i].gender+'</td>'
                     str += '</tr>'
+
+                    sCount++
                 }
 
+                $("#viewTitle").text(sCount+"개 검색")
                 $("#btable").html(str)
             },
             error:function(){
@@ -75,6 +79,9 @@
  })//function
 
   </script>
+  <style>
+    #viewTitle{position: relative; padding-top:30px;}
+  </style>
 </head>
 <body>
   <header>
@@ -116,9 +123,9 @@
     <div class="wrapper">
       <form action="/search" name="search" method="post">
         <select name="category" id="category">
-          <option value="0">성</option>
-          <option value="title">이름</option>
-          <option value="content">전체</option>
+          <option value="firstName">성</option>
+          <option value="listName">이름</option>
+          <option value="all">전체</option>
         </select>
 
         <div class="title">
@@ -128,6 +135,7 @@
         <button type="button" id="searchBtn"><i class="fas fa-search"></i></button>
       </form>
     </div>
+    <div id="viewTitle">0개 검색</div>
 
     <table>
       <colgroup>
