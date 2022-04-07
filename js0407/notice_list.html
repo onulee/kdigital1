@@ -41,96 +41,61 @@
           })//ajax
       })//ajaxBtn
 
-      $("#searchTxt").keyup(function(key){
-          if(key.keyCode==13){
-            let searchWord = $("#searchTxt").val().toLowerCase()
-            //ajax선언
-            $.ajax({
-              url:"js/MOCK_DATA.json",
-              dataType:"json",
-              success:function(data){    //data=[{},{},....] data[0]  arr=[1,2,3] arr[0]
-                  let str=''
-                  sCount=0
-                  for(let i=0;i<data.length;i++){
-                    let temp=''
-                    if ($("#category").val()=='firstName')    //성
-                      temp = data[i].first_name.toLowerCase()
-                    else if($("#category").val()=='lastName') //이름
-                      temp = data[i].last_name.toLowerCase()
-                    else                                      //전체
-                      temp = data[i].first_name.toLowerCase()+" , "+data[i].last_name.toLowerCase()
-                      
-                      // 검색한 단어가 없는 경우 다음으로 넘어감.
-                      if(temp.indexOf(searchWord)==-1)  continue
-  
-                      str += '<tr>'
-                      str += '<td>'+data[i].id+'</td>'
-                      str += '<td>'+data[i].first_name+'</td>'
-                      str += '<td>'+data[i].last_name+'</td>'
-                      str += '<td>'+data[i].email+'</td>'
-                      str += '<td>'+data[i].gender+'</td>'
-                      str += '</tr>'
-  
-                      sCount++
-                  }
-  
-                  $("#viewTitle").text(sCount+"개 검색")
-                  $("#btable").html(str)
-              },
-              error:function(){
-                  alert('실패')
-              }
-          })//ajax
-          }// if
+      $("#searchTxt").keydown(function(key){
+        if(key.keyCode==13){
+          searchFunc()  
+          return false  
+        }// if
       })//searchTxt
 
       // 검색클릭
       $("#searchBtn").click(function(){
+          searchFunc()
+      })//searchBtn
 
-          let searchWord = $("#searchTxt").val().toLowerCase()
-          //ajax선언
-          $.ajax({
-            url:"js/MOCK_DATA.json",
-            dataType:"json",
-            success:function(data){    //data=[{},{},....] data[0]  arr=[1,2,3] arr[0]
-                let str=''
-                sCount=0
-                for(let i=0;i<data.length;i++){
-                  let temp=''
-                  if ($("#category").val()=='firstName')    //성
-                    temp = data[i].first_name.toLowerCase()
-                  else if($("#category").val()=='lastName') //이름
-                    temp = data[i].last_name.toLowerCase()
-                  else                                      //전체
-                    temp = data[i].first_name.toLowerCase()+" , "+data[i].last_name.toLowerCase()
-                    
-                    // 검색한 단어가 없는 경우 다음으로 넘어감.
-                    if(temp.indexOf(searchWord)==-1)  continue
 
-                    str += '<tr>'
-                    str += '<td>'+data[i].id+'</td>'
-                    str += '<td>'+data[i].first_name+'</td>'
-                    str += '<td>'+data[i].last_name+'</td>'
-                    str += '<td>'+data[i].email+'</td>'
-                    str += '<td>'+data[i].gender+'</td>'
-                    str += '</tr>'
+ })//jQuery function
 
-                    sCount++
-                }
+ function searchFunc(){
+    let searchWord = $("#searchTxt").val().toLowerCase()
+    //ajax선언
+    $.ajax({
+        url:"js/MOCK_DATA.json",
+        dataType:"json",
+        success:function(data){    //data=[{},{},....] data[0]  arr=[1,2,3] arr[0]
+            let str=''
+            sCount=0
+            for(let i=0;i<data.length;i++){
+              let temp=''
+              if ($("#category").val()=='firstName')    //성
+                temp = data[i].first_name.toLowerCase()
+              else if($("#category").val()=='lastName') //이름
+                temp = data[i].last_name.toLowerCase()
+              else                                      //전체
+                temp = data[i].first_name.toLowerCase()+" , "+data[i].last_name.toLowerCase()
+                
+                // 검색한 단어가 없는 경우 다음으로 넘어감.
+                if(temp.indexOf(searchWord)==-1)  continue
 
-                $("#viewTitle").text(sCount+"개 검색")
-                $("#btable").html(str)
-            },
-            error:function(){
-                alert('실패')
+                str += '<tr>'
+                str += '<td>'+data[i].id+'</td>'
+                str += '<td>'+data[i].first_name+'</td>'
+                str += '<td>'+data[i].last_name+'</td>'
+                str += '<td>'+data[i].email+'</td>'
+                str += '<td>'+data[i].gender+'</td>'
+                str += '</tr>'
+
+                sCount++
             }
-        })//ajax
 
-          
-      })
-
-
- })//function
+            $("#viewTitle").text(sCount+"개 검색")
+            $("#btable").html(str)
+        },
+        error:function(){
+            alert('실패')
+        }
+    })//ajax
+ }// searchFunc
 
   </script>
   <style>
@@ -175,7 +140,7 @@
   <section>
     <h1>NOTICE</h1>
     <div class="wrapper">
-      <form action="/search" name="search" method="post">
+      <form action="#" name="search" method="post">
         <select name="category" id="category">
          
           <option value="firstName">성</option>
