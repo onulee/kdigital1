@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <title>Document</title>
+    <script>
+        $(function(){
+           $("#dataBtn").click(function(){
+              alert("test")
+              $.ajax({
+                url:"https://api.odcloud.kr/api/apnmOrg/v1/list?page=1&perPage=10&serviceKey=918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D",
+                data:{},
+                dataType:"json",
+                success:function(data){
+                    alert("성공")
+                    console.log("data.datacurrentCount : "+data.currentCount)
+                    console.log("data.data : "+data.data[0].orgnm)
+                    $("#txt").text(data.currentCount)
+                    $("#txt2").text(data.data[0].orgnm)
+                },
+                error:function(){
+                    alert('실패')
+                }
+              })//ajax  
+           })//dataBtn     
+        })//function
+    </script>
+</head>
+<body>
+    <button id="dataBtn">데이터 가져오기</button>
+    <div id="txt"></div>
+    <div id="txt2"></div>
+    
+</body>
+</html>
