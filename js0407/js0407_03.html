@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+    <script>
+        let arr=[
+            {stuId:"aaa",stuName:"홍길동",stuPw:1111},
+            {stuId:"bbb",stuName:"이순신",stuPw:2222},
+            {stuId:"ccc",stuName:"유관순",stuPw:3333}
+        ]
+
+        $(function(){
+            $("#tBtn").click(function(){
+                let str=''
+                $.each(arr,function(i,data){
+                    str +="<tr>"
+                    str +="<td>"+data.stuId+"</td>"
+                    str +="<td>"+data.stuName+"</td>"
+                    str +="<td>"+data.stuPw+"</td>"
+                    str +="</tr>"
+                })
+
+                //for(let i=0;i<arr.lenght;i++){
+                //    str +="<tr>"
+                //    str +="<td>"+arr[i].stuId+"</td>"
+                //    str +="<td>"+arr[i].stuName+"</td>"
+                //    str +="<td>"+arr[i].stuPw+"</td>"
+                //    str +="</tr>"
+                //}
+
+
+                $("#tbody").html(str)
+
+            })//tBtn
+        })//function
+
+    </script>
+</head>
+<body>
+    <button id="tBtn">데이터 가져오기</button>
+    <table>
+        <tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>비밀번호</th>
+        </tr>
+        <tbody id="tbody">
+            <tr>
+                <td colspan="3">데이터가 없습니다.</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+</html>
