@@ -23,34 +23,36 @@
             $("#ajaxBtn").click(function(){
                 //ajax호출
                 $.ajax({
-                    url:"js/dataset.xml",
+                    url:"js/cov19stats.xml",
                     data:{},
                     dataType:"xml",
                     success:function(data){
                         let str=''
-                        dataXml = $(data).find("dataset")
-                        let len = dataXml.find("record").length
+                        dataXml = $(data).find("items")
+                        let len = dataXml.find("item").length
                         if(len>0){
                             for(let i=0;i<len;i++){
                                 //데이터 가져오기
-                                let id,first_name,last_name,email,gender;
-                                id = dataXml.find("record").eq(i).find("id").text()
-                                first_name = dataXml.find("record").eq(i).find("first_name").text()
-                                last_name = dataXml.find("record").eq(i).find("last_name").text()
-                                email = dataXml.find("record").eq(i).find("email").text()
-                                gender = dataXml.find("record").eq(i).find("gender").text()
+                                let tpcd,firstCnt,secondCnt,thirdCnt,fourCnt;
+                                tpcd = dataXml.find("item").eq(i).find("tpcd").text()
+                                firstCnt = dataXml.find("item").eq(i).find("firstCnt").text()
+                                secondCnt = dataXml.find("item").eq(i).find("secondCnt").text()
+                                thirdCnt = dataXml.find("item").eq(i).find("thirdCnt").text()
+                                fourCnt = dataXml.find("item").eq(i).find("fourCnt").text()
                                 //태그생성
                                 str += '<tr>'
-                                str += '<td>'+id+'</td>'
-                                str += '<td>'+first_name+'</td>'
-                                str += '<td>'+last_name+'</td>'
-                                str += '<td>'+email+'</td>'
-                                str += '<td>'+gender+'</td>'
+                                str += '<td>'+tpcd+'</td>'
+                                str += '<td>'+firstCnt+'</td>'
+                                str += '<td>'+secondCnt+'</td>'
+                                str += '<td>'+thirdCnt+'</td>'
+                                str += '<td>'+fourCnt+'</td>'
                                 str += '</tr>'
 
                             }//for
 
-                            $("#tbody").html(str)
+                            $("#tbody").html(str) //내용
+                            let txt = $(data).find("dataTime").text()
+                            $("#itemDate").text("질병관리청_코로나19 예방접종 현황 : "+ txt) //날짜
 
                         }//if
 
@@ -68,21 +70,23 @@
         <button id="ajaxBtn" >데이터 가져오기</button>
     </div>
     <br>
+    <div id="itemDate">질병관리청_코로나19 예방접종 현황 : 2022.04.10 24:00:00</div>
+    <br>
     <table>
         <tr>
-            <th>아이디</th>
-            <th>성</th>
-            <th>이름</th>
-            <th>이메일</th>
-            <th>성별</th>
+            <th>상황별</th>
+            <th>1차접종</th>
+            <th>2차접종</th>
+            <th>3차접종</th>
+            <th>4차접종</th>
         </tr>
         <tbody id="tbody">
             <tr>
-                <td>aaa</td>
-                <td>홍</td>
-                <td>길동</td>
-                <td>aaa@naver.com</td>
-                <td>남자</td>
+                <td>당일실적(A)</td>
+                <td>28</td>
+                <td>18</td>
+                <td>153</td>
+                <td>22</td>
             </tr>
         </tbody>
     </table>
