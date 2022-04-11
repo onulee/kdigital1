@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <title>Document</title>
+    <title>xml 데이터 가져오기</title>
     <style>
         div{width:1100px; margin:0 auto; }
         #ajaxBtn{width:200px; height:50px; margin:50px 0 30px 0;
@@ -15,6 +15,31 @@
         width:1100px; margin-top:50px; margin:0 auto; text-align: center;}
         th,td{height:30px;}
     </style>
+    <script>
+        let dataXml="" 
+        //제이쿼리호출
+        $(function(){
+            //ajaxBtn버튼 호출
+            $("#ajaxBtn").click(function(){
+                //ajax호출
+                $.ajax({
+                    url:"js/dataset.xml",
+                    data:{},
+                    dataType:"xml",
+                    success:function(data){
+                        dataXml = $(data).find("dataset")
+                        console.log("dataset : "+dataXml)
+                        console.log("dataXml 개수 : "+dataXml.find("record").length)
+                    },
+                    error:function(){
+                        alert("실패")
+                    }
+
+                })
+            })
+
+        })
+    </script>
 </head>
 <body>
     <div>
