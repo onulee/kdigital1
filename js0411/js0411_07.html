@@ -15,25 +15,30 @@
             let xData=[]
             let yData=[]
             $("#chartBtn").click(function(){
-                // 1차누계접종자 : 서울,부산,대구,인천,광주,대전,울산
+                // 삼성전자 매출액
+                $("input:[type='text']").each(function(){
+                    if(saveHobby.indexOf($(this).val())!=-1)
+                        this.checked = true
+                })
+
+
+                $.each(data,function(i,item){
+                    xData.push(item.stuName)
+                    let total = item.kor+item.eng+item.math
+                    yData.push(total)
+                })
+                
+                
+                
+                
                 $.ajax({
                     url:"https://api.odcloud.kr/api/15077756/v1/vaccine-stat?page=1&perPage=10&serviceKey=918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D",
+                    data:{"2015":10,"2016":15,"2017":17,"2018":19,"2019":20,"2020":22,"2021":25 },
                     dataType:"json",
                     success:function(data){
 
                         //let arr = data.response.body.items.item
                         console.log("data : "+data.data.length)
-                        /*
-                        if(data.data.length>0){
-                            $.each(data.data,function(i,o){
-                                if(i>=1 && i<=7){
-                                    xData.push(o.sido)
-                                    yData.push(o.accumulatedFirstCnt)
-                                } 
-                            })//each
-                        }//if
-                        */
-
                         if(data.data.length>0){
                             for(let i=1;i<=7;i++){
                                 xData.push(data.data[i].sido)
@@ -45,7 +50,7 @@
                                 data: {
                                     labels: xData,
                                     datasets: [{
-                                        label: '코로나 접속현황',
+                                        label: '삼성전자 매출액',
                                         data: yData,
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
@@ -79,7 +84,6 @@
                         
                         }else{
                             alert('데이터가 없습니다.')
-                            return false
                         }
                     },
                     error:function(){
@@ -91,6 +95,21 @@
     </script>
 </head>
 <body>
+    <label>2015년 매출액</label>
+    <input type="text" name="2015"><br>
+    <label>2016년 매출액</label>
+    <input type="text" name="2016"><br>
+    <label>2017년 매출액</label>
+    <input type="text" name="2017"><br>
+    <label>2018년 매출액</label>
+    <input type="text" name="2018"><br>
+    <label>2019년 매출액</label>
+    <input type="text" name="2019"><br>
+    <label>2020년 매출액</label>
+    <input type="text" name="2020"><br>
+    <label>2021년 매출액</label>
+    <input type="text" name="2021"><br>
+    <br>
     <button id="chartBtn">차트그리기</button>
     <br><br>
     <div>
