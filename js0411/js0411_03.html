@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <title>xml 데이터 가져오기</title>
+    <style>
+        div{width:1100px; margin:0 auto; }
+        #ajaxBtn{width:200px; height:50px; margin:50px 0 30px 0;
+        cursor: pointer; }
+        table,th,td{border:1px solid black; border-collapse: collapse;
+        width:1100px; margin-top:50px; margin:0 auto; text-align: center;}
+        th,td{height:30px;}
+    </style>
+    <script>
+        let dataXml="" 
+        //제이쿼리호출
+        $(function(){
+            //ajaxBtn버튼 호출
+            $("#ajaxBtn").click(function(){
+                //ajax호출
+                $.ajax({
+                    url:"https://api.odcloud.kr/api/15077756/v1/vaccine-stat?page=1&perPage=10&returnType=XML&serviceKey=918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D",
+                    data:{},
+                    dataType:"xml",
+                    success:function(data){
+                        let str=''
+                        dataXml = $(data).find("data")
+                        let len = dataXml.find("item").length
+                        console.log("len : "+len)
+                        if(len>0){
+                            for(let i=0;i<len;i++){
+                                //데이터 가져오기
+                                let baseDate,firstCnt,secondCnt,thirdCnt,sido;
+                                baseDate = dataXml.find("item").eq(i).find("col[name='baseDate']").text()
+                                firstCnt = dataXml.find("item").eq(i).find("col[name='firstCnt']").text()
+                                secondCnt = dataXml.find("item").eq(i).find("col[name='secondCnt']").text()
+                                thirdCnt = dataXml.find("item").eq(i).find("col[name='thirdCnt']").text()
+                                sido = dataXml.find("item").eq(i).find("col[name='sido']").text()
+                                //태그생성
+                                str += '<tr>'
+                                str += '<td>'+baseDate+'</td>'
+                                str += '<td>'+firstCnt+'</td>'
+                                str += '<td>'+secondCnt+'</td>'
+                                str += '<td>'+thirdCnt+'</td>'
+                                str += '<td>'+sido+'</td>'
+                                str += '</tr>'
+
+                            }//for
+
+                            $("#tbody").html(str) //내용
+                            $("#itemDate").text("질병관리청_코로나19 예방접종 현황") 
+
+                        }//if
+
+                    },
+                    error:function(){
+                        alert("실패")
+                    }//error
+                })//ajax
+            })//ajaxBtn
+        })//jquery
+    </script>
+</head>
+<body>
+    <div>
+        <button id="ajaxBtn" >데이터 가져오기</button>
+    </div>
+    <br>
+    <div id="itemDate">질병관리청_코로나19 예방접종 현황 : 2022.04.10 24:00:00</div>
+    <br>
+    <table>
+        <tr>
+            <th>날짜</th>
+            <th>1차접종</th>
+            <th>2차접종</th>
+            <th>3차접종</th>
+            <th>지역</th>
+        </tr>
+        <tbody id="tbody">
+            <tr>
+                <td>당일실적(A)</td>
+                <td>28</td>
+                <td>18</td>
+                <td>153</td>
+                <td>22</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+</body>
+</html>

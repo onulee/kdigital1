@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <title>json데이터 가져오기</title>
+    <style>
+        div{width:1100px; margin:0 auto; }
+        #ajaxBtn{width:200px; height:50px; margin:50px 0 30px 0;
+        cursor: pointer; }
+        table,th,td{border:1px solid black; border-collapse: collapse;
+        width:1100px; margin-top:50px; margin:0 auto; text-align: center;}
+        th,td{height:30px;}
+        img{width:50px;}
+    </style>
+    <script>
+        let dataXml="" 
+        //제이쿼리호출
+        $(function(){
+            //ajaxBtn버튼 호출
+            $("#ajaxBtn").click(function(){
+                //ajax호출
+                let nowPage=0
+                nowPage = $("input[name='page']").val()
+                if(nowPage==0){
+                    alert("페이지번호가 없으면 못찾아 와요. 꼭 넣어주삼~!")
+                    $("input[name='page']").focus()
+                    return false;
+                }
+                $.ajax({
+                    url:"http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey=918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D&pageNo="+ nowPage  +"&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A",
+                    data:{},
+                    dataType:"xml",
+                    success:function(data){
+                        let str=''
+                        dataXml = $(data).find("items")
+                        let len = dataXml.find("item").length
+                        console.log("len : "+len)
+                        if(len>0){
+                            for(let i=0;i<len;i++){
+                                //데이터 가져오기
+                                let galContentId,galCreatedtime,galPhotographer,galTitle,galWebImageUrl;
+                                galContentId = dataXml.find("item").eq(i).find("galContentId").text()
+                                galCreatedtime = dataXml.find("item").eq(i).find("galCreatedtime").text()
+                                galPhotographer = dataXml.find("item").eq(i).find("galPhotographer").text()
+                                galTitle = dataXml.find("item").eq(i).find("galTitle").text()
+                                galWebImageUrl = dataXml.find("item").eq(i).find("galWebImageUrl").text()
+                                //태그생성
+                                str += '<tr>'
+                                str += '<td>'+galContentId+'</td>'
+                                str += '<td>'+galCreatedtime+'</td>'
+                                str += '<td>'+galPhotographer+'</td>'
+                                str += '<td>'+galTitle+'</td>'
+                                str += '<td><a href="'+galWebImageUrl+'" target="blank"><img src="'+galWebImageUrl+'"></a></td>'
+                                str += '</tr>'
+
+                            }//for
+
+                            $("#tbody").html(str) //내용
+                            $("#itemDate").text("관광사진갤러리 목록 조회") 
+
+                        }//if
+
+                    },
+                    error:function(){
+                        alert("실패")
+                    }//error
+                })//ajax
+            })//ajaxBtn
+        })//jquery
+    </script>
+</head>
+<body>
+    <div>
+        <label>해당페이지</label>
+        <input type="text" name="page">
+        <button id="ajaxBtn" >데이터 가져오기</button>
+    </div>
+    <br>
+    <div id="itemDate">관광사진갤러리 목록 조회</div>
+    <br>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>촬영일자</th>
+            <th>촬영자</th>
+            <th>제목</th>
+            <th>링크</th>
+        </tr>
+        <tbody id="tbody">
+            <tr>
+                <td>당일실적(A)</td>
+                <td>28</td>
+                <td>18</td>
+                <td>153</td>
+                <td>22</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+</body>
+</html>
