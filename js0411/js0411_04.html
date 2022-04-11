@@ -23,15 +23,15 @@
             //ajaxBtn버튼 호출
             $("#ajaxBtn").click(function(){
                 //ajax호출
-                let nowPage=0
-                nowPage = $("input[name='page']").val()
-                if(nowPage==0){
-                    alert("페이지번호가 없으면 못찾아 와요. 꼭 넣어주삼~!")
-                    $("input[name='page']").focus()
-                    return false;
-                }
+                let searchWord=""
+                searchWord = $("input[name='search']").val()
+                //if(nowPage==0){
+                  //  alert("페이지번호가 없으면 못찾아 와요. 꼭 넣어주삼~!")
+                  //  $("input[name='page']").focus()
+                  //  return false;
+                //}
                 $.ajax({
-                    url:"http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey=918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D&pageNo="+ nowPage  +"&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A",
+                    url:"http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryDetailList?serviceKey=918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&title="+searchWord,
                     data:{},
                     dataType:"xml",
                     success:function(data){
@@ -63,6 +63,11 @@
                             $("#itemDate").text("관광사진갤러리 목록 조회") 
 
                         }//if
+                        else{
+                            alert("검색한 사진이 없습니다.")
+                            $("input[name='search']").focus()
+                            return false
+                        }
 
                     },
                     error:function(){
@@ -75,9 +80,9 @@
 </head>
 <body>
     <div>
-        <label>해당페이지</label>
-        <input type="text" name="page">
-        <button id="ajaxBtn" >데이터 가져오기</button>
+        <label>검색할 내용을 입력하세요.</label>
+        <input type="text" name="search">
+        <button id="ajaxBtn" >사진 검색</button>
     </div>
     <br>
     <div id="itemDate">관광사진갤러리 목록 조회</div>
