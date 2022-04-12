@@ -1,20 +1,20 @@
---insert ¹æ¹ı1
+--insert ë°©ë²•1
 insert into member(id,pw,name,phone) values(
-'aaa','1111','È«±æµ¿','010-1111-1111');
---insert ¹æ¹ı2
+'aaa','1111','í™ê¸¸ë™','010-1111-1111');
+--insert ë°©ë²•2
 insert into member values(
-'bbb','1111','ÀÌ¼ø½Å','010-2222-2222');
--- insert ¹æ¹ı3 : primary key, ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÔ.
+'bbb','1111','ì´ìˆœì‹ ','010-2222-2222');
+-- insert ë°©ë²•3 : primary key, ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•¨.
 insert into member(id,pw) values(
-'ddd','±è±¸');
+'ddd','ê¹€êµ¬');
 
---°Ë»ö
+--ê²€ìƒ‰
 select * from employees;
 
---»èÁ¦
+--ì‚­ì œ
 delete from member where id='bbb';
 
---¼öÁ¤
+--ìˆ˜ì •
 update member set phone='010-7777-7777' where id='bbb';
 
 
@@ -37,7 +37,7 @@ select * from tab;
 select * from member;
 
 insert into member(id,pw,name,phone) values(
-'aaa','1111','È«±æµ¿','010-1111-1111');
+'aaa','1111','í™ê¸¸ë™','010-1111-1111');
 
 select * from member;
 
@@ -48,18 +48,18 @@ rollback;
 select * from member;
 
 insert into member values(
-'eee','1111','°­°¨Âù','010-3333-3333');
+'eee','1111','ê°•ê°ì°¬','010-3333-3333');
 
 select * from member;
 
 insert into member values(
-'bbb','1111','ÀÌ¼ø½Å','010-2222-2222');
+'bbb','1111','ì´ìˆœì‹ ','010-2222-2222');
 
 select * from member;
 commit;
 
 insert into member values(
-'ccc','1111','ÀÌ¼ø½Å','010-2222-2222');
+'ccc','1111','ì´ìˆœì‹ ','010-2222-2222');
 
 select * from member;
 
@@ -94,7 +94,7 @@ select employee_id,emp_name,salary from employees where employee_id>=150 and sal
 select * from member;
 
 insert into member values(
-'eee','1111','°­°¨Âù','010-5555-5555');
+'eee','1111','ê°•ê°ì°¬','010-5555-5555');
 
 commit;
 
@@ -102,10 +102,10 @@ update member set phone='010-7777-7777' where id='bbb';
 
 rollback;
 
--- students Å×ÀÌºí»ı¼º
+-- students í…Œì´ë¸”ìƒì„±
 -- stuid,stuname,kor,eng,math,total,avg,rank
 -- varchar2(20),number(3),number(4,1)
--- 5¸íÀÇ ÇĞ»ıÀ» ÀÔ·ÂÇØº¸¼¼¿ä.
+-- 5ëª…ì˜ í•™ìƒì„ ì…ë ¥í•´ë³´ì„¸ìš”.
 
 
 create table students (
@@ -120,7 +120,7 @@ rank number(3)
 );
 
 insert into students values(
-'5','±è±¸',99,95,87,99+95+87,(99+95+87)/3,0);
+'5','ê¹€êµ¬',99,95,87,99+95+87,(99+95+87)/3,0);
 
 commit;
 
@@ -131,20 +131,20 @@ select * from students;
 select * from tab;
 
 desc employees;
--- table ÄÃ·³Ãß°¡
+-- table ì»¬ëŸ¼ì¶”ê°€
 -- alter table member add create_date date;
--- table ÄÃ·³»èÁ¦
+-- table ì»¬ëŸ¼ì‚­ì œ
 -- alter table member drop column create_date;
--- Å×ÀÌºí Å¸ÀÔº¯°æ
+-- í…Œì´ë¸” íƒ€ì…ë³€ê²½
 --alter table member modify pw number(4);
--- Å×ÀÌºí ÄÃ·³ÀÌ¸§º¯°æ
+-- í…Œì´ë¸” ì»¬ëŸ¼ì´ë¦„ë³€ê²½
 --alter table member rename column pw to password;
--- Å×ÀÌºí ÀÌ¸§º¯°æ
+-- í…Œì´ë¸” ì´ë¦„ë³€ê²½
 --alter table member rename to member2; 
--- tableº¹»ç ¹× µ¥ÀÌÅÍ º¹»ç
+-- tableë³µì‚¬ ë° ë°ì´í„° ë³µì‚¬
 create table member as
 select * from member2;
--- table Å¸ÀÔ¸¸ º¹»ç
+-- table íƒ€ì…ë§Œ ë³µì‚¬
 create table member as
 select * from member2 where 1=2;
 
@@ -172,7 +172,7 @@ select * from member;
 
 select * from students;
 
-update students set stuid=6,stuname='±èÀ¯½Å' where kor=99;
+update students set stuid=6,stuname='ê¹€ìœ ì‹ ' where kor=99;
 commit;
 
 desc students;
@@ -181,13 +181,13 @@ desc member;
 
 select * from member;
 
-update member set total=100 where name='È«±æµ¿';
-update member set total=(select total from students where stuname='È«±æµ¿') where name='È«±æµ¿';
+update member set total=100 where name='í™ê¸¸ë™';
+update member set total=(select total from students where stuname='í™ê¸¸ë™') where name='í™ê¸¸ë™';
 
 select * from students;
-select total from students where stuname='È«±æµ¿';
+select total from students where stuname='í™ê¸¸ë™';
 
--- Áßº¹µÇ´Â °ÍÀº 1¹ø¸¸ Ãâ·Â
+-- ì¤‘ë³µë˜ëŠ” ê²ƒì€ 1ë²ˆë§Œ ì¶œë ¥
 select distinct manager_id from employees;
 select * from employees;
 
@@ -196,12 +196,12 @@ select emp_name from employees where lower(emp_name)='pat fay';
 
 select * from departments;
 
--- ÀÌ¸§, ±Ş¿©, ÀÔ»çÀÏÀÚ
+-- ì´ë¦„, ê¸‰ì—¬, ì…ì‚¬ì¼ì
 -- emp_name, salary, hire_date, employees;
 
 select emp_name,salary,hire_date from employees where salary>10000;
 
--- employeesÀÇ Å×ÀÌºíÀ» ¶È°°ÀÌ employees2 »ı¼ºÇØº¸¼¼¿ä.
+-- employeesì˜ í…Œì´ë¸”ì„ ë˜‘ê°™ì´ employees2 ìƒì„±í•´ë³´ì„¸ìš”.
 
 create table employees2 as
 select * from employees;
@@ -214,10 +214,15 @@ select * from employees2;
 
 select * from employees;
 
--- employees2 table  create»ı¼º
--- employee_id, emp_name,hire_date,salary »ı¼º
+-- employees2 table  createìƒì„±
+-- employee_id, emp_name,hire_date,salary ìƒì„±
 
--- 5°³ ÀÔ·Â insert
+select * from employees;
+--í•œê¸€ì²˜ë¦¬
+
+
+
+-- 5ê°œ ì…ë ¥ insert
 
 
 
