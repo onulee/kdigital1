@@ -303,15 +303,112 @@ select employee_id,emp_name,salary,
 rank() over (order by salary desc)
 from employees;
 
+-- 부서번호 순차정렬, 월급 역순정렬
+select department_id,salary from employees
+order by department_id,salary desc;
+
+select employee_id,department_id,hire_date from employees
+order by employee_id asc,department_id asc,hire_date desc;
+
+--abs함수:절대값
+select -10,abs(-10) from dual;
+
+-- 소수점 버림
+select floor(10.3456) from dual;
+-- 반올림, 해당 소수점 자리수까지 표현
+select round(10.4567,3) from dual;
+-- 정수 첫째자리에서 반올림
+select round(277.4567,-1) from dual;
+
+select * from studata;
+
+--mod나머지: 학번이 홀수 번호만 출력
+select * from studata
+where mod(stuno,2)=1;
+
+-- 사원번호가 짝수 번호만 출력하시오.
+select * from employees
+where mod(employee_id,2)=0 order by employee_id;
+
+-- 
+drop table employees2;
+
+-- employees2 table생성 employee_id, emp_name,salary,rank 사원번호가 홀수 인것만 
+-- 추가해서 테이블 생성해보세요.
+-- employees의 데이터 rank포함 employees2에 복사
+insert into employees2
+select employee_id,emp_name,salary,
+rank() over (order by salary desc) rank
+from employees
+where mod(employee_id,2)=1
+order by salary desc
+;
+
+select * from employees2 order by employee_id;
+--delete employees2;
+commit;
+
+select * from students;
+insert into students values
+(
+(select max(stuid)+1 from students),'이유신',100,100,100,300,100,0);
+
+--시퀀스 생성
+
+create table students2 as
+select * from students where 1=2;
+
+select * from students2;
+
+-- nextval : 시퀀스 다음 번호를 가져옴. currval : 현재 번호를 가져옴.
+insert into students2 values(
+board_seq.nextval,'김유신',100,100,100,(100+100+100),(100+100+100)/3,0);
+
+select board_seq.currval from dual;
+
+select board_seq.nextval from dual;
+
+-- 시퀀스 이름 설정 
+CREATE SEQUENCE test_seq
+INCREMENT BY 1
+ START WITH 1 
+MINVALUE 1
+MAXVALUE 9999999 
+cycle
+cache 10;
+
+create sequence emp_seq
+increment by 1
+ start with 1
+maxvalue 100000
+;
+
+-- emp01 테이블 생성 
+-- empno number(5) - 99999, employee_id, emp_name,salary
+-- empno emp_seq생성해서 추가, 나머지 컬럼 employees의 내용을 입력하시오.
+create table emp01 as
+select employee_id,emp_name,salary from employees where 1=2;
+select * from emp01;
+-- 
+alter table emp01 add empno number(5);
 
 
+insert into emp01
+select employee_id,emp_name,salary,emp_seq.nextval from employees;
 
+select * from emp01;
 
+-- emp02 empno,employee_id,emp_name,salary 
+-- emp01에서 데이터 복사
 
+alter table emp01 modify emp_name invisible;
+alter table emp01 modify employee_id invisible;
+alter table emp01 modify salary invisible;
 
+alter table emp01 modify emp_name visible;
+alter table emp01 modify employee_id visible;
 
-
-
+select * from emp01;
 
 
 
