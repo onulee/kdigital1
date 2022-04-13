@@ -152,6 +152,169 @@ select * from studata;
 
 commit;
 
+-- 국어 90이상 영어 90이상 수학 90이상 학생출력
+select * from studata
+where kor>=90 and eng>=90 and math>=90;
+
+-- 국어 90이상 100이하 학생출력
+select * from studata
+where kor>=80 and kor<=90;
+
+select * from studata where kor not between 80 and 90;
+
+-- 사원번호 120, 130, 140 인 사원을 출력하시오. employees
+select * from employees
+where employee_id =120 or employee_id=130 or employee_id=140;
+
+-- in 연산자 : 동일한 필드 검색
+select * from employees
+where employee_id not in(120,130,140,150,160,170,180);
+
+-- 사원번호가 130 이상이면서 salary 3000 이상 5000이하 사원을 출력하시오.
+select employee_id,salary from employees
+where employee_id>=130 and salary between 3000 and 5000 order by employee_id;
+
+select * from employees
+where  not (salary>=3000 and salary<=5000);
+
+select * from employees
+where not salary between 3000 and 5000;
+
+select * from employees
+where hire_date between '95/01/01' and '02/12/31' order by hire_date;
+
+select hire_date,hire_date+1000 from employees;
+-- 날짜데이터 사칙연산 가능, daul 가상테이블
+select sysdate,sysdate+100 from Dual;
+
+-- total 270,280,290 인 학생 출력 studata
+select * from studata 
+where total in (270,280,290);
+
+select * from studata;
+
+-- like 검색 %,_
+select * from studata
+where stuname like '%l%';
+-- 대문자 S로 시작되는 학생검색
+select * from studata
+where stuname like 'S%';
+
+-- 3자리에 l로 시작하는 학생검색
+select * from studata
+where stuname like '__l%';
+
+-- 1. employees 끝자리 n으로 끝나는 사원출력
+select * from employees
+where emp_name like '%n';
+
+-- 2. S,s 포함되어 있는 사원 출력
+select * from employees
+where emp_name like '%S%' or emp_name like '%s%';
+
+select * from employees
+where lower(emp_name) like '%s%';
+
+-- 2번째 문자가 a가 포함되어 있는 학생검색
+select * from employees
+where emp_name not like '_a%';
+
+-- null인 경우 검색 is null, is not null
+select * from employees
+where commission_pct is not null;
+
+select * from member;
+
+update member set total=null where id='aaa';
+
+select * from member;
+
+commit;
+
+create table studata2 as
+select * from studata;
+
+select * from studata;
+update studata2 set total=0;
+update studata2 set avg=0;
+commit;
+
+update studata2 set total=kor+eng+math,avg=(kor+eng+math)/3;
+update studata2 set avg=total/3;
+
+-- 테이블삭제
+-- drop table studata2;
+
+-- 테이블 타입만 복제생성
+create table studata2 as
+select * from studata where 1=2;
+select * from studata2;
+desc studata2;
+
+-- studata의 모든 컬럼데이터를 studata2에 복제
+insert into studata2 
+select * from studata;
+select * from studata2;
+delete studata2;
+commit;
+
+-- rank()함수 사용
+select stuno, stuname,total,rank() over(order by total desc) rank
+from studata;
+
+-- studata의 일부 컬럼데이터를 studata2에 복제
+insert into studata2(stuno,stuname,kor,eng,math,total,avg,rank)
+select stuno,stuname,kor,eng,math,total,avg,
+rank() over (order by total desc) rank 
+from studata;
+
+select * from studata2;
+select * from studata2 order by stuno;
+
+select employee_id from employees;
+
+-- order by 정렬 asc순차정렬, desc 역순정렬
+select salary from employees order by salary;
+select salary from employees order by salary desc;
+
+-- employees2테이블 : employee_id, emp_name, salary, rank
+-- employees의 모든 데이터를 employees2에 넣을 것. salary를 가지고 rank할것
+
+-- employees2테이블 : employee_id, emp_name, salary
+create table employees2 as
+select employee_id,emp_name,salary from employees where 1=2;
+
+-- rank컬럼 추가
+alter table employees2 add rank number(4);
+desc employees2;
+
+-- employees의 데이터 rank포함 employees2에 복사
+insert into employees2
+select employee_id,emp_name,salary,
+rank() over (order by salary desc) 
+from employees order by salary desc;
+
+commit;
+select * from employees2 order by employee_id;
+
+delete employees2;
+
+select employee_id,emp_name,salary,
+rank() over (order by salary desc)
+from employees;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
