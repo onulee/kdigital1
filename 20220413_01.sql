@@ -131,9 +131,26 @@ order by salary;
 select * from employees;
 
 -- commission_pct 0.1 이거나 0.2 이거나 0.3
+select commission_pct from employees
+where commission_pct=0.1 or commission_pct=0.2 or commission_pct=0.3;
 
 
+-- studata테이블 생성
+create table studata (
+	stuno number(4),
+	stuname VARCHAR2(50),
+	kor number(3),
+	eng number(3),
+	math number(3),
+	total number(5,2),
+	avg number(5,2),
+	rank number
+);
+insert into studata (stuno, stuname, kor, eng, math, total, avg, rank) values (1, 'McCullouch', 81, 99, 86, 266, 88.67, 0);
 
+select * from studata;
+
+commit;
 
 
 
