@@ -146,7 +146,7 @@ create table member as
 select * from member2;
 -- table 타입만 복사
 create table member as
-select * from member2 where 1=2;
+select * from member2 where 1=2; --조건이 맞으면 데이터를 가져오는데.
 
 select * from tab;
 commit;
