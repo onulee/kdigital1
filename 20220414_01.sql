@@ -60,10 +60,14 @@ alter table member add filename varchar2(20);
 select * from member;
 
 -- 컬럼수정
-update member set password='5555',juminno='000912-3103212'
+update member set password='    5555   ',juminno='  000912-3103212   '
 where id='eee';
-update member set filename='bbb.doc'
+update member set filename='   bbb.doc'
 where id='eee';
+
+--컬럼추가
+insert into member values(
+'hhh','   7777','홍길영     ','010-   9999-9999',300,100,'910101-1100123','  gkhtkd  .html');
 
 commit;
 
@@ -78,8 +82,104 @@ from member;
 
 -- member테이블
 -- id의 길이, juminno 앞자리, jiminno뒤자리, filename 뒤에서 3자리 출력하시오.
+select id,length(id),substr(juminno,0,6),substr(juminno,8),
+substr(filename,-3) from member;
+
+-- 특정문자 위치 찾기(instr)
+select filename,instr(filename,'.'),substr(filename,instr(filename,'.')+1) from member;
+
+-- replace 문자대체함수
+select emp_name from employees;
+select replace(emp_name,' ','') from employees;
+
+-- trim,ltrim,rtrim 공백제거함수
+select password,length(password), ltrim(password) from member;
+select phone,length(phone) from member;
+select filename,length(filename),ltrim(filename),length(ltrim(filename)) from member;
+
+update member set filename=ltrim(filename);
+
+update member set phone=replace(phone,' ','');
+update member set phone='010-9999-9999';
+
+select * from member;
+
+-- concat 문자열 합치기
+select concat(id,concat('-',password)) as juminno from member;
+-- 연결연산자
+select id||'-'||password as juminno from member;
+
+-- 빈공간 특정문자 채우기 (lpad,rpad)
+select rpad(id,10,'*') from member;
+
+select juminno from member;
+select rpad(substr(juminno,0,8),14,'*')as juminno from member;
 
 
+-- 현재날짜함수
+select sysdate-1,sysdate,sysdate+1 from dual;
+
+select * from member;
+
+select * from emp01;
+
+alter table member add create_date date;
+
+insert into member(id,password,create_date) values(
+'iii','1111',sysdate);
+
+select to_char(create_date,'YYYY-MM-DD hh:mi:ss') from member;
+select create_date from member;
+
+
+select hire_date from employees;
+
+-- 소수점 삭제
+select trunc(sysdate-to_date('22/03/08')) from dual;
+
+-- 월 반올림
+select hire_date, round(hire_date,'month') from employees;
+
+-- 일자 반올림
+select round(create_date,'ddd') from member;
+
+-- 개월 추가
+select sysdate,add_months(sysdate,6)
+from dual;
+
+-- 해당일에서 부터 최초로 돌아오는 요일일자
+select sysdate, next_day(sysdate,'수요일') from dual;
+
+-- 해당 달의 마지막 날짜를 반환 last_day
+select sysdate,last_day(sysdate) from dual;
+
+create table membership(
+id varchar2(30),
+name varchar2(30),
+pw varchar2(30),
+email varchar2(50),
+send_email number(1),
+zipcode char(5),
+address1 varchar2(50),
+address2 varchar2(50),
+phone char(11),
+tel char(11),
+birth date,
+newyear number(1),
+company number(1),
+create_date date,
+myip char(15)
+);
+
+
+
+비밀번호
+이메일
+이메일수신여부
+우편번호,기본주소,상세주소
+휴대폰
+생년월일 1,2,3 양력/음력
+기업회원여부
 
 
 
