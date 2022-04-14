@@ -191,6 +191,8 @@ commit;
 select birth,months_between(sysdate,birth) from membership
 where months_between(sysdate,birth)>216;
 
+
+-- board:foreign key 등록
 create table board(
 bno number(4) primary key,
 id varchar2(30) not null,
@@ -201,6 +203,49 @@ hit number(4) default 0,
 -- 선언 : idex명 mem_fk_id, 외래키(컬럼) 위치 membership테이블 id
 constraint mem_fk_id foreign key(id) references membership(id)
 );
+
+-- foreign key 없는 아이디로 등록이 불가능함.
+insert into board values(
+board_seq.nextval,'eee','게시판제목2','게시판에 들어가는 내용을 입력합니다.2',sysdate,
+1);
+
+commit;
+select * from board;
+select * from membership;
+
+-- foreign key 키로 등록되어 있는 경우 삭제시 에러 발생
+delete membership where id='eee';
+
+
+-- 문자->날짜형변환
+select sysdate-to_date('22/03/08') from employees;
+
+select hire_date,to_char(hire_date,'yyyy-mm-dd hh12 day') from employees;
+
+select create_date,to_char(create_date,'hh24:mi:ss day') from member;
+
+update member set create_date=sysdate
+where id='aaa';
+
+commit;
+
+select salary from employees;
+select salary,salary*12,salary*12*1230 from employees;
+
+-- 천단위 표시, L 원화표시추가, 0 빈자리는 0으로 채움, 9는 빈자리 생략
+select salary,salary*12,to_char(salary*12*1230,'000,999,999,999') from employees;
+
+select to_char(seqno,'000') from employees2;
+
+select '2022-04-14 01:01:01',to_char(sysdate,'yyyy-mm-dd hh:mi:ss') from dual;
+
+select to_char(sysdate,'hh') hour, to_char(sysdate,'mi') minute from dual;
+
+select * from studata;
+
+select avg,to_char(avg,'99.00') from studata;
+
+
 
 
 
