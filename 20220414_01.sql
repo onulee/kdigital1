@@ -232,8 +232,8 @@ commit;
 select salary from employees;
 select salary,salary*12,salary*12*1230 from employees;
 
--- 천단위 표시, L 원화표시추가, 0 빈자리는 0으로 채움, 9는 빈자리 생략
-select salary,salary*12,to_char(salary*12*1230,'000,999,999,999') from employees;
+-- 천단위 표시,$는 달러표시 추가, L 원화표시추가, 0 빈자리는 0으로 채움, 9는 빈자리 생략
+select salary,salary*12,to_char(salary*12*1230,'L000,999,999,999') from employees;
 
 select to_char(seqno,'000') from employees2;
 
@@ -243,7 +243,129 @@ select to_char(sysdate,'hh') hour, to_char(sysdate,'mi') minute from dual;
 
 select * from studata;
 
+-- 소수점 아래 00으로 채움.
 select avg,to_char(avg,'99.00') from studata;
+
+-- 문자를 날짜로 형변환 후 다시 문자형변환
+select to_char(to_date('22/03/08'),'yyyy-mm-dd') from dual;
+
+select hire_date from employees;
+
+-- 숫자를 날짜형변환
+select hire_date from employees
+where hire_date=to_date(20080113,'yyyy/mm/dd');
+
+-- 문자로 날짜검색 가능
+select hire_date from employees
+where hire_date='20080113'; 
+
+-- 숫자로 날짜검색 불가능
+select hire_date from employees
+where hire_date=20080113; 
+
+-- 문자-> 순자형변환
+select '20,000'-'19,000' from dual;
+-- 문자형을 천단위 타입을 확인해서 숫자로 변환
+select to_number('20,000','99,999')-to_number('19,000','99,999') from dual;
+
+-- 숫자를 천단위로 변환
+select to_char(20000,'99,999') from dual;
+
+-- 천단위표시를 제거후 숫자로형변환
+select to_number(replace('20,000',',','')) from dual;
+-- 숫자로 형변환
+select to_number('20000')-19000 from dual;
+
+-- nvl함수 nvl(commission_pct,0) : null일경우 0으로 표시
+select salary,salary*12,commission_pct,
+salary*12+(salary*12*nvl(commission_pct,0)) from employees;
+
+-- nvl()함수 : manager_id null 999,ceo표시하시오. 
+select * from employees;
+select nvl(manager_id,999) from employees;
+select nvl(to_char(manager_id),'CEO') from employees;
+
+desc employees;
+
+select * from students;
+
+-- 그룹함수 min최소값, max최대값, count개수, 일반컬럼과 같이 사용은 안됨.
+select min(kor) from students;
+select emp_name,min(salary),max(salary) from employees;
+select count(*) from employees;
+select count(*),count(employee_id),count(manager_id),min(salary) from employees;
+
+-- sum합계
+select sum(salary) from employees;
+
+select sum(salary) from employees
+where department_id=60;
+
+-- group by 그룹함수 조건
+select e.department_id,d.department_name,sum(salary) 
+from employees e,departments d
+where e.department_id=d.department_id and e.department_id=60
+group by e.department_id,d.department_name 
+order by e.department_id;
+
+-- avg평균
+select round(avg(salary),2) from employees;
+
+-- 평균 월급보다 큰사원 총수
+select count(*) from employees
+where salary>=(select round(avg(salary),2) from employees);
+
+select * from employees
+where mod(employee_id,2)=1
+order by employee_id;
+
+select abs(months_between(hire_date,sysdate)) from employees;
+select months_between(sysdate,hire_date) from employees;
+
+select power(3,10) from dual;
+
+create table emp02 (
+id varchar2(20),
+content clob
+);
+
+insert into emp02 values(
+'bbb','<p>많은 글자를 입력할거에요.</p><p>정말많알마이ㅓㄹ미ㅏㅇ러ㅣㅁㅇ너리;ㅏㅁㄴ어리ㅏㅁ</p><p>ㅁㄴㅇ럼낭러민ㅇㄹ</p><p>\ㅁ얼미ㅏㄴ어리멍리ㅏㅁㅇㄴ</p><p>ㅁㄴ아람ㄴ어리;ㅁㅇㄴ람</p><p>ㅁㅇㄹ나러미어림ㅇㄴㄹ</p><p>ㅁㅇ라ㅓㅣ밍ㄴ러ㅏㅣ;ㅁㅇㄴ러</p>'
+);
+
+select * from emp02;
+
+alter table emp01
+add(job varchar2(9));
+
+desc emp01;
+
+select * from emp01;
+
+alter table emp01
+modify(job number(4));
+
+update emp01
+set job='' where empno>10;
+commit;
+
+-- emp01 job number(10)변경.
+
+alter table emp01
+drop column job;
+select * from emp01;
+
+select * from studata2 where stuno=8;
+
+update studata2 set kor=0,total=0+eng+math,avg=(0+eng+math)/3
+where stuno=8;
+
+commit;
+
+
+
+
+
 
 
 
