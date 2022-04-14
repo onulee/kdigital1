@@ -143,7 +143,7 @@ select hire_date, round(hire_date,'month') from employees;
 -- 일자 반올림
 select round(create_date,'ddd') from member;
 
--- 개월 추가
+-- 개월 추가 months_between
 select sysdate,add_months(sysdate,6)
 from dual;
 
@@ -154,8 +154,8 @@ select sysdate, next_day(sysdate,'수요일') from dual;
 select sysdate,last_day(sysdate) from dual;
 
 create table membership(
-id varchar2(30),
-name varchar2(30),
+id varchar2(30) primary key, --not null,unique
+name varchar2(30) not null,
 pw varchar2(30),
 email varchar2(50),
 send_email number(1),
@@ -171,15 +171,39 @@ create_date date,
 myip char(15)
 );
 
+-- primary key 추가
+alter table membership add primary key(id);
+-- 제약조건 not null 수정
+alter table membership modify name not null;
+
+desc membership;
+
+insert into membership values(
+'eee','유관순','5555','eee@naver.com',1,'01333','서울 종로구 종로동','101-1',
+'01055555555','0255555555','2015/01/01',0,0,sysdate,'101.101.101.27'
+);
+
+select * from membership;
+
+commit;
+
+-- 미성년자만 출력하시오.
+select birth,months_between(sysdate,birth) from membership
+where months_between(sysdate,birth)>216;
+
+create table board(
+bno number(4) primary key,
+id varchar2(30) not null,
+title varchar2(100),
+content varchar2(3000),
+create_date date,
+hit number(4) default 0,
+-- 선언 : idex명 mem_fk_id, 외래키(컬럼) 위치 membership테이블 id
+constraint mem_fk_id foreign key(id) references membership(id)
+);
 
 
-비밀번호
-이메일
-이메일수신여부
-우편번호,기본주소,상세주소
-휴대폰
-생년월일 1,2,3 양력/음력
-기업회원여부
+
 
 
 
