@@ -373,6 +373,11 @@ select employee_id,emp_name from employees where employee_id=124;
 --self 조인
 select e1.employee_id,e1.emp_name,e1.manager_id,e2.emp_name
 from employees e1,employees e2
+where e1.manager_id=e2.employee_id;
+
+--outjoin 조인 +추가
+select e1.employee_id,e1.emp_name,e1.manager_id,e2.emp_name
+from employees e1,employees e2
 where e1.manager_id=e2.employee_id(+);
 
 
