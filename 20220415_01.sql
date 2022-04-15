@@ -122,7 +122,7 @@ decode(job_id,
 ) as "월급인상현황" from employees;
 
 
--- CLERK, MAN, REP, ACCOUNT
+-- 조건을 사용한 decode함수 이용해서 결과출력, CLERK, MAN, REP, ACCOUNT
 select employee_id,emp_name,job_id,salary,
 decode(substr(job_id,4),
 'CLERK',salary*0.05,
@@ -131,6 +131,200 @@ decode(substr(job_id,4),
 'ACCOUNT',salary*0.06
 ) as "월급인상현황" from employees;
 
+-- 조건 case함수 사용
+select employee_id,emp_name,job_id,salary,
+case 
+when substr(job_id,4)='CLERK' then salary*0.05
+when substr(job_id,4)='MAN' then salary*0.07
+when substr(job_id,4)='REP' then salary*0.04
+when substr(job_id,4)='ACCOUNT' then salary*0.06
+else salary
+end
+as "월급인상현황" from employees;
+
+-- studata avg 90점 이상 A, 80점이상 B, 70점이상 C, 60점이상 D "성적결과"
+select * from studata;
+
+select stuno,stuname,avg,
+case
+when avg>=90 then 'A'
+when avg>=80 then 'B'
+when avg>=70 then 'C'
+when avg>=60 then 'D'
+end
+as "성적처리결과"
+from studata;
+
+select count(*),count(manager_id),count(commission_pct) from employees;
+
+select count(*)-count(commission_pct) as "노커미션",count(commission_pct) "커미션" from employees;
+
+select count(*) from employees
+where commission_pct is null;
+
+
+select department_id,count(*),to_char(avg(salary),999999.99), sum(salary) from employees
+group by department_id
+;
+
+select emp_name,salary from employees;
+
+select department_id,department_name from departments;
+select department_id,salary from employees where department_id=60;
+
+select department_id,max(salary),min(salary) from employees
+where department_id=60
+group by department_id;
+
+-- 50번 부서의 최대로 월급을 많이 받는 사람의 
+-- 사번,이름,부서,월급을 출력하시오.
+
+select employee_id,emp_name,department_id,salary from employees
+where salary=(
+select max(salary) from employees
+where department_id=60
+) and department_id=60;
+
+-- 부서별, 전체인원수, 커미션을 받는사람수, 받지 않는 사람수 출력하시오.
+select department_id,count(*),count(commission_pct),count(*)-count(commission_pct)
+from employees
+group by department_id;
+
+select department_id,avg(salary) from employees
+where department_id>40
+group by department_id
+having avg(salary)>=4000
+order by department_id
+;
+
+-- 부서별 최대월급을 출력을 하는데, 5000달러 이상인 최대값만 출력하시오.
+select department_id,max(salary) maxsalary from employees
+group by department_id
+having max(salary)>5000
+order by maxsalary;
+
+select department_id,department_name from employees;
+select department_id,department_name from departments;
+
+create table employees2 as
+select department_id,department_name from departments;
+
+update employees2 set department_name='기획부'
+where department_id=10;
+
+select * from employees2; --컬럼2
+select * from departments; --컬럼6
+
+select * from employees2,departments;
+
+-- equi join : 동일한 컬럼을 가지고 검색
+select employee_id,emp_name,e.department_id,department_name,
+salary,job_id
+from employees e,departments d
+where e.department_id = d.department_id;
+
+--equi join employees,jobs테이블
+--employee_id,emp_name,job_id, job_title 넣어서 출력하시오.
+select employee_id,emp_name,e.job_id,job_title
+from employees e,jobs j
+where e.job_id = j.job_id;
+
+select * from board;
+-- bno,name,title,content,create_date,hit
+-- membership,board 조인해서 출력을 하시오.
+select * from membership;
+
+
+select bno,name,title,content,b.create_date,hit
+from membership m,board b
+where m.id=b.id;
+
+
+-- 테이블 : employees,jobs,departments 3개 조인
+-- 컬럼 : employee_id,job_id,job_title,department_id,department_name
+-- 조건 : employee_id >150 이상이면서, 이름이 s,S가 들어가 있는 사람만 출력하시오.
+select employee_id,emp_name,e.job_id,job_title,e.department_id,department_name
+from employees e,jobs j,departments d
+where e.job_id = j.job_id and e.department_id=d.department_id and employee_id>150 
+and lower(emp_name) like '%s%'
+order by employee_id;
+
+select employee_id,emp_name,e.job_id,job_title,e.department_id,department_name
+from employees e,jobs j,departments d
+where e.job_id = j.job_id and e.department_id=d.department_id(+)
+order by employee_id;
+
+select * from employees order by employee_id;
+
+select * from employees
+where department_id is null;
+
+select * from departments;
+
+select * from countries;
+
+select * from kor_loan_status;
+
+SELECT period, region, SUM(loan_jan_amt) totl_jan
+FROM kor_loan_status
+WHERE period = '201311'
+GROUP BY period, region
+HAVING SUM(loan_jan_amt) > 100000
+ORDER BY region;
+
+
+
+
+select * from kor_loan_status;
+
+-- group by 그룹함수 sum 사용
+-- region 지역별 대출총액을 출력하시오.
+select region,sum(loan_jan_amt) from kor_loan_status
+group by region;
+
+-- 4자리 년도만 가지고 년도별,지역별 대출총액을 출력하시오.
+select substr(period,0,4) new_period,region,sum(loan_jan_amt) from kor_loan_status
+group by substr(period,0,4),region
+order by sum(loan_jan_amt) desc,new_period;
+
+
+
+create table salary_grade(
+grade number(1),
+low_salary number(5),
+high_salary number(5)
+);
+select salary from employees order by salary;
+insert into salary_grade values(
+5,10001,30000
+);
+
+commit;
+
+-- non-equi 조인 : 상관관계가 없는 두 테이블 서로 조인
+select * from salary_grade;
+select * from employees;
+
+select employee_id,emp_name,salary,grade
+from employees,salary_grade
+where salary between low_salary and high_salary
+order by employee_id
+;
+
+select employee_id, emp_name,salary,
+case when salary>=10001 then 5
+when salary>=8001 then 4
+when salary>=5001 then 3
+when salary>=3001 then 2
+when salary>=2000 then 1
+end as grade
+from employees
+order by employee_id
+;
+select * from studata;
+--studata,stu_grade stuno,stuname,grade 출력하시오.
+-- stu_grade - grade,low_score,high_score 100-95 A+, 94-90 A, 89-85 B+, 84-80 B, 79-0 C 
+-- 
 
 
 
