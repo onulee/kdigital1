@@ -322,9 +322,61 @@ from employees
 order by employee_id
 ;
 select * from studata;
---studata,stu_grade stuno,stuname,grade 출력하시오.
--- stu_grade - grade,low_score,high_score 100-95 A+, 94-90 A, 89-85 B+, 84-80 B, 79-0 C 
--- 
+-- non-equi조인 사용
+-- studata,stu_grade테이블에서 stuno,stuname,grade 컬럼을 출력하시오.
+-- stu_grade 테이블 생성 : grade char(2),low_score number(3),high_score number(3) 
+-- 100-95 A+, 94-90 A, 89-85 B+, 84-80 B, 79-0 C 
+
+select stuno,stuname,avg,grade
+from studata,stu_grade
+where avg between low_score and high_score
+order by stuno
+;
+
+create table stu_grade(
+grade char(2),
+low_score number(3),
+high_score number(3)
+);
+
+insert into stu_grade values(
+'C',0,79
+);
+
+commit;
+
+select * from stu_grade;
+
+-- self join : 자신 테이블 2개를 가지고 조인하는 것
+--     e1: 컬럼항목을 출력, e2는 또다른 검색해서 출력
+select e1.employee_id,e1.emp_name,e1.manager_id,e2.emp_name 
+from employees e1, employees e2
+where e1.manager_id=e2.employee_id  -- manager_id와 employee_id와 비교
+order by e1.employee_id
+;
+
+select employee_id,emp_name,manager_id
+from employees 
+;
+
+select employee_id,department_id from employees;
+select department_id,department_name from departments;
+
+--equi조인
+select employee_id,emp_name,employees.department_id,department_name
+from employees,departments
+where employees.department_id=departments.department_id
+
+select employee_id,emp_name,manager_id from employees;
+select employee_id,emp_name from employees where employee_id=124;
+
+--self 조인
+select e1.employee_id,e1.emp_name,e1.manager_id,e2.emp_name
+from employees e1,employees e2
+where e1.manager_id=e2.employee_id(+);
+
+
+
 
 
 
