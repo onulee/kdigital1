@@ -95,22 +95,27 @@ def stuModify():
     print('[ 학생성적수정 ]')
     sname = input('학생이름을 입력하세요.>>')
     count=0
-    for stu in stuSave:
-        if stu == sname:
+    conn = cx_Oracle.connect("ora_user/1234@localhost:1521/xe")
+    cs = conn.cursor()
+    sql="select * from studata"
+    rows = cs.execute(sql)
+    for row in rows:
+        if row[1] == sname:
             print('{} 학생이 검색되었습니다.'.format(sname)) 
             print('[성적수정]')
             print('1. 국어점수')
             print('2. 영어점수')
             tempNum = int(input('수정과목 번호를 입력하세요.>>'))
             if tempNum == 1:
-               print('현재 국어점수 : {}'.format(stu.kor))
+               print('현재 국어점수 : {}'.format(row[2]))
                score = int(input('수정할 점수를 입력하세요.>>'))
-               stu.setKor(score)
+               sql="update studata set kor=:1,total=:2,avg=:3 where stuno=:4"
+               cs.execute(sql,(score,score+row[3]+row[4],(score+row[3]+row[4])/3,row[0]))
+               cs.close()
+               conn.commit()
+               conn.close()
                print('국어점수가 {}으로 변경되었습니다.'.format(score))
             elif tempNum == 2:
-               print('현재 영어점수 : {}'.format(stu.eng))
-               score = int(input('수정할 점수를 입력하세요.>>'))
-               stu.setEng(score)    
                print('영어점수가 {}으로 변경되었습니다.'.format(score))
             count=1
             break
@@ -122,30 +127,34 @@ def stuModify():
 def stuDelete():
     print()
     print('[ 학생성적삭제 ]')
-    sname = input('학생이름을 입력하세요.>>')
+    sname = input('학생이름을 입력하세요.>>') # 홍길 / aa
     count=0
     conn = cx_Oracle.connect("ora_user/1234@localhost:1521/xe")
     cs = conn.cursor()
     sql ="select * from studata"
+    print(sql)
     rows = cs.execute(sql)
+    # 찾은 데이터를 출력
     for row in rows:
         if row[1] == sname:
-            print('{} 학생이 검색되었습니다.'.format(sname)) 
-            flag = input('정말 삭제하시겠습니까?')
-            if flag == 'y' or flag =='Y':
-               sql="delete from studata where stuno="+str(row[0])
-               cs.execute(sql)
-               print('{} 학생이 삭제되었습니다.'.format(sname))
-            else:
-               print('삭제가 최소되었습니다.')
+            print(row[0],row[1])
             count=1
-            cs.close()
-            conn.commit()
-            conn.close()
-            break
     
-    if count == 0:
+    if count!=0: # 검색된 사람이 있으면   
+        # 찾은 데이터에서 삭제할 번호 선택    
+        print('{} 학생이 검색되었습니다.'.format(sname)) 
+        flag = input('삭제할 번호를 입력하세요.(0.삭제취소)')
+        if flag != '0':
+            sql="delete from studata where stuno="+flag
+            cs.execute(sql)
+            print('학생이 삭제되었습니다.')
+        else:
+            print('삭제가 최소되었습니다.')
+    else:
         print('검색된 이름이 없습니다. 다시 한번 입력하세요.!!')
+    cs.close()
+    conn.commit()
+    conn.close()
         
 # 학생등수처리        
 def sturank():
