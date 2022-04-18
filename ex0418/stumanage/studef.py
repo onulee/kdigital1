@@ -1,6 +1,5 @@
 from stumanage.student import Student
-from stumanage.stuOracle import *
-
+import cx_Oracle
 
 # 학생저장 전역변수 선언
 stuSave=[]
@@ -23,8 +22,6 @@ def screenPrint():
 
 # 학생성적입력
 def stuInput():
-    conn = myConn() # db연결
-    cs = conn.cursor() #메모리선언
     while True:
         print('[ 학생성적입력 ]')
         stuname = input('학생이름을 입력하세요.(0.종료)>>')
@@ -32,22 +29,36 @@ def stuInput():
             break
         kor = int(input('국어점수를 입력하세요.>>'))
         eng = int(input('영어점수를 입력하세요.>>'))
-        # 객체선언후 리스트에 저장
-        temp = Student(stuname,kor,eng)
-        stuSave.append(temp)
-        print('{}번.{} 학생이 저장되었습니다.'.format(temp.stuno,stuname))
+        math = int(input('수학점수를 입력하세요.>>'))
+        # oracle db에 저장
+        conn = cx_Oracle.connect("ora_user/1234@localhost:1521/xe")
+        cs = conn.cursor()
+        sql = "insert into studata values(stu_seq.nextval,\
+            :1,:2,:3,:4,:5,:6,:7)"
+        cs.execute(sql,(stuname,kor,eng,math,kor+eng+math,\
+            (kor+eng+math)/3,1))
+        print("insert : ",cs.rowcount)
+        print('{} 학생이 저장되었습니다.'.format(stuname))
+        cs.close()
+        conn.commit()
+        conn.close()
         print()
 
 # 상단타이틀 출력
 def topTitle():
-    print('번호','이름','국어','영어','합계','평균','등수',sep='\t')  
+    print('번호','이름','국어','영어','수학','합계','평균','등수',sep='\t')  
     print('-'*60)
 
 # 학생전체출력        
 def stuoutput():
     topTitle()
-    for stu in stuSave:
-        print(stu) 
+    conn = cx_Oracle.connect("ora_user/1234@localhost:1521/xe")
+    cs = conn.cursor()
+    sql="select * from studata"
+    rows = cs.execute(sql)
+    for row in rows:
+        print(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],sep='\t')
+    print()
         
 # 학생검색출력 - eq
 def stusearch():
@@ -55,10 +66,16 @@ def stusearch():
     print('[ 학생검색출력 ]')
     sname = input('학생이름을 입력하세요.>>')
     count=0
-    for stu in stuSave:
-        if stu == sname:
+    # db연결
+    conn = cx_Oracle.connect("ora_user/1234@localhost:1521/xe")
+    cs = conn.cursor()
+    sql = "select * from studata"
+    rows = cs.execute(sql)
+    
+    for row in rows:
+        if row[1] == sname:
             topTitle()
-            print(stu) 
+            print(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],sep='\t')
             count=1
             break
     
