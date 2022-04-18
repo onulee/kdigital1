@@ -40,6 +40,7 @@ def myInsert():
     conn.commit()
     conn.close()
     
+## update함수 호출    
 def myUpdate():
     conn = myConn()
     cs = conn.cursor()
@@ -56,11 +57,24 @@ def myUpdate():
     conn.commit()
     conn.close() 
     
+def myDelete():
+    conn = myConn()
+    cs = conn.cursor()
+    print('[ 학생성적삭제 ]')
+    stuname = input('학생이름을 입력하세요.(0.종료)>>')
+    sql="delete studata where stuno=:1"
+    cs.execute(sql,(stuname))
+    print("delete : ",cs.rowcount)
+    cs.close()
+    conn.commit()
+    conn.close()     
+    
 
 ## 프로그램 실행 ##
 mySelect()
 # myInsert() # 데이터 추가
-myUpdate()   # 데이터 수정
+# myUpdate() # 데이터 수정
+myDelete() #데이터 삭제
 
     
   
