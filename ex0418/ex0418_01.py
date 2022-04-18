@@ -57,17 +57,22 @@ def myUpdate():
     conn.commit()
     conn.close() 
     
+## delete함수 호출    
 def myDelete():
     conn = myConn()
     cs = conn.cursor()
     print('[ 학생성적삭제 ]')
     stuname = input('학생이름을 입력하세요.(0.종료)>>')
-    sql="delete studata where stuno=:1"
-    cs.execute(sql,(stuname))
+    sql="delete studata where stuname='"+stuname+"'"
+    # sql="delete from studata where stuno=:1 and stuname=:2"
+    # 입력받은 데이터를 저장
+    cs.execute(sql)
     print("delete : ",cs.rowcount)
     cs.close()
     conn.commit()
-    conn.close()     
+    conn.close() 
+    
+    
     
 
 ## 프로그램 실행 ##
