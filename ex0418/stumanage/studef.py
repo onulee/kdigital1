@@ -58,7 +58,13 @@ def stuoutput():
     rows = cs.execute(sql)
     for row in rows:
         print(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],sep='\t')
+    sql="select count(*) from studata"
+    cs.execute(sql)
+    count=cs.fetchone()
+    print("{}의 데이터가 검색되었습니다.".format(count[0]))
     print()
+    cs.close()
+    conn.close()
         
 # 학생검색출력 - eq
 def stusearch():
@@ -73,7 +79,7 @@ def stusearch():
     rows = cs.execute(sql)
     
     for row in rows:
-        if row[1] == sname:
+        if row[1].lower() == sname.lower():
             topTitle()
             print(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],sep='\t')
             count=1
@@ -118,16 +124,24 @@ def stuDelete():
     print('[ 학생성적삭제 ]')
     sname = input('학생이름을 입력하세요.>>')
     count=0
-    for i,stu in enumerate(stuSave):
-        if stu == sname:
+    conn = cx_Oracle.connect("ora_user/1234@localhost:1521/xe")
+    cs = conn.cursor()
+    sql ="select * from studata"
+    rows = cs.execute(sql)
+    for row in rows:
+        if row[1] == sname:
             print('{} 학생이 검색되었습니다.'.format(sname)) 
             flag = input('정말 삭제하시겠습니까?')
             if flag == 'y' or flag =='Y':
-               del(stuSave[i])
+               sql="delete from studata where stuno="+str(row[0])
+               cs.execute(sql)
                print('{} 학생이 삭제되었습니다.'.format(sname))
             else:
                print('삭제가 최소되었습니다.')
             count=1
+            cs.close()
+            conn.commit()
+            conn.close()
             break
     
     if count == 0:
