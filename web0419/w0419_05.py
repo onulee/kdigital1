@@ -19,4 +19,5 @@ print("a text : ",soup.a.get_text())
 # print("div id : ",soup.div["id"])
 
 print("div id=menu : ",soup.find("div",attrs={"id":"menu"}))
+print("div id=menu : ",soup.find(attrs={"href":"menu"}))
 
