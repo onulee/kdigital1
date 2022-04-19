@@ -116,6 +116,13 @@ def stuModify():
                conn.close()
                print('국어점수가 {}으로 변경되었습니다.'.format(score))
             elif tempNum == 2:
+               print('현재 영어점수 : {}'.format(row[3]))
+               score = int(input('수정할 점수를 입력하세요.>>'))
+               sql="update studata set eng=:1,total=:2,avg=:3 where stuno=:4"
+               cs.execute(sql,(score,score+row[2]+row[4],(score+row[2]+row[4])/3,row[0]))
+               cs.close()
+               conn.commit()
+               conn.close()
                print('영어점수가 {}으로 변경되었습니다.'.format(score))
             count=1
             break
