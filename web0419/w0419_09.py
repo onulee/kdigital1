@@ -6,5 +6,8 @@ res = requests.get(url,headers=headers)
 soup = BeautifulSoup(res.text,"lxml")
 cul = soup.find("div",{"class":"col_inner"}).ul
 cartoons = cul.find_all("li")
-for cartoon in cartoons:
-    print("")
+for i,cartoon in enumerate(cartoons):
+    clink = cartoon.a["href"]
+    ctxt = cartoon.find("a",{"class":"title"}).get_text()
+    print("{:2d}위 : {}".format(i+1,ctxt))
+    print("바로가기 링크 : {}".format("https://comic.naver.com"+clink))
