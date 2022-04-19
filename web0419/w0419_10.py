@@ -8,3 +8,4 @@ res = requests.get(url,headers=headers)
 soup = BeautifulSoup(res.text,"lxml")
 
 cartoons = soup.find_all("td",{"class":"title"})
+print(cartoons[0].a.get_text())
