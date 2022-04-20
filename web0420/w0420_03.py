@@ -1,3 +1,4 @@
+from unittest import skip
 import requests
 from bs4 import BeautifulSoup
 
@@ -9,10 +10,14 @@ soup = BeautifulSoup(res.text,"lxml")
 t_div = soup.find("div",{"id":"topPlusItems"})
 t2_div = t_div.find_next_sibling("div")
 items = t2_div.find_all("li")
-print(items[0].find("a",{"class":"itemname"}).get_text())
-print(items[0].find("div",{"class":"s-price"}).strong.span.span.get_text())
-
-
-
+for item in items:
+    print(item.find("a",{"class":"itemname"}).get_text())
+    print(item.find("div",{"class":"s-price"}).strong.span.span.get_text())
+    item_icon = item.find("div",{"class":"icon"})
+    if item_icon.img:
+        if item_icon.img["alt"] == "스마일배송":
+            print("무료배송")
+        else:
+            print(item_icon.img["alt"])
 print(len(items))
 
