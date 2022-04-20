@@ -13,11 +13,13 @@ items = t2_div.find_all("li")
 for item in items:
     print(item.find("a",{"class":"itemname"}).get_text())
     print(item.find("div",{"class":"s-price"}).strong.span.span.get_text())
-    item_icon = item.find("div",{"class":"icon"})
-    if item_icon.img:
-        if item_icon.img["alt"] == "스마일배송":
+    item_icon = item.find("div",{"class":"icon"}).img
+    print("test : **** ",item_icon)
+    if item_icon:
+        
+        if item_icon["alt"] == "스마일배송":
             print("무료배송")
         else:
-            print(item_icon.img["alt"])
+            print(item_icon.find_next_sibling("img"))
 print(len(items))
 
