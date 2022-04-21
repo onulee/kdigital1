@@ -18,6 +18,7 @@ for i,item in enumerate(items):
         # sub() 정규표현식을 가지고 해당되는 문자를 대체해서 변경함.
         # re.sub('r[정규표현식]','대체할문자',해당변수)
         if rate>4.5:
+            pass
             
     else:
         pass
