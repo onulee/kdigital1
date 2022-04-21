@@ -16,6 +16,13 @@ filename="시가총액1-200.csv"
 f=open(filename,"w",encoding="utf-8-sig",newline="")
 writer = csv.writer(f)
 
+# 상단 제목 입력
+# csv파일은 list타입 저장가능
+title = "N	종목명	현재가	전일비	등락률	액면가	시가총액	상장주식수	외국인비율	거래량	PER	ROE"
+# split함수 : 문자를 분기할 타입을 기준으로 list타입으로 변환
+title = title.split("\t")
+writer.writerow(title)
+
 data_rows = soup.find("table",{"class":"type_2"}).tbody.find_all("tr")
 # tr안에 td를 모두 가져오기 위해 for문 실행
 for row in data_rows:
@@ -32,3 +39,4 @@ for row in data_rows:
         data.append(column.get_text().strip())
         
     writer.writerow(data)
+f.close()
