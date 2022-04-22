@@ -52,6 +52,8 @@ def mySelectOne(search_name):
     # sql구문 실행
     sql = "select * from studata where stuname like '%"+search_name+"%'"
     cs.execute(sql)
+    # cs.fetchall() -> list타입, cs.fetchone -> 1개
+    # select count(*) from studata
     rows = cs.fetchall() #모든 데이터를 가져옴. list타입으로 반환
     if(len(rows) != 0): # list개수가 0인지 확인
         for row in rows:
