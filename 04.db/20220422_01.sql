@@ -13,7 +13,7 @@ update studata set rank=1;
 
 commit;
 
-select * from studata2;
+select * from studata;
 
 select a.employee_id,a.emp_name,a.manager_id,b.emp_name
 from employees a, employees b
