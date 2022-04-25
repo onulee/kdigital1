@@ -5,6 +5,8 @@ import requests
 from bs4 import BeautifulSoup
 import time    # 대기시간 사용을 위해 import
 import random  # 랜덤으로 input에 데이터 입력을 위해 import
+import pyautogui
+
 
 # 출력화면이 나타날때까지 대기하는 라이브러리
 from selenium.webdriver.support.ui import WebDriverWait
@@ -69,13 +71,13 @@ WebDriverWait(browser,10).until(EC.presence_of_element_located((By.XPATH,'//*[@i
 
 # 현재 높이 가져옴.
 prev_height = browser.execute_script("return document.body.scrollHeight")
-
-
+print("최초 높이 : ",prev_height)
 
 # 무한반복
 while True:
     # 자바스크립트 실행 - 스크롤을 아래방향으로 이동시켜줌.
-    browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    pyautogui.scroll(-prev_height)
+    # browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
     # 페이지 열리는 동안 대기
     time.sleep(2)
     # 변경후 높이를 저장
@@ -84,6 +86,22 @@ while True:
         break # 스크롤 크기가 더 이상 변경이 없을시 종료
     prev_height = curr_height
     # 무한반복 끝
+    print("현재 높이 : ",curr_height)
+    
+    
+# # 무한반복
+# while True:
+#     # 자바스크립트 실행 - 스크롤을 아래방향으로 이동시켜줌.
+#     browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+#     # 페이지 열리는 동안 대기
+#     time.sleep(2)
+#     # 변경후 높이를 저장
+#     curr_height = browser.execute_script("return document.body.scrollHeight")
+#     if prev_height == curr_height:
+#         break # 스크롤 크기가 더 이상 변경이 없을시 종료
+#     prev_height = curr_height
+#     # 무한반복 끝
+#     print("현재 높이 : ",curr_height)
 
 
 
@@ -93,17 +111,8 @@ page_html = browser.page_source
 soup = BeautifulSoup(page_html,"lxml")
 
 flights = soup.find_all("div",{"class":"domestic_Flight__sK0eA result"})
-print(flights)
 print("검색 개수 : ",len(flights))
 
 
-
-
-
-
-
-# page_url = browser.page_source
-
-# soup = BeautifulSoup(page_url,"lxml")
-# airs = soup.find_all("div",{"class":"domestic_Flight__sK0eA result"})
-# print(len(airs))
+# 금액 5만원 이하 항공권만 출력하고 저장하시오.
+# csv파일 저장
