@@ -3,7 +3,12 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-browser = webdriver.Chrome()
+# webdriver옵션 가져오기
+options = webdriver.ChromeOptions()
+# 브라우저 종료되지 않게 하는 options
+options.add_experimental_option("detach", True)
+browser = webdriver.Chrome(options=options)
+
 browser.get("https://www.melon.com/chart/index.htm")
 page_url = browser.page_source
 
