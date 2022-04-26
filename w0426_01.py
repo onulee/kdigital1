@@ -6,6 +6,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import pyautogui
+import re
+import csv
+
+# csv파일 저장
+filename="google_movie.csv"
+f=open(filename,"w",encoding="utf-8-sig",newline="")
+writer =csv.writer(f)
+
+# 상단제목 저장
+title="제목 평점 가격".split(" ")
+writer.writerow(title)
 
 # webdriver옵션 가져오기
 options = webdriver.ChromeOptions()
@@ -43,14 +54,48 @@ while True:
 # 현재페이지 html파싱
 soup = BeautifulSoup(browser.page_source,"lxml")
 
-movies = soup.find_all("div",{"class":"zuJxTd"})
-# print(movies)
-print(len(movies))
+# zuJxTd클래스 검색시 9개 검색이 됨. 마지막 9번째가 찾으려고 하는 것임.
+m_section = soup.find_all("div",{"class":"zuJxTd"})
+# print(len(movies))
+# 리스트[8] 가족과 함께 보는 영화 콜렉션 가져옴.-listitem 20개 영화를 가져옴
+m_articles = m_section[8].find_all("div",{"class":"ULeU3b neq64b"})
 
-sec_movie = movies[8].find("div",{"class":"ULeU3b neq64b"})
-print("-"*50)
-print("1개 파일 : ",sec_movie.find("div",{"class":"hP61id"}))
+for m_article in m_articles:
+    data=[]
+    # 영화영상 링크
+    movie_url = m_article.find("a",{"class":"Si6A0c ZD8Cqc"})["href"]
+    # 영화이미지
+    img_movie = m_article.find("img",{"class":"T75of etjhNc"})["src"]
+    
+    #----- 제목, 평점, 가격 정보
+    movie = m_article.find("div",{"class":"hP61id"})
+    # 제목
+    title = movie.find("div",{"class":"Epkrse"}).get_text()
+    # 평점
+    rate = movie.find("div",{"class":"LrNMN"}).get_text()
+    # 0-9까지 숫자와 .을 제외한 것은 모두 삭제처리
+    rate = float(re.sub(r'[^0-9.]','',rate))
+    # 가격
+    price = movie.find("span",{"class":"VfPpfd VixbEe"}).span.get_text()
+    price = int(re.sub(r'[^0-9]','',price))
+    
+    # 6천원 초과는 제외
+    if price>6000:
+        continue
+    
+    # csv파일 저장
+    data.append(title)
+    data.append(rate)
+    data.append(price)
+    writer.writerow(data)
+    
+    # 화면 출력
+    print("제목 : ",title)
+    print("평점 : ",rate)
+    print("가격 : ",price)
+    print("-"*50)
 
+f.close()
 
 
 
