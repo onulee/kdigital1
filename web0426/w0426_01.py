@@ -9,13 +9,23 @@ import pyautogui
 import re
 import csv
 
+
+# 구글무비 - 한국어지정
+# 가지고 올 위치 지정 : section list[8]
+# 평점 -> 숫자와 점만 분리해서 float 형변환
+# 가격 -> 숫자만 분리해서 int형변환
+# 가격비교
+# csv파일 저장방법
+# 이미지 다운로드 저장방법
+
+
 # csv파일 저장
 filename="google_movie.csv"
 f=open(filename,"w",encoding="utf-8-sig",newline="")
 writer =csv.writer(f)
 
 # 상단제목 저장
-title="제목 평점 가격".split(" ")
+title="제목 평점 가격 링크".split(" ")
 writer.writerow(title)
 
 # webdriver옵션 가져오기
@@ -39,8 +49,12 @@ browser.get(url)
 prev_height = browser.execute_script("return document.body.scrollHeight")
 
 while True:
-    browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-    # pyautogui.scroll(-prev_height)
+    # browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    # scroll(+):위쪽으로 이동, scroll(-):아래로 이동
+    # 마우스 중앙으로 이동
+    pyautogui.moveTo(500,500)
+    # 마우스 아래로 이동
+    pyautogui.scroll(-prev_height)
     time.sleep(3)
     
     curr_height = browser.execute_script("return document.body.scrollHeight")
@@ -60,14 +74,12 @@ m_section = soup.find_all("div",{"class":"zuJxTd"})
 # 리스트[8] 가족과 함께 보는 영화 콜렉션 가져옴.-listitem 20개 영화를 가져옴
 m_articles = m_section[8].find_all("div",{"class":"ULeU3b neq64b"})
 
-for m_article in m_articles:
+for i,m_article in enumerate(m_articles):
     data=[]
-    # 영화영상 링크
-    movie_url = m_article.find("a",{"class":"Si6A0c ZD8Cqc"})["href"]
-    # 영화이미지
-    img_movie = m_article.find("img",{"class":"T75of etjhNc"})["src"]
     
     #----- 제목, 평점, 가격 정보
+    # 영화링크
+    movie_url = m_article.find("a",{"class":"Si6A0c ZD8Cqc"})["href"]
     movie = m_article.find("div",{"class":"hP61id"})
     # 제목
     title = movie.find("div",{"class":"Epkrse"}).get_text()
@@ -87,15 +99,32 @@ for m_article in m_articles:
     data.append(title)
     data.append(rate)
     data.append(price)
+    data.append(movie_url)
+    # data 리스트 저장
     writer.writerow(data)
     
+    # 영화이미지
+    img_movie = m_article.find("img",{"class":"T75of etjhNc"})["src"]
+    print(img_movie)
+    # 이미지다운로드
+    res_img = requests.get(img_movie)
+    with open("movie_{}.jpg".format(i),"wb") as f:
+        f.write(res_img.content)
+        
     # 화면 출력
     print("제목 : ",title)
     print("평점 : ",rate)
     print("가격 : ",price)
+    # 링크
+    print("https://play.google.com",movie_url)
     print("-"*50)
 
 f.close()
+
+# 브라우저 탭1개 종료
+# browser.close()
+# 브라우저 모두 종료
+browser.quit()
 
 
 
