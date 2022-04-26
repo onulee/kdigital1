@@ -9,7 +9,6 @@ import pyautogui
 import re
 import csv
 
-
 # 구글무비 - 한국어지정
 # 가지고 올 위치 지정 : section list[8]
 # 평점 -> 숫자와 점만 분리해서 float 형변환
@@ -17,7 +16,6 @@ import csv
 # 가격비교
 # csv파일 저장방법
 # 이미지 다운로드 저장방법
-
 
 # csv파일 저장
 filename="google_movie.csv"
@@ -32,6 +30,11 @@ writer.writerow(title)
 options = webdriver.ChromeOptions()
 # 브라우저 종료되지 않게 하는 options
 options.add_experimental_option("detach", True)
+# 화면 열리지 않고 실행
+options.headless = True
+# 화면 최대화 - 모니터 최대화 화면과 일치해야 함.
+options.add_argument("window-size=1680x1050")
+
 # 브라우저 열기
 browser = webdriver.Chrome(options=options)
 # 화면 최대화
@@ -49,12 +52,12 @@ browser.get(url)
 prev_height = browser.execute_script("return document.body.scrollHeight")
 
 while True:
-    # browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
     # scroll(+):위쪽으로 이동, scroll(-):아래로 이동
-    # 마우스 중앙으로 이동
-    pyautogui.moveTo(500,500)
-    # 마우스 아래로 이동
-    pyautogui.scroll(-prev_height)
+    # # 마우스 중앙으로 이동
+    # pyautogui.moveTo(500,500)
+    # # 마우스 아래로 이동
+    # pyautogui.scroll(-prev_height)
     time.sleep(3)
     
     curr_height = browser.execute_script("return document.body.scrollHeight")
@@ -62,6 +65,10 @@ while True:
         break
     
     prev_height = curr_height
+
+
+# 화면 캡쳐
+browser.get_screenshot_as_file("googleMovie_screenshot.jpg")
 
 # res = requests.get(url,headers=headers)
 # res.raise_for_status()

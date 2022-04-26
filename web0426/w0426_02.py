@@ -96,7 +96,7 @@ for i,item in enumerate(items):
     
     rate = float(item.find("span",{"class":"PlaceListScore_rating__3Glxf"}).get_text())
     # 금액이 없을시 제외
-    if item.find("span",{"class":"PlacePriceInfo_salePrice__28VZD"})=="예약마감":
+    if item.find("span",{"class":"PlacePriceInfo_salePrice__28VZD"}).get_text()=="예약마감":
         continue
     price = item.find("span",{"class":"PlacePriceInfo_salePrice__28VZD"}).get_text()
     item_url = item.find("a",{"class":"common_clearfix__M6urU"})["href"]

@@ -1,8 +1,18 @@
-img_item = 'background-image: url("https://yaimg.yanolja.com/v5/2018/07/19/16/1280/5b5044af556398.30978172.jpg");'
+from selenium import webdriver
 
-# https 시작하는 위치 값을 가져옴.
-temp = img_item.find("https")
-print(temp)
-img_item = img_item[temp:-3]
-print("파일 위치 : ",img_item)
+options = webdriver.ChromeOptions()
+options.headless = True
+options.add_argument("window-size=1920x1080")
 
+
+# User-Agent설정, 설정하지 않을시 HeadlessChrome 표시 됨.- 차단 당할수 있음 
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36")
+
+browser = webdriver.Chrome(options=options)
+
+url="https://www.whatismybrowser.com/detect/what-is-my-user-agent/"
+browser.get(url)
+
+txt_userAgent = browser.find_element_by_id("detected_value")
+print(txt_userAgent.text)
+print("-"*50)
