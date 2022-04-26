@@ -31,12 +31,14 @@ for row in data_rows:
     # td가 1개 인것은 skip, td가 13개 인것(데이터)만 가져옴.  
     if len(columns)<=1:
         continue 
-    
     # td가 13개인것만 존재, 데이터 읽어오기
     # 엑셀파일,csv파일은 저장할때 list타입만 저장가능
     data=[]
     for column in columns: 
         data.append(column.get_text().strip())
+      
+    # 한줄 for문 사용    
+    # data = [column.get_text().strip() for column in columns]    
         
     writer.writerow(data)
 f.close()

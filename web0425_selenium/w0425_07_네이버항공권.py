@@ -116,3 +116,4 @@ print("검색 개수 : ",len(flights))
 
 # 금액 5만원 이하 항공권만 출력하고 저장하시오.
 # csv파일 저장
+# data = [column.get_text().strip() for column in columns] 
