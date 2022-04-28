@@ -7,6 +7,8 @@ print("키 최소값 : ",df['키'].min())
 print("키 최대값 : ",df['키'].max())
 print("키 평균 : ",df['키'].mean())
 print("키 개수 : ",df['키'].count())
+print("키 합계 : ",df['키'].sum())
+
 print(df['키'].nlargest(3))  #큰사람 3명 출력
 print(df['키'].nsmallest(3)) # 작은사람 3명 출력
 
