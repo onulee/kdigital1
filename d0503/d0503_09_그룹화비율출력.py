@@ -52,9 +52,11 @@ df['SW특기'] = df['SW특기'].apply(sw)
 # print(df.groupby('학교')['학년'].value_counts())
 
 # 학교로 그룹화 후 구로고 학생 학년으로 학생수 확인
-print(df.groupby('학교')['학년'].value_counts().loc['구로고'])
+# print(df.groupby('학교')['학년'].value_counts())
+print(df.groupby('학교').count())
+# print(df.groupby('학교')['학년'].value_counts().loc['구로고'])
 
 # normalize=True 개수가 아닌 (비율)로 출력
 # temp = df.groupby('학교')['학년'].value_counts(normalize=True).loc['구로고']
-temp = df.groupby('학교')['학년'].value_counts(normalize=True)
-print(temp)
+# temp = df.groupby('학교')['학년'].value_counts(normalize=True)
+# print(temp)
