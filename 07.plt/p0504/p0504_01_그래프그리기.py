@@ -15,7 +15,7 @@ z=df['수학']
 
 # plot : 그래프 생성
 # plt.plot(x,y)   : 선 그래프 생성
-plt.bar(x,y)    # : 바 그래프 생성
-plt.plot(x,z)
+plt.plot(x,y)    # : 바 그래프 생성
+plt.plot(x,z)   # 선을 2개 그리려면 x,y x,z선이 2개가 그려짐.
 # 그래프 보여줌
 plt.show()
