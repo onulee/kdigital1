@@ -53,5 +53,6 @@ plt.bar(x+0.25,y3,label='수학',width=0.25)
 # 눈금표시 30부터 110으로 변경
 plt.ylim(0,110)
 plt.xticks(x,df['이름'])
-plt.legend()
-plt.show()
+print(type(df['이름']))
+# plt.legend()
+# plt.show()
