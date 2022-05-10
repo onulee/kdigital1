@@ -94,14 +94,18 @@ plt.show()
 
 
 # 1. 가장 주문을 많이 한 상품 5개를 출력하시오.
+# value_counts()
 
 # 2. 총주문수를 출력하시오.
 # 1). 주문한 메뉴(item_name)의 종류를 출력하시오.
+#unique
 # 2). 주문한 메뉴(item_name) 종류의 수를 출력하시오.
-
+# len
 # 3. item_name당 주문 개수(order_id)와 총량(합계, quantity)을 출력하시오.
 # item_name order_id 몇개인지 출력
+# groupby('item_name')['order_id']
 # item_name quantity 몇개 인지 출력
+# groupby('item_name')['quantity']
 
 # 4. order_id 주문당 평균 계산금액을 출력하시오.
 
