@@ -20,13 +20,14 @@ data = {
     '평점' : [8.88, 9.20, 8.73, 9.16, 8.62, 7.64, 8.83, 9.10]
 }
 df = pd.DataFrame(data).sort_values('개봉 연도')
-
+# sort_values index를 reset해줘야 설정이 됨.
+df = df.reset_index(drop=True)
 print(df)
 # print(df.index)
-x = list(df['개봉 연도'])
-y = list(df['평점'])
-# x = df['개봉 연도']
-# y = df['평점']
+# x = list(df['개봉 연도'])
+# y = list(df['평점'])
+x = df['개봉 연도']
+y = df['평점']
 
 plt.plot(x,y,'ro--')
 # x그래프 눈금 2005,2010,2015,2020
