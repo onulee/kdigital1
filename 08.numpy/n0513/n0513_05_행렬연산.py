@@ -2,16 +2,16 @@ import numpy as np
 
 # 랜덤으로 1,10사이 행렬을 만들고, (2,2)행렬로 변경
 # 행렬 곱하기
-arr = np.random.randint(1,10,4).reshape(2,2)
-print(arr)
-arr = arr*10
-print(arr)
+# arr = np.random.randint(1,10,4).reshape(2,2)
+# print(arr)
+# arr = arr*10
+# print(arr)
 
-# where절을 사용하여 행렬 곱셈연산
-arr2 = np.random.randint(1,10,25).reshape(5,5)
-print(arr2)
-arr3 = np.where(arr2>5,arr2*10,arr2)
-print(arr3)
+# # where절을 사용하여 행렬 곱셈연산
+# arr2 = np.random.randint(1,10,25).reshape(5,5)
+# print(arr2)
+# arr3 = np.where(arr2>5,arr2*10,arr2)
+# print(arr3)
 
 
 
