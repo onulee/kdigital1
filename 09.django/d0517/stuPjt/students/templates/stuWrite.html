@@ -8,14 +8,14 @@
     <script>
         function cancel(){
             if(confirm('등록을 취소하시겠습니까?')){
-                location.href="{% url 'index' %}"
+                location.href="{% url 'students:stuList' %}"
             }
         }
     </script>
 </head>
 <body>
     <h2>학생등록페이지</h2>
-    <form action="#" method='post' name='frm'>
+    <form action="{% url 'students:stuWrite' %}" method='post' name='frm'>
         {% csrf_token %}
         <label>학생이름</label>
         <input type='text' name='name'><br>
