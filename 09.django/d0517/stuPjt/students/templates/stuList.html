@@ -28,7 +28,9 @@
         {% if stuList %}
             {% for stu in stuList %}
             <tr>
-                <td><a href="/students/stuView?name={{stu.s_name}}">{{ stu.s_name }}</a></td>
+                <td><a href="{% url 'students:stuView' stu.s_name stu.s_major %}">{{ stu.s_name }}</a></td>
+                <!-- 파이썬 주석 : comment  -->
+                {% comment %} <td><a href="/students/stuView?name={{stu.s_name}}">{{ stu.s_name }}</a></td> {% endcomment %}
                 <td>{{ stu.s_major }}</td>
                 <td>{{ stu.s_age }}</td>
                 <td>{{ stu.s_grade }}</td>

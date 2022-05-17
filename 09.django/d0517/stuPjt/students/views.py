@@ -32,9 +32,9 @@ def stuList(request):
     # context데이터를 html에 보냄
     return render(request,'stuList.html',context)   
 
-# 학생상세페이지
-def stuView(request):
-    name = request.GET.get('name')
+# 학생상세페이지 - 간단url:매개변수만 가능, 파라미터:request.GET.get만 가능
+def stuView(request,name,major):
+    # name = request.GET.get('name')
     # name변수를 가지고 학생 검색 - 타입 : Student객체
     qs = Student.objects.get(s_name=name)
     context={'stu':qs}
