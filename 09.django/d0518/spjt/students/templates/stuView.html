@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생상세페이지</title>
+    <style>
+        table,th,td{border:1px solid black; border-collapse:collapse;
+        text-align:center;}
+        table{width:600px; }
+        th{width:300px; height:40px; background:#eee;}
+        td{height:30px;}
+        button{width:100px; height:30px; cursor:pointer;}
+        article{width:600px; text-align:right;}
+    </style>
+</head>
+<body>
+    <h2>학생상세페이지</h2>
+    <table>
+        <tr>
+            <th>제목</th>
+            <th>내용</th>
+        </tr>
+        <tr>
+            <td>번호</td>
+            <td>{{ stu.s_no }}</td>
+        </tr>
+        <tr>
+            <td>이름</td>
+            <td>{{ stu.s_name }}</td>
+        </tr>
+        <tr>
+            <td>학과</td>
+            <td>{{ stu.s_major }}</td>
+        </tr>
+        <tr>
+            <td>나이</td>
+            <td>{{ stu.s_age }}</td>
+        </tr>
+        <tr>
+            <td>학년</td>
+            <td>{{ stu.s_grade }}</td>
+        </tr>
+        <tr>
+            <td>성별</td>
+            <td>{{ stu.s_gender }}</td>
+        </tr>
+        <tr>
+            <td>취미</td>
+            <td>{{ stu.s_hobby }}</td>
+        </tr>
+    </table>
+    <br>
+    <article>
+        <button>수정</button>
+        <button>삭제</button>
+        <a href="{% url 'students:stuList' %}"><button>목록</button></a>
+    </article>
+    
+</body>
+</html>

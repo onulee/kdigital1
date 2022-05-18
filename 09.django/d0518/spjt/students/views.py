@@ -5,7 +5,10 @@ from students.models import Student
 
 # 학생상세 함수
 def stuView(request,s_no):
-    return
+    # s_no를 가지고 해당되는 데이터 검색
+    qs = Student.objects.get(s_no=s_no)
+    context = {'stu':qs}
+    return render(request,'stuView.html',context)
 
 
 # 학생전체리스트 함수
