@@ -53,7 +53,7 @@
     </table>
     <br>
     <article>
-        <button>수정</button>
+        <a href="{% url 'students:stuUpdate' stu.s_no %}"><button>수정</button></a>
         <button>삭제</button>
         <a href="{% url 'students:stuList' %}"><button>목록</button></a>
     </article>

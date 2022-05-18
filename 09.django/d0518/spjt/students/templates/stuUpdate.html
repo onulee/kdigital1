@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생수정</title>
+    <script>
+        function formbtn(){
+            if(document.getElementById('major').value==''){
+                alert('학과가 없으면 저장이 되지 않습니다.')
+                document.getElementById('major').focus()
+                return false
+            }
+            alert('학생정보가 수정되었습니다')
+            return document.frm.submit()
+        }
+
+        function cancel(){
+            if( confirm('수정을 취소하시겠습니까?')){
+                location.href="{% url 'students:stuList' %}"
+            }else{
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>학생수정</h2>
+    <form action="{% url 'students:stuUpdateOk' %}" method='post' name='frm'>
+        {% csrf_token %}
+        <input type='hidden' name='s_no' value={{stu.s_no}}>
+        <label>학생이름</label>
+        <label>{{ stu.s_name }}</label><br>
+        {% comment %} <input type='text' id="name" name='name' value='{{ stu.s_name }}'><br> {% endcomment %}
+        <label>학과</label>
+        <input type='text' name='major' id='major' value='{{ stu.s_major }}'><br>
+        <label>나이</label>
+        <input type='text' name='age' value={{stu.s_age}}><br>
+        <label>학년</label>
+        <input type='text' name='grade' value={{stu.s_grade}}><br>
+        <label>[ 성별 ]</label><br>
+        <input type='radio' name='gender' id='male' value='남자' {% if '남자' in stu.s_gender %} checked {% endif %} >
+        <label for='male'>남자</label>
+        <input type='radio' name='gender' id='female' value='여자' {% if '여자' in stu.s_gender%} checked {% endif %}>
+        <label for='female'>여자</label>
+        <br>
+        <label>[ 취미 ]</label><br>
+        <input type='checkbox' name='hobby' id='game' value='게임' {% if '게임' in stu.s_hobby %} checked{%endif%} >
+        <label for='game'>게임</label>
+        <input type='checkbox' name='hobby' id='golf' value='골프' {% if '골프' in stu.s_hobby %} checked{%endif%} >
+        <label for='golf'>골프</label>
+        <input type='checkbox' name='hobby' id='swim' value='수영' {% if '수영' in stu.s_hobby %} checked{%endif%}>
+        <label for='swim'>수영</label>
+        <input type='checkbox' name='hobby' id='book' value='독서' {% if '독서' in stu.s_hobby %} checked{%endif%}>
+        <label for='book'>독서</label>
+        <br>
+
+        <button type='button' onclick="formbtn()">저장</button>
+        <button type='button' onclick='cancel()'>취소</button> 
+    </form>
+    <br>
+</body>
+</html>

@@ -3,6 +3,38 @@ from django.urls import reverse
 from django.shortcuts import render
 from students.models import Student
 
+# 학생수정저장 함수
+def stuUpdateOk(request):
+    # form데이터 가져오기
+    s_no = request.POST.get('s_no')
+    major = request.POST.get('major')
+    age = request.POST.get('age')
+    grade = request.POST.get('grade')
+    gender = request.POST.get('gender')
+    hobby = request.POST.getlist('hobby')  # hobby list배열형태
+    print("s_hobby list : ",hobby)
+    hobby = ','.join(hobby) # list타입 -> str타입변경
+    
+    # s_no 데이터 찾기
+    qs = Student.objects.get(s_no=s_no)
+    qs.s_major = major
+    qs.s_age = age
+    qs.s_grade = grade
+    qs.s_gender = gender
+    qs.s_hobby = hobby
+    # 데이터 수정저장
+    qs.save()
+    
+    return HttpResponseRedirect(reverse('students:stuList')) 
+
+
+# 학생수정 함수
+def stuUpdate(request,s_no):
+    qs = Student.objects.get(s_no=s_no)
+    context = {'stu':qs}
+    return render(request,'stuUpdate.html',context)
+
+
 # 학생상세 함수
 def stuView(request,s_no):
     # s_no를 가지고 해당되는 데이터 검색

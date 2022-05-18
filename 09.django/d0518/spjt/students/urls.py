@@ -11,4 +11,8 @@ urlpatterns = [
     path('stuList/',views.stuList,name='stuList'),
     # 학생상세
     path('<str:s_no>/stuView/',views.stuView,name='stuView'),
+    # 학생수정
+    path('<str:s_no>stuUpdate/',views.stuUpdate,name='stuUpdate'),
+    # 학생수정저장
+    path('stuUpdateOk',views.stuUpdateOk,name='stuUpdateOk'),
 ]
