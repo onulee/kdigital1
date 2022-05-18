@@ -3,5 +3,6 @@ from . import views
 
 app_name='students'  # 페이지내에서 이동할때
 urlpatterns = [
-    path('stuWrite/',views.stuWrite,name='stuWrite'),
+    path('stuWrite/',views.stuWrite,name='stuWrite'), # 학생등록
+    path('stuWriteOk/',views.stuWriteOk,name='stuWriteOk'), # 학생등록저장
 ]
