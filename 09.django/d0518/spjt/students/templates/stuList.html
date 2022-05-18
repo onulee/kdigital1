@@ -7,6 +7,9 @@
     <title>학생전체리스트</title>
     <style>
         * {margin:0; padding:0;}
+        div{width:800px; margin:0 auto;}
+        h4{width:750px; text-align:right;}
+        button{font-size:15px; width:130px; height:40px; cursor:pointer;}
         h2{width:750px; text-align:center; height:60px; padding-top:30px;}
         h3{width:750px; text-align:right; height:30px; padding-bottom:20px;}
         table,th,td{border:1px solid black; border-collapse:collapse;
@@ -17,36 +20,42 @@
     </style>
 </head>
 <body>
-    <h2>학생전체리스트</h2>
-    <h3>학생수 : {{ count }} 명</h3>
-    <table>
-        <tr>
-            <th>번호</th>
-            <th>학생이름</th>
-            <th>학과</th>
-            <th>나이</th>
-            <th>학년</th>
-            <th>성별</th>
-            <th>취미</th>
-        </tr>
-        {% if stuList  %}
+    <div>
+        <h2>학생전체리스트</h2>
+        <h3>학생수 : {{ count }} 명</h3>
+        <table>
+            <tr>
+                <th>번호</th>
+                <th>학생이름</th>
+                <th>학과</th>
+                <th>나이</th>
+                <th>학년</th>
+                <th>성별</th>
+                <th>취미</th>
+            </tr>
+            {% if stuList  %}
             {% for stu in stuList %}
-                <tr>
-                    <td>{{ stu.s_no }}</td>
-                    <td>{{ stu.s_name }}</td>
-                    <td>{{ stu.s_major }}</td>
-                    <td>{{ stu.s_age }}</td>
-                    <td>{{ stu.s_grade }}</td>
-                    <td>{{ stu.s_gender }}</td>
-                    <td>{{ stu.s_hobby }}</td>
-                </tr>
+            <tr>
+                <td>{{ stu.s_no }}</td>
+                <td>{{ stu.s_name }}</td>
+                <td>{{ stu.s_major }}</td>
+                <td>{{ stu.s_age }}</td>
+                <td>{{ stu.s_grade }}</td>
+                <td>{{ stu.s_gender }}</td>
+                <td>{{ stu.s_hobby }}</td>
+            </tr>
             {% endfor %}
-        {% else %}
+            {% else %}
             <tr>
                 <td colspan='7'>데이터가 없습니다.</td>
             </tr>
-        {% endif %}
-    </table>
+            {% endif %}
+        </table>
+        <br>
+        <h4>
+            <a href="{% url 'students:stuWrite' %}"><button>학생등록</button></a>
+        </h4>
+    </div>
     
 </body>
 </html>

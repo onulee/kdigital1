@@ -31,9 +31,9 @@ def stuWriteOk(request):
     # ss_hobby = s_hobby.split(',') # str타입 -> list타입변경
     
     # db에 저장 -> sqlite3 table insert명령어
-    Student.objects.create(s_name=name,s_major=major,s_age=age,s_gender=gender,s_hobby=hobby)
+    Student.objects.create(s_name=name,s_major=major,s_age=age,s_grade=grade,s_gender=gender,s_hobby=hobby)
     # qs = Student(s_name=name,s_major=major,s_age=age,s_gender=gender,s_hobby=hobby)
     # qs.save()
     print("insert OK!")
     
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('students:stuList'))

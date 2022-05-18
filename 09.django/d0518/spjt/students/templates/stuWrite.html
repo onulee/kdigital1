@@ -6,8 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>학생등록</title>
     <script>
+        function formbtn(){
+            if(document.getElementById('name').value==''){
+                alert('이름을 입력하셔야 합니다.')
+                return false
+            }
+            return document.frm.submit()
+        }
         function cancel(){
-            alert('취소버튼 클릭 됨')
+            location.href="{% url 'students:stuList' %}"
         }
     </script>
 </head>
@@ -16,7 +23,7 @@
     <form action="{% url 'students:stuWriteOk' %}" method='post' name='frm'>
         {% csrf_token %}
         <label>학생이름</label>
-        <input type='text' name='name'><br>
+        <input type='text' id="name" name='name'><br>
         <label>학과</label>
         <input type='text' name='major'><br>
         <label>나이</label>
@@ -40,8 +47,9 @@
         <label for='book'>독서</label>
         <br>
 
-        <input type='submit' value='전송'>
+        <button type='button' onclick="formbtn()">저장</button>
         <button type='button' onclick='cancel()'>취소</button> 
     </form>
+    <br>
 </body>
 </html>
