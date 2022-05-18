@@ -10,7 +10,7 @@
     <h2>메인페이지</h2>
     <ul>
         <a href="/students/stuWrite"><li>학생등록</li></a>
-        <li>학생전체리스트</li>
+        <a href="{% url 'students:stuList' %}"><li>학생전체리스트</li></a>
         <a href="/admin"><li>관리자페이지</li></a>
     </ul>
     
