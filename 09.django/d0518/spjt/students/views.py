@@ -3,6 +3,11 @@ from django.urls import reverse
 from django.shortcuts import render
 from students.models import Student
 
+# 학생상세 함수
+def stuView(request,s_no):
+    return
+
+
 # 학생전체리스트 함수
 def stuList(request):
     # db전체데이터 가져오기 - order_by:정렬, -역순정렬

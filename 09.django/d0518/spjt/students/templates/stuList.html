@@ -37,7 +37,7 @@
             {% for stu in stuList %}
             <tr>
                 <td>{{ stu.s_no }}</td>
-                <td>{{ stu.s_name }}</td>
+                <td><a href="{% url 'students:stuView' stu.s_no %}">{{ stu.s_name }}</a></td>
                 <td>{{ stu.s_major }}</td>
                 <td>{{ stu.s_age }}</td>
                 <td>{{ stu.s_grade }}</td>
