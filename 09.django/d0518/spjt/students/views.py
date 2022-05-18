@@ -3,6 +3,13 @@ from django.urls import reverse
 from django.shortcuts import render
 from students.models import Student
 
+# 학생삭제 함수
+def stuDelete(request,s_no):
+    qs = Student.objects.get(s_no=s_no)
+    qs.delete()
+    return HttpResponseRedirect(reverse('students:stuList'))
+
+
 # 학생수정저장 함수
 def stuUpdateOk(request):
     # form데이터 가져오기

@@ -14,6 +14,15 @@
         button{width:100px; height:30px; cursor:pointer;}
         article{width:600px; text-align:right;}
     </style>
+    <script>
+        function deleteBtn(){
+            if(confirm('정말 삭제하시겠습니까? 삭제시 복구가 안됩니다.')){
+                location.href="{% url 'students:stuDelete' stu.s_no %}"
+            }else{
+                return false
+            }
+        }
+    </script>
 </head>
 <body>
     <h2>학생상세페이지</h2>
@@ -54,7 +63,7 @@
     <br>
     <article>
         <a href="{% url 'students:stuUpdate' stu.s_no %}"><button>수정</button></a>
-        <button>삭제</button>
+        <button onclick="deleteBtn()">삭제</button>
         <a href="{% url 'students:stuList' %}"><button>목록</button></a>
     </article>
     
