@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시판</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/notice_list.css' %}">
+  
+</head>
+<body>
+<section>
+    <h1>NOTICE</h1>
+    <div class="wrapper">
+      <form action="/search" name="search" method="post">
+        <select name="category" id="category">
+          <option value="all">전체</option>
+          <option value="name">이름</option>
+          <option value="major">아이디</option>
+        </select>
+
+        <div class="title">
+          <input type="text" size="16">
+        </div>
+  
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+
+    <table>
+      <colgroup>
+        <col width="15%">
+        <col width="40%">
+        <col width="15%">
+        <col width="15%">
+        <col width="15%">
+      </colgroup>
+      <!-- 제목부분 -->
+      <tr>
+        <th>No.</th>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>날짜</th>
+        <th>전화번호</th>
+      </tr>
+      <!-- 내용부분 -->
+      <tbody id="tbody">
+        {% if memberList %}
+          {% for member in memberList %}
+            <tr>
+              <td><span class='table-notice'>{{member.m_no}}</span></td>
+              <td class='table-title' id='pInput'><a href='#'>{{member.m_id}}</a></td>
+              <td>{{member.m_name}}</td>
+              {% comment %} date:'Y-m-d H:i 날짜 형식 {% endcomment %}
+              <td>{{member.m_date|date:'Y-m-d H:i'}}</td>
+              <td>{{member.m_tel}}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan='5'>데이터가 없습니다.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+      
+    </table>
+
+    <ul class="page-num">
+      <li class="first"></li>
+      <li class="prev"></li>
+      <li class="num"><div>1</div></li>
+      <li class="next"></li>
+      <li class="last"></li>
+    </ul>
+
+    <a href="#"><div class="write">회원등록</div></a>
+  </section>
+
+</body>
+</html>
