@@ -112,6 +112,7 @@
         $(function(){
             $("#loginBtn").click(function(){
                 alert('test')
+                logBtn()
             })
         })
         
@@ -129,6 +130,7 @@
         <div id="content">
             <div style="margin-bottom: 7px"></div>
             <form action="" method="post" id='frm'>
+                {% csrf_token %}
                 <fieldset style="border: 0">
                     <div class="id_area">
                         <div class="input_row" id="id_area">
