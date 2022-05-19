@@ -111,7 +111,6 @@
         //jquery구문
         $(function(){
             $("#loginBtn").click(function(){
-                alert('test')
                 logBtn()
             })
         })
@@ -120,6 +119,9 @@
     </script>
 </head>
 <body>
+    {% if message %}
+        <script>alert('{{ message }}')</script>
+    {% endif %}
 <div id="wrap">
     <div id="header">
         <h1>
@@ -129,7 +131,7 @@
     <div id="container">
         <div id="content">
             <div style="margin-bottom: 7px"></div>
-            <form action="" method="post" id='frm'>
+            <form action="{% url 'member:login' %}" method="post" id='frm'>
                 {% csrf_token %}
                 <fieldset style="border: 0">
                     <div class="id_area">

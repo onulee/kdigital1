@@ -10,11 +10,16 @@
 <body>
     <h2>메인페이지</h2>
     <ul>
+        {% if not request.session.session_id %}
+        <li><h2>로그인을 하셔야 회원정보를 볼수 있습니다.</h2></li>
         <a href="{% url 'member:login' %}"><li>login</li></a>
         <a href="#"><li>회원가입</li></a>
         <li>---------</li>
-        <a href="#"><li>logout</li></a>
+        {% else %}
+        <li><h3>{{ request.session.session_name }}님 환영합니다.</h3></li>
+        <a href="{% url 'member:logout' %}"><li>logout</li></a>
         <a href="{% url 'member:list' %}"><li>전체회원리스트</li></a>
+        {% endif %}
     </ul>
     <img src="{% static 'images/member/hh1.jpg' %}">
     <br>
