@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원전체리스트</title>
+    <style>
+        * {margin:0; padding:0;}
+        div{width:800px; margin:0 auto;}
+        h4{width:750px; text-align:right;}
+        button{font-size:15px; width:130px; height:40px; cursor:pointer;}
+        h2{width:750px; text-align:center; height:60px; padding-top:30px;}
+        h3{width:750px; text-align:right; height:30px; padding-bottom:20px;}
+        table,th,td{border:1px solid black; border-collapse:collapse;
+        text-align:center;}
+        table{width:750px;}
+        th{width:100px; height:40px; background:#eee;}
+        td{height:30px;}
+    </style>
+</head>
+<body>
+    <h2>회원전체리스트</h2>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>아이디</th>
+            <th>패스워드</th>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>우편번호</th>
+            <th>주소1</th>
+            <th>주소2</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>aaa</td>
+            <td>1111</td>
+            <td>홍길동</td>
+            <td>010-1111-1111</td>
+            <td>74521</td>
+            <td>서울 구로구 구로동</td>
+            <td>101-1</td>
+        </tr>
+    </table>
+
+    <div>
+        <img src="{% static 'images/han1.png' %}">
+    </div>
+
+
+    
+</body>
+</html>
