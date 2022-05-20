@@ -19,6 +19,8 @@ def login(request):
         # id, pw
         id = request.POST.get('m_id')
         pw = request.POST.get('m_pw')
+        # if not (id and pw):
+        #    return render(request,'login.html',{'msg':'id,pw 데이터가 없습니다.'})  
         # 해당되는 id,pw가 없을때 error
         try:
             qs = Member.objects.get(m_id=id,m_pw=pw)
@@ -33,7 +35,7 @@ def login(request):
             request.session['session_name'] = qs.m_name
             request.session['msg'] = "정상적으로 로그인이 되었습니다."
             # redirect message 변수전달
-            return redirect('/',message='정상적으로 로그인이 되었습니다.')
+            return redirect('/')
         else:
             msg='아이디 또는 패스워드가 일치하지 않습니다. 다시 로그인하세요.'
             return render(request,'login.html',{'message':msg})

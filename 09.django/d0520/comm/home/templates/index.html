@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>메인페이지</h2>
+    <ul>
+        <li><h2>로그인을 하셔야 글쓰기가 가능합니다.</h2></li>
+        <a href="#"><li>로그인</li></a>
+        <li>회원가입</li>
+        <li>-------</li>
+        <li>aaa 님 환영합니다.</li>
+        <li>로그아웃</li>
+        <li>자유게시판</li>
+        <a href="{% url 'freeboard:fList' %}"><li>전체회원리스트</li></a>
+        <a href="/admin"><li>admin</li></a>
+    </ul>
+</body>
+</html>
