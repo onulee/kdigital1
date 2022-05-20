@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    {% if msg %}
+    <script>alert('{{ kwargs.msg }}')</script>
+    {% endif %}
     <h2>메인페이지</h2>
     <ul>
         {% if not request.session.session_id %}
