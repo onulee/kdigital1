@@ -9,6 +9,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/read.css'%}">
+  <script>
+    function deleteBtn(){
+      if (confirm('정말 삭제하시겠습니까?')){
+        location.href="{% url 'freeboard:fDelete' fboard.f_no %}"
+      }else{
+        return false
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -72,9 +81,9 @@
       </tr>
     </table>
 
-    <a href="{% url 'freeboard:fList' %}"><div class="list">목록</div></a>
-    <div class="list">삭제</div>
-    <a href="#"><div class="list">수정</div></a>
+    <a href="{% url 'freeboard:fList' %}"><div class="list btn">목록</div></a>
+    <div class="list btn" onclick="deleteBtn()">삭제</div>
+    <a href="#"><div class="list btn">수정</div></a>
   </section>
 
   <footer>

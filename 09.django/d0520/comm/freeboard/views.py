@@ -2,6 +2,13 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from freeboard.models import Freeboard
 
+# freeboard fDelete 함수
+def fDelete(request,f_no):
+    qs = Freeboard.objects.get(f_no=f_no)
+    qs.delete()
+    return redirect('/freeboard/fList')
+
+
 # freeboard fWrite페이지 함수
 def fWrite(request):
     if request.method=='GET':
