@@ -9,15 +9,18 @@
 <body>
     <h2>메인페이지</h2>
     <ul>
+        {% if not request.session.session_id %}
         <li><h2>로그인을 하셔야 글쓰기가 가능합니다.</h2></li>
         <a href="{% url 'member:login' %}"><li>로그인</li></a>
         <li>회원가입</li>
         <li>-------</li>
-        <li>aaa 님 환영합니다.</li>
-        <li>로그아웃</li>
+        {% else %}
+        <li>{{ request.session.session_nickname }} 님 환영합니다.</li>
+        <a href="{% url 'member:logout' %}"><li>로그아웃</li></a>
         <a href="{% url 'freeboard:fList' %}"><li>자유게시판</li></a>
         <a href="#"><li>전체회원리스트</li></a>
         <a href="/admin"><li>admin</li></a>
+        {% endif %}
     </ul>
 </body>
 </html>

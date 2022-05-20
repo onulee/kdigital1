@@ -21,16 +21,16 @@
         $("#pw").focus()
         return false
       }
-
       $("#login").submit()
-
-      
     }
 
   </script>
 </head>
 
 <body>
+  {% if msg  %}
+    <script>alert('{{ msg }}')</script>
+  {% endif %}
   <header>
     <ul>
       <li>회원가입</li> <span>|</span>
