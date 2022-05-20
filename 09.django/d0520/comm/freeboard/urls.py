@@ -9,6 +9,8 @@ urlpatterns = [
     path('<str:f_no>/fView',views.fView,name='fView'),
     # fWrite.html연결
     path('fWrite/',views.fWrite,name='fWrite'),
+    # fUpdate.html연결
+    path('<str:f_no>/fUpdate',views.fUpdate,name='fUpdate'),
     # fDelete연결
     path('<str:f_no>/fDelete',views.fDelete,name='fDelete'),
 ]

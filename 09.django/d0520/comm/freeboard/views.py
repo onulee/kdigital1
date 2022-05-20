@@ -8,6 +8,19 @@ def fDelete(request,f_no):
     qs.delete()
     return redirect('/freeboard/fList')
 
+# freeboard fUpdate페이지 함수
+def fUpdate(request,f_no):
+    if request.method=='GET':
+        qs = Freeboard.objects.get(f_no=f_no)
+        context = { 'fboard':qs }
+        return render(request,'fUpdate.html',context)
+    else:
+        qs = Freeboard.objects.get(f_no=f_no)
+        qs.f_title = request.POST.get('title')
+        qs.f_content = request.POST.get('content')
+        qs.save()
+        return redirect('/freeboard/fList')
+
 
 # freeboard fWrite페이지 함수
 def fWrite(request):

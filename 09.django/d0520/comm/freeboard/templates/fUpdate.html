@@ -4,20 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Pages - Login</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/read.css'%}">
-  <script>
-    function deleteBtn(){
-      if (confirm('정말 삭제하시겠습니까?')){
-        location.href="{% url 'freeboard:fDelete' fboard.f_no %}"
-      }else{
-        return false
-      }
+<link rel="stylesheet" href="{% static 'css/write.css' %}">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+  function writeBtn(){
+    if ($("#title").val()==""){
+      alert('제목을 입력하셔야 등록이 가능합니다.')
+      $("#title").focus()
+      return false
     }
-  </script>
+
+    $("#write").submit()  
+    
+  }
+</script>
 </head>
 
 <body>
@@ -56,34 +59,60 @@
   </nav>
 
   <section>
-    <h1>NOTICE</h1>
-   
-    <table>
-      <tr>
-        <th><strong>제&nbsp;&nbsp;&nbsp;목</strong><span class="separator">|</span>{{ fboard.f_title }}</th>
-      </tr>
-      <tr>
-        <td><strong>작성자</strong> <span class="separator">|</span>{{ fboard.id }}</td>
-      </tr>
-      <tr>
-        <td><strong>날&nbsp;&nbsp;&nbsp;짜</strong><span class="separator">|</span>{{ fboard.f_createdate|date:'Y-m-d H:i' }}</td>
-      </tr>
-      <tr>
-        <td class="article">
-          <div width="80%">{{ fboard.f_content }}</div>
-        </td>
-      </tr>
-      <tr>
-        <td><strong>다음글</strong> <span class="separator">|</span> [키즈잼] 2월 프로그램 안내</td>
-      </tr>
-      <tr>
-        <td><strong>이전글</strong> <span class="separator">|</span> [키즈잼] 2020년 1분기 정기 휴관일 안내</td>
-      </tr>
-    </table>
+    <h1>관리자 글쓰기</h1>
+    <hr>
 
-    <a href="{% url 'freeboard:fList' %}"><div class="list btn">목록</div></a>
-    <div class="list btn" onclick="deleteBtn()">삭제</div>
-    <a href="{% url 'freeboard:fUpdate' fboard.f_no  %}"><div class="list btn">수정</div></a>
+    <form action="{% url 'freeboard:fUpdate' fboard.f_no %}" name="write" id="write" method="post">
+      {% csrf_token %}
+      <input type='hidden' name='f_no' value='{{fboard.f_no}}'>
+      <table>
+        <colgroup>
+          <col width="15%">
+          <col width="85%">
+        </colgroup>
+        <tr>
+          <th>분류</th>
+          <td>
+            <div class="category-wrapper">
+              <select name="category" id="category">
+                <option value="notice">공지</option>
+                <option value="event">이벤트</option>
+              </select>  
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>아이디</th>
+          <td>
+            <input type="text" name="id" value='{{ fboard.id }}' readonly >
+          </td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td>
+            <input type="text" name="title" id="title" value='{{fboard.f_title}}'>
+          </td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td>
+            <textarea name="content" cols="50" rows="10">{{fboard.f_content}}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <th>이미지 표시</th>
+          <td>
+            <input type="file" name="file" id="file">
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <div class="button-wrapper">
+        <button type="button" class="write" onclick="writeBtn()">수정완료</button>
+        <button type="button" class="cancel" onclick="javascript:location.href='/freeboard/fList'">취소</button>
+      </div>
+    </form>
+
   </section>
 
   <footer>
