@@ -85,10 +85,12 @@ button {
   background: #3d3d3d;
   border: none;
   margin-right: 15px;
+  cursor: pointer;
 }
 
 .cancel {
   color: black;
   background: white;
   border: 2px solid #3d3d3d;
+  cursor: pointer;
 }

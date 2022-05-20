@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -5,8 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pages - Login</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/write.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/write.css' %}">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+  function writeBtn(){
+    if ($("#title").val()==""){
+      alert('제목을 입력하셔야 등록이 가능합니다.')
+      $("#title").focus()
+      return false
+    }
+
+    $("#write").submit()  
+    
+  }
+</script>
 </head>
 
 <body>
@@ -48,7 +62,8 @@
     <h1>관리자 글쓰기</h1>
     <hr>
 
-    <form action="/write" name="write" method="post">
+    <form action="{% url 'freeboard:fWrite' %}" name="write" id="write" method="post">
+      {% csrf_token %}
       <table>
         <colgroup>
           <col width="15%">
@@ -66,9 +81,15 @@
           </td>
         </tr>
         <tr>
+          <th>아이디</th>
+          <td>
+            <input type="text" name="id" value={{request.session.session_id}} readonly >
+          </td>
+        </tr>
+        <tr>
           <th>제목</th>
           <td>
-            <input type="text" name="title">
+            <input type="text" name="title" id="title">
           </td>
         </tr>
         <tr>
@@ -86,8 +107,8 @@
       </table>
       <hr>
       <div class="button-wrapper">
-        <button type="submit" class="write">작성완료</button>
-        <button type="button" class="cancel">취소</button>
+        <button type="button" class="write" onclick="writeBtn()">작성완료</button>
+        <button type="button" class="cancel" onclick="javascript:location.href='/freeboard/fList'">취소</button>
       </div>
     </form>
 

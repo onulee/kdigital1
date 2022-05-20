@@ -51,10 +51,13 @@
    
     <table>
       <tr>
-        <th>{{ fboard.f_title }}</th>
+        <th><strong>제&nbsp;&nbsp;&nbsp;목</strong><span class="separator">|</span>{{ fboard.f_title }}</th>
       </tr>
       <tr>
-        <td>{{ fboard.f_createdate|date:'Y-m-d H:i' }}</td>
+        <td><strong>작성자</strong> <span class="separator">|</span>{{ fboard.id }}</td>
+      </tr>
+      <tr>
+        <td><strong>날&nbsp;&nbsp;&nbsp;짜</strong><span class="separator">|</span>{{ fboard.f_createdate|date:'Y-m-d H:i' }}</td>
       </tr>
       <tr>
         <td class="article">

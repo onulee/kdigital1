@@ -78,7 +78,7 @@
         {% for fboard in fList %}
           <tr>
             <td>{{fboard.f_no}}</td>
-            <td class="table-title"><a href="{% url 'freeboard:fview' fboard.f_no %}">{{fboard.f_title}}</a></td>
+            <td class="table-title"><a href="{% url 'freeboard:fView' fboard.f_no %}">{{fboard.f_title}}</a></td>
             <td>{{fboard.f_createdate|date:'Y-m-d H:i'}}</td>
           </tr>
         {% endfor %}
@@ -100,7 +100,7 @@
       <li class="last"></li>
     </ul>
 
-    <div class="write">쓰기</div>
+    <a href="{% url 'freeboard:fWrite' %}"><div class="write">쓰기</div></a>
   </section>
 
   <footer>

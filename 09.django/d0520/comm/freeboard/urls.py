@@ -5,6 +5,8 @@ app_name='freeboard'
 urlpatterns = [
     # fList.html연결
     path('fList/',views.fList,name='fList'),
-    # fview.html연결
-    path('<str:f_no>/fview',views.fview,name='fview'),
+    # fView.html연결
+    path('<str:f_no>/fView',views.fView,name='fView'),
+    # fWrite.html연결
+    path('fWrite/',views.fWrite,name='fWrite'),
 ]
