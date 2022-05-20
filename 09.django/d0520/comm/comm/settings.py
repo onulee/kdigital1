@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'freeboard', #자유게시판 app 연결
     'home', #index app 연결
+    'member',
 ]
 
 MIDDLEWARE = [

@@ -7,4 +7,6 @@ urlpatterns = [
     path('',include('home.urls')),
     # freeboard app연결
     path('freeboard/',include('freeboard.urls')),
+    # member app연결
+    path('member/',include('member.urls')),
 ]
