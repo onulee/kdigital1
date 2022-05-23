@@ -14,4 +14,6 @@ class Member(models.Model):
     hobby = models.CharField(max_length=100,blank=True)
     createdate = models.DateTimeField(datetime.now(),blank=True)
     updatedate = models.DateTimeField(datetime.now(),blank=True)
-    
+  
+    def __str__(self):
+        return self.id 
