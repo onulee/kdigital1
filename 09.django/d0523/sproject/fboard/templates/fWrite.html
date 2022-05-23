@@ -1,13 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Pages - Login</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/read.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/write.css' %}">
+  <script>
+    function cancelBtn(){
+      alert("test")
+      if (confirm('데이터를 삭제하시겠니까?')){
+        
+      }
+
+    }
+  </script>
 </head>
 
 <body>
@@ -46,30 +55,57 @@
   </nav>
 
   <section>
-    <h1>NOTICE</h1>
+    <h1>관리자 글쓰기</h1>
+    <hr>
 
-    <table>
-      <tr>
-        <th>[키즈잼] 2020년 이용 시간 & 이용 요금 변경 안내</th>
-      </tr>
-      <tr>
-        <td>2019-12-11</td>
-      </tr>
-      <tr>
-        <td class="article">
-          <img src="https://www.midashotel.co.kr/Midas_uploads/2019-12-11%2017-13-142020%EB%85%84_%ED%82%A4%EC%A6%88%EC%9E%BC_%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD_%EC%95%88%EB%82%B4.jpg" alt="" width="80%"></td>
-      </tr>
-      <tr>
-        <td><strong>다음글</strong> <span class="separator">|</span> [키즈잼] 2월 프로그램 안내</td>
-      </tr>
-      <tr>
-        <td><strong>이전글</strong> <span class="separator">|</span> [키즈잼] 2020년 1분기 정기 휴관일 안내</td>
-      </tr>
-    </table>
-
-    <div class="list">목록</div>
-    <div class="list">삭제</div>
-    <div class="list">수정</div>
+    <form action="{% url 'fboard:fWrite'%}" name="write" method="post">
+      {% csrf_token %}
+      <table>
+        <colgroup>
+          <col width="15%">
+          <col width="85%">
+        </colgroup>
+        <tr>
+          <th>분류</th>
+          <td>
+            <div class="category-wrapper">
+              <select name="category" id="category">
+                <option value="notice">공지</option>
+                <option value="event">이벤트</option>
+              </select>  
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td>
+            <input type="text" name="title" id="title">
+          </td>
+        </tr>
+        <tr>
+          <th>아이디</th>
+          <td>{{request.session.session_id}}</td>
+          <input type='hidden' name='id' value="{{request.session.session_id}}">
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td>
+            <textarea name="content" id="text" cols="50" rows="10"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <th>이미지 표시</th>
+          <td>
+            <input type="file" name="file" id="file">
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <div class="button-wrapper">
+        <button type="submit" class="write">작성완료</button>
+        <button type="button" onclick="cancelBtn()" class="cancel">취소</button>
+      </div>
+    </form>
   </section>
 
   <footer>

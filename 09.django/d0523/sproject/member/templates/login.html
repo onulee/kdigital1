@@ -8,9 +8,28 @@
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
-</head>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    function loginBtn(){
+      if($("#id").val()==''){
+        alert('아이디가 입력되지 않았습니다. 아이디를 입력해주세요.')
+        $("#id").focus()
+        return false
+      }
+      if($("#pw").val()==''){
+        alert('패스워드가 입력되지 않았습니다. 패스워드를 입력해주세요.')
+        $("#pw").focus()
+        return false
+      }
 
+      return $("#login").submit()
+    }
+  </script>
+</head>
 <body>
+  {% if msg %}
+    <script>alert('{{ msg }}')</script>
+  {% endif %}
   <header>
     <ul>
       <li>회원가입</li> <span>|</span>
@@ -55,12 +74,13 @@
       </ul>  
     </article>
 
-    <form action="/login" name="login" method="post">
+    <form action="{% url 'member:login' %}" id='login' name="login" method="post">
+      {% csrf_token %}
       <div class="id">
-        <input type="text" name="id" size="30" placeholder="CJ ONE 통합아이디 6~20자">
+        <input type="text" name="id" id='id' size="30" placeholder="CJ ONE 통합아이디 6~20자">
       </div>
       <div class="pw">
-        <input type="text" name="pw" size="45" placeholder="비밀번호 영문, 특수문자, 숫자혼합 8~12자">
+        <input type="text" name="pw" id='pw' size="45" placeholder="비밀번호 영문, 특수문자, 숫자혼합 8~12자">
       </div>
 
       <div id="save">
@@ -72,7 +92,7 @@
         <span>아이디 찾기</span> <span class="separator">|</span> <span>비밀번호 찾기</span>
       </div>
 
-      <button type="submit">로그인</button>
+      <button type="button" onclick='loginBtn()'>로그인</button>
     </form>
 
     <ul class="login-icons">

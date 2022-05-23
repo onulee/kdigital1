@@ -11,9 +11,14 @@
 	 	<header>
 	 		<div id="nav_up">
 	 			<ul>
-	 				<li>회원가입</li>
-	 				<li><a href="#">로그인</a></li>
-	 				<li>고객행복센터</li>
+					{% if not request.session.session_id%} 
+	 					<li>회원가입</li>
+	 					<li><a href="{% url 'member:login' %}">로그인</a></li>
+					{% else %}
+	 					<li>{{request.session.session_nickname}}님</li>
+	 					<li><a href="{% url 'member:logout' %}">로그아웃</a></li>
+					{% endif %}
+					<li><a href="{% url 'fboard:fList' %}">고객행복센터</li></a>
 	 				<li>배송정보검색</li>
 	 				<li>기프트카드 등록</li>
 	 			</ul>

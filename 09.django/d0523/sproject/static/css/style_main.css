@@ -49,7 +49,7 @@ nav>ul:nth-child(3)>li:nth-child(1)>a>span{ display: block; width: 50px; height:
 	 position: relative; top:30px; left:-5px; }
 	 
 nav>ul:nth-child(3)>li:nth-child(2)>a{ width:32px; height: 32px; display: inline-block;
-	background: url('../images/ico_set.png') -628px -320px; no-repeat; 
+	background: url('../images/ico_set.png') -628px -320px no-repeat; 
 	background-size: 800px 800px; letter-spacing: -2px;}
 
 nav>ul:nth-child(3)>li:nth-child(2)>a>span{ display: block; width: 50px; height: 20px; 

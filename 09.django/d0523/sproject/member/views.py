@@ -10,15 +10,21 @@ def login(request):
         pw = request.POST.get('pw')
         try:
             # id, pw가 존재할 시
-            qs = Member.object.get(id=id,pw=pw)
+            qs = Member.objects.get(id=id,pw=pw)
+        except Member.DoesNotExist: 
+            qs = None 
+        
+        if qs:
             request.session['session_id'] = qs.id
             request.session['session_nickname'] = qs.nickname
             # return render(request,'index.html') #상단url주소가 변경되지 않음.
             return redirect('/')
-        except Member.DoesNotExist:  
+        else:
             # id,pw가 존재하지 않을 시
-            msg="아이디 또는 패스워드가 일치하지 않습니다.\n다시 로그인해주세요.!!"
+            msg="아이디 또는 패스워드가 일치하지 않습니다. \\n 다시 로그인해주세요.!!"
             return render(request,'login.html',{'msg':msg})
+            
+            
         
         
 # logout 함수        

@@ -2,6 +2,10 @@
 section {
   text-align: center;
 }
+a:link{ color:black;}
+a:visited{ color:black;}
+a:hover{ color:black;}
+a:active{ color:black;}
 
 h1 {
   margin-top: 40px;
@@ -161,7 +165,10 @@ td {
   width: 120px;
   height: 50px;
   line-height: 50px;
-
+  cursor: pointer;
   margin: 0 30px 50px 0;
   border: 2px black solid;
+}
+.write:hover{
+  background: #eaeaea;
 }
