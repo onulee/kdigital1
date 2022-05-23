@@ -18,12 +18,12 @@
       <li>로그인</li> <span>|</span>
       <li>고객행복센터</li> <span>|</span>
       <li>배송지역검색</li> <span>|</span>
-      <li>기프트카드 등록</li>
+      <li><a href="/admin">admin</a></li>
     </ul>
   </header>
 
   <nav>
-    <div class="logo"></div>
+    <a href="{% url 'index' %}"><div class="logo"></div></a>
 
     <div id="search">
       <div class="search"></div><br>
@@ -71,7 +71,7 @@
     </table>
 
     <a href="{% url 'fboard:fList' %}"><div class="list">목록</div></a>
-    <div class="list">답글</div>
+    <div class="list"><a href="{% url 'fboard:fReply' board.f_no %}">답글</a></div>
     <div class="list">삭제</div>
     <div class="list">수정</div>
   </section>

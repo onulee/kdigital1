@@ -22,13 +22,12 @@
       <li>로그인</li> <span>|</span>
       <li>고객행복센터</li> <span>|</span>
       <li>배송지역검색</li> <span>|</span>
-      <li>기프트카드 등록</li>
+      <li><a href="/admin">admin</a></li>
     </ul>
   </header>
 
   <nav>
-    <div class="logo"></div>
-
+    <a href="{% url 'index' %}"><div class="logo"></div></a>
     <div id="search">
       <div class="search"></div><br>
       <span>메뉴찾기</span>
@@ -93,7 +92,16 @@
         <tr>
           <td>{{board.f_no}}</td>
           <td class="table-title">
-            <a href="{% url 'fboard:fView' board.f_no %}">{{board.f_title}}</a>
+            <a href="{% url 'fboard:fView' board.f_no %}">
+              {% if board.f_indent > 0 %}
+              {% comment %} board.f_indent 글자로 인식 {% endcomment %}
+              {% comment %} "x"|rjust 숫자로 인식 {% endcomment %}
+                {% for i in "x"|rjust:board.f_indent %}
+                  ▶
+                {% endfor %}  
+              {% endif %}
+              {{board.f_title}}
+            </a>
           </td>
           <td>{{board.member.name}}</td>
           <td>{{board.f_updatedate|date:'Y-m-d H:i'}}</td>
