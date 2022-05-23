@@ -3,6 +3,32 @@ from fboard.models import Fboard
 from member.models import Member
 from django.db.models import F 
 
+# 게시판 수정 함수
+def fUpdate(request,f_no):
+    if request.method == 'GET':
+        qs = Fboard.objects.get(f_no=f_no)
+        context = {'board':qs}
+        return render(request,'fUpdate.html',context)
+    else:
+        # 수정form에서 데이터 전달
+        id = request.POST.get('id')
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        file = request.POST.get('file',None)
+        # db에 수정저장
+        qs = Fboard.objects.get(f_no=f_no)
+        qs.f_title = title
+        qs.f_content = content
+        qs.f_file = file
+        qs.save()
+        return redirect('fboard:fList')
+
+# 게시판 삭제 함수
+def fDelete(request,f_no):
+    qs = Fboard.objects.get(f_no=f_no)
+    qs.delete()
+    return redirect('fboard:fList')
+
 # 게시판 답글쓰기 함수
 def fReply(request,f_no):
     if request.method == 'GET':
