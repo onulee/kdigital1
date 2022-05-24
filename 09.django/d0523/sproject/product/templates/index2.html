@@ -1,5 +1,4 @@
 {% load static %}
-{% load humanize %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -80,24 +79,90 @@
 	 		<div id="best">
 	 			<h2>실시간 베스트</h2>
 	 			<ul>
-					{% if pList %}
-					{% for product in pList %}
-						<li>
-							<a href="#">
-								<img alt="{{product.p_name}}" src="{{product.p_fileName.url}}">
-								<span id="best_top">BEST<br>{{product.p_no}}</span>
-							</a>
-							<a href="#">
-								<span>{{product.p_name}}</span>
-								<span>
-									{{product.p_unitPrice|intcomma}}원
-									<span>/{{product.p_servings}}</span>
-								</span>
-							</a>
-							<a href="#"></a>
-						</li>
-					{% endfor %}
-					{% endif %}
+	 				<li>
+	 					<a href="#">
+		 					<img alt="참스테이크" src="/static/images/best01.jpg">
+		 					<span id="best_top">BEST<br>01</span>
+	 					</a>
+	 					<a href="#">
+		 					<span>부채살 찹스테이크</span>
+		 					<span>
+		 						20,800원
+		 						<span>/2인분</span>
+		 					</span>
+	 					</a>
+	 					<a href="#"></a>
+	 				  </li>
+	 				<li>
+	 					<a href="#">
+		 					<img alt="감바스 알아히오" src="/static/images/best02.jpg">
+		 					<span>02</span>
+	 					</a>
+	 					<a href="#">
+		 					<span>감바스 알아히오</span>
+		 					<span>
+		 						20,800원
+		 						<span>/3인분</span>
+		 					</span>
+	 					</a>
+	 					<a href="#"></a>
+	 				</li>
+	 				<li>
+	 					<a href="#">
+		 					<img alt="소고기 두부전골" src="/static/images/best03.jpg">
+		 					<span>03</span>
+	 					</a>
+	 					<a href="#">
+		 					<span>소고기 두부전골</span>
+		 					<span>
+		 						24,800원
+		 						<span>/3인분</span>
+		 					</span>
+	 					</a>
+	 					<a href="#"></a>
+	 				</li>
+	 				<li>
+	 					<a href="#">
+		 					<img alt="스키야키" src="/static/images/best04.jpg">
+		 					<span>04</span>
+	 					</a>
+	 					<a href="#">
+		 					<span>스키야키</span>
+		 					<span>
+		 						24,800원
+		 						<span>/3인분</span>
+		 					</span>
+	 					</a>
+	 					<a href="#"></a>
+	 				</li>
+	 				<li>
+	 					<a href="#">
+		 					<img alt="빠네크림 파스타" src="/static/images/best05.jpg">
+		 					<span>05</span>
+	 					</a>
+	 					<a href="#">
+		 					<span>빠네크림 파스타</span>
+		 					<span>
+		 						20,800원
+		 						<span>/2인분</span>
+		 					</span>
+	 					</a>
+	 					<a href="#"></a>
+	 				</li>
+	 				<li>
+	 					<a href="#">
+		 					<img alt="부추가득 오리불고기" src="/static/images/best06.jpg">
+		 					<span>06</span>
+	 					</a>
+	 					<a href="#">
+		 					<span>부추가득 오리불고기</span>
+		 					<span>
+		 						24,800원
+		 						<span>/3인분</span>
+		 					</span>
+	 					</a>
+	 					<a href="#"></a>
+	 				</li>
 	 			</ul>
 	 		</div>
 	 		<div id="review">

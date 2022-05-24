@@ -9,6 +9,7 @@ urlpatterns = [
     path('',include('home.urls')),
     path('member/',include('member.urls')),
     path('fboard/',include('fboard.urls')),
+    path('product/',include('product.urls')),
 ] 
 
 # 파일 업로드시 url구성

@@ -15,11 +15,16 @@ def fUpdate(request,f_no):
         title = request.POST.get('title')
         content = request.POST.get('content')
         file = request.FILES.get('file',None)
+        print("file : ",file)
         # db에 수정저장
         qs = Fboard.objects.get(f_no=f_no)
         qs.f_title = title
         qs.f_content = content
-        qs.f_file = file
+        if file:  # file등록이 되었으면 저장함.
+            qs.f_file = file
+            print("qs.f_file ok")
+        
+           
         qs.save()
         return redirect('fboard:fList')
 
@@ -65,7 +70,6 @@ def fReply(request,f_no):
         qs.save() # f_no
         
         return redirect('fboard:fList')
-
     
 
 # 게시판 읽기 함수

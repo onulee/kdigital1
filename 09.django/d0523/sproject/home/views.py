@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from product.models import Product
 
 def index(request):
-   return render(request,'index.html') 
+   qs = Product.objects.all()[:6]
+   context = {'pList':qs}
+   return render(request,'index.html',context)
+   # return render(request,'index.html') 

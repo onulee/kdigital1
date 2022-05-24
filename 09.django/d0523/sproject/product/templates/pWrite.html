@@ -4,16 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pages - Login</title>
+  <title>product - 상품등록</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/write.css' %}">
   <script>
     function cancelBtn(){
-      if (confirm('답글을 취소하시겠습니까?')){
+      if (confirm('글쓰기를 취소하시겠습니까?')){
         location.href="{% url 'fboard:fList' %}"
       }
-
     }
   </script>
 </head>
@@ -54,10 +53,10 @@
   </nav>
 
   <section>
-    <h1>답글쓰기</h1>
+    <h1>상품등록</h1>
     <hr>
 
-    <form action="{% url 'fboard:fReply' board.f_no %}" name="write" method="post" enctype="multipart/form-data">
+    <form action="{% url 'product:pWrite'%}" name="write" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <table>
         <colgroup>
@@ -65,44 +64,64 @@
           <col width="85%">
         </colgroup>
         <tr>
+          <th>상품명</th>
+          <td>
+            <input type="text" name="name" id="name">
+          </td>
+        </tr>
+        <tr>
           <th>분류</th>
           <td>
             <div class="category-wrapper">
               <select name="category" id="category">
-                <option value="notice">공지</option>
-                <option value="event">이벤트</option>
+                <option value="요리">요리</option>
+                <option value="찌개">찌개</option>
               </select>  
             </div>
           </td>
         </tr>
         <tr>
-          <th>제목</th>
+          <th>인분</th>
           <td>
-            <input type="text" name="title" id="title" value="[답글] {{board.f_title}}">
+            <div class="category-wrapper">
+              <select name="servings" id="servings">
+                <option value="1인분">1인분</option>
+                <option value="2인분" selected>2인분</option>
+                <option value="3인분">3인분</option>
+                <option value="4인분">4인분</option>
+                <option value="5인분">5인분</option>
+              </select>  
+            </div>
           </td>
         </tr>
         <tr>
-          <th>아이디</th>
-          <td>{{request.session.session_id}}</td>
-          <input type='hidden' name='id' value="{{request.session.session_id}}">
-          <input type='hidden' name='group' value="{{board.f_group}}">
-          <input type='hidden' name='step' value="{{board.f_step}}">
-          <input type='hidden' name='indent' value="{{board.f_indent}}">
-
+          <th>가격</th>
+          <td>
+            <input type="text" name="unitPrice" id="unitPrice">
+          </td>
+        </tr>
+        <tr>
+          <th>제조사</th>
+          <td>
+            <input type="text" name="manufacturer" id="manufacturer" value="CJONE">
+          </td>
+        </tr>
+        <tr>
+          <th>수량</th>
+          <td>
+            <input type="text" name="unit" id="unit" value="100">
+          </td>
         </tr>
         <tr>
           <th>내용</th>
           <td>
-            <textarea name="content" id="text" cols="50" rows="10">[답글]
--------------------------------------------------
-{{board.f_content}}
-            </textarea>
+            <textarea name="description" id="text" cols="50" rows="10"></textarea>
           </td>
         </tr>
         <tr>
           <th>이미지 표시</th>
           <td>
-            <input type="file" name="file" id="file">
+            <input type="file" name="fileName" id="fileName">
           </td>
         </tr>
       </table>
