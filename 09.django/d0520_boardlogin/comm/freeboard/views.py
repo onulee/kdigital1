@@ -51,6 +51,7 @@ def fView(request,f_no):
 
 # freeboard fList페이지 함수
 def fList(request):
+    print("session_id : ",request.session.get("session_id"))
     qs = Freeboard.objects.order_by('-f_no') # f_no로 역순정렬
     context = {'fList':qs}
     return render(request,'fList.html',context)
