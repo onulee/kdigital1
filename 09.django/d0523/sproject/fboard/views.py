@@ -5,10 +5,10 @@ from django.db.models import F
 from django.core.paginator import Paginator
 
 # 게시판 수정 함수
-def fUpdate(request,f_no):
+def fUpdate(request,nowpage,f_no):
     if request.method == 'GET':
         qs = Fboard.objects.get(f_no=f_no)
-        context = {'board':qs}
+        context = {'board':qs,'nowpage':nowpage}
         return render(request,'fUpdate.html',context)
     else:
         # 수정form에서 데이터 전달
@@ -27,19 +27,19 @@ def fUpdate(request,f_no):
         
            
         qs.save()
-        return redirect('fboard:fList')
+        return redirect('fboard:fList',nowpage)
 
 # 게시판 삭제 함수
-def fDelete(request,f_no):
+def fDelete(request,nowpage,f_no):
     qs = Fboard.objects.get(f_no=f_no)
     qs.delete()
-    return redirect('fboard:fList')
+    return redirect('fboard:fList',nowpage)
 
 # 게시판 답글쓰기 함수
-def fReply(request,f_no):
+def fReply(request,nowpage,f_no):
     if request.method == 'GET':
         qs = Fboard.objects.get(f_no=f_no) 
-        context={'board':qs}
+        context={'board':qs,'nowpage':nowpage}
         return render(request,'fReply.html',context)
     else:
         # id = request.session.session_id
@@ -70,21 +70,22 @@ def fReply(request,f_no):
             ,f_step=step+1,f_indent=indent+1,f_file=file)
         qs.save() # f_no
         
-        return redirect('fboard:fList')
+        return redirect('fboard:fList',nowpage)
     
 
 # 게시판 읽기 함수
-def fView(request,f_no):
+def fView(request,nowpage,f_no):
     qs = Fboard.objects.get(f_no=f_no)
     qs.f_hit += 1
     qs.save()
-    context={'board':qs}
+    context={'board':qs,'nowpage':nowpage}
     return render(request,'fView.html',context)
 
 # 게시판 글쓰기 함수
-def fWrite(request):
+def fWrite(request,nowpage):
     if request.method == 'GET':
-        return render(request,'fWrite.html')
+        context={"nowpage":nowpage}
+        return render(request,'fWrite.html',context)
     else:
         # form넘어온 데이터
         id = request.POST.get("id")
@@ -97,18 +98,17 @@ def fWrite(request):
         qs.save()
         qs.f_group = qs.f_no
         qs.save()
-        return redirect('fboard:fList')
+        return redirect('fboard:fList',nowpage)
         
         
 
 # 게시판 리스트 함수
-def fList(request):
+def fList(request,nowpage):
     qs = Fboard.objects.order_by('-f_group','f_step')
-    
     # 페이징 처리 - request:str타입
-    page = int(request.GET.get('nowpage',1)) # page변수 전달, 없으면 1
-    print("nowpage : ",page)
+    # page = int(request.GET.get('nowpage',1)) # page변수 전달, 없으면 1
+    print("nowpage : ",nowpage)
     paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
-    fList = paginator.get_page(page) # 요청한 페이지의 게시글 10개를 전달
-    context={'fList':fList,'nowpage':page}
+    fList = paginator.get_page(nowpage) # 요청한 페이지의 게시글 10개를 전달
+    context={'fList':fList,'nowpage':nowpage}
     return render(request,'fList.html',context)

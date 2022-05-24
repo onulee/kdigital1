@@ -19,7 +19,7 @@
 	 					<li>{{request.session.session_nickname}}님</li>
 	 					<li><a href="{% url 'member:logout' %}">로그아웃</a></li>
 					{% endif %}
-					<li><a href="{% url 'fboard:fList' %}">고객행복센터</a></li>
+					<li><a href="{% url 'fboard:fList' nowpage=1 %}">고객행복센터</a></li>
 	 				<li><a href="{% url 'product:pWrite' %}">상품등록</a></li>
 	 				<li><a href="/admin">admin</a></li>
 	 			</ul>

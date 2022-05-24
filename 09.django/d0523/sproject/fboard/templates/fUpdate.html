@@ -11,7 +11,7 @@
   <script>
     function cancelBtn(){
       if (confirm('수정을 취소하시겠습니까?')){
-        location.href="{% url 'fboard:fList' %}"
+        location.href="{% url 'fboard:fList' nowpage %}"
       }
 
     }
@@ -57,7 +57,7 @@
     <h1>답글쓰기</h1>
     <hr>
 
-    <form action="{% url 'fboard:fUpdate' board.f_no %}" name="write" method="post" enctype="multipart/form-data">
+    <form action="{% url 'fboard:fUpdate' nowpage board.f_no %}" name="write" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <table>
         <colgroup>

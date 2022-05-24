@@ -11,7 +11,7 @@
   <script>
     function cancelBtn(){
       if (confirm('글쓰기를 취소하시겠습니까?')){
-        location.href="{% url 'fboard:fList' %}"
+        location.href="{% url 'fboard:fList' nowpage %}"
       }
     }
   </script>
@@ -56,7 +56,7 @@
     <h1>글쓰기</h1>
     <hr>
 
-    <form action="{% url 'fboard:fWrite'%}" name="write" method="post" enctype="multipart/form-data">
+    <form action="{% url 'fboard:fWrite' nowpage %}" name="write" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <table>
         <colgroup>
