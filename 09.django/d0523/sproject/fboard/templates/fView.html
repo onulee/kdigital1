@@ -72,6 +72,18 @@
         <td>{{board.f_content}}</td>
       </tr>
       <tr>
+        <td>파일이름 |{{board.f_file}}</td>
+      </tr>
+      <tr>
+        <td>
+          {% if board.f_file %}
+          <img src="{{board.f_file.url}}">
+          {% else %}
+          <h4>이미지 없음</h4>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
         <td><strong>다음글</strong> <span class="separator">|</span> [키즈잼] 2월 프로그램 안내</td>
       </tr>
       <tr>

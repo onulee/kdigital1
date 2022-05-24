@@ -95,12 +95,15 @@
             <a href="{% url 'fboard:fView' board.f_no %}">
               {% if board.f_indent > 0 %}
               {% comment %} board.f_indent 글자로 인식 {% endcomment %}
-              {% comment %} "x"|rjust 숫자로 인식 {% endcomment %}
+              {% comment %} "x"|공백제거후 board.f_indent 만큼 리스트 처리 {% endcomment %}
                 {% for i in "x"|rjust:board.f_indent %}
                   ▶
                 {% endfor %}  
               {% endif %}
               {{board.f_title}}
+              {% if board.f_file %}
+              <img src="/static/images/dicon1.png">
+              {% endif %}
             </a>
           </td>
           <td>{{board.member.name}}</td>

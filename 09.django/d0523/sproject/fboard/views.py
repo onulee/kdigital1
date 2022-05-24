@@ -14,7 +14,7 @@ def fUpdate(request,f_no):
         id = request.POST.get('id')
         title = request.POST.get('title')
         content = request.POST.get('content')
-        file = request.POST.get('file',None)
+        file = request.FILES.get('file',None)
         # db에 수정저장
         qs = Fboard.objects.get(f_no=f_no)
         qs.f_title = title
@@ -47,7 +47,8 @@ def fReply(request,f_no):
         
         title = request.POST.get('title')
         content = request.POST.get('content')
-        file = request.POST.get('file',None)
+        file = request.FILES.get('file',None)
+        # file = request.POST.get('file',None)
         
         # 부모group에서 부모보다 큰 step 1씩증가, gt보다 큰수
         # reboard = Fboard.objects.filter(f_group=group,f_step_gt=step)
@@ -83,7 +84,7 @@ def fWrite(request):
         member = Member.objects.get(id=id)
         title = request.POST.get("title")
         content = request.POST.get("content")
-        file = request.POST.get("file",None)
+        file = request.FILES.get('file',None)
         # db 저장
         qs = Fboard(member=member,f_title=title,f_content=content,f_file=file)
         qs.save()

@@ -56,7 +56,7 @@
     <h1>관리자 글쓰기</h1>
     <hr>
 
-    <form action="{% url 'fboard:fWrite'%}" name="write" method="post">
+    <form action="{% url 'fboard:fWrite'%}" name="write" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <table>
         <colgroup>
