@@ -117,15 +117,36 @@
         </tr>
       {% endif %}
     </table>
-
+    <!-- 페이징 처리 -->
+    <!-- 이전페이지 처리 -->
     <ul class="page-num">
-      <li class="first"></li>
-      <li class="prev"></li>
-      <li class="num">
-        <div>1</div>
-      </li>
-      <li class="next"></li>
-      <li class="last"></li>
+      {% if fList.has_previous %}
+        <a href="?nowpage=1"><li class="first"></li></a>
+        <a href="?nowpage={{ fList.previous_page_number }}"><li class="prev"></li></a>
+      {%else%}
+        <li class="first"></li>
+        <li class="prev"></li>
+      {%endif%}
+      <!-- 페이지순서 처리 -->
+      {% for page in fList.paginator.page_range %}
+        {% if page != nowpage %}
+          <a href="?nowpage={{page}}">
+            <li class="num"><div>{{page}}</div></li>
+          </a>
+        {% else %}
+          <li class="num on"><div>{{page}}</div></li>
+        {% endif %}
+      {% endfor %}  
+      
+      <!-- 다음페이지 처리 -->
+      {% if fList.has_next %}
+        <a href="?nowpage={{ fList.next_page_number }}"><li class="next"></li></a>
+        <a href="?nowpage={{ fList.paginator.num_pages }}"><li class="last"></li></a>
+        {% else %}
+        <li class="next"></li>
+        <li class="last"></li>
+      {% endif %}
+    
     </ul>
 
     <div class="write" onclick="writeBtn()">쓰기</div>

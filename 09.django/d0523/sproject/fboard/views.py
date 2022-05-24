@@ -105,9 +105,10 @@ def fWrite(request):
 def fList(request):
     qs = Fboard.objects.order_by('-f_group','f_step')
     
-    # 페이징 처리
-    page = request.GET.get('page',1) # page변수 전달, 없으면 1
+    # 페이징 처리 - request:str타입
+    page = int(request.GET.get('nowpage',1)) # page변수 전달, 없으면 1
+    print("nowpage : ",page)
     paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
     fList = paginator.get_page(page) # 요청한 페이지의 게시글 10개를 전달
-    context={'fList':fList}
+    context={'fList':fList,'nowpage':page}
     return render(request,'fList.html',context)
