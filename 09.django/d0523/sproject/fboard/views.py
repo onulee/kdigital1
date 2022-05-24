@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from fboard.models import Fboard
 from member.models import Member
 from django.db.models import F 
+from django.core.paginator import Paginator
 
 # 게시판 수정 함수
 def fUpdate(request,f_no):
@@ -75,6 +76,8 @@ def fReply(request,f_no):
 # 게시판 읽기 함수
 def fView(request,f_no):
     qs = Fboard.objects.get(f_no=f_no)
+    qs.f_hit += 1
+    qs.save()
     context={'board':qs}
     return render(request,'fView.html',context)
 
@@ -101,5 +104,10 @@ def fWrite(request):
 # 게시판 리스트 함수
 def fList(request):
     qs = Fboard.objects.order_by('-f_group','f_step')
-    context={'fList':qs}
+    
+    # 페이징 처리
+    page = request.GET.get('page',1) # page변수 전달, 없으면 1
+    paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
+    fList = paginator.get_page(page) # 요청한 페이지의 게시글 10개를 전달
+    context={'fList':fList}
     return render(request,'fList.html',context)
