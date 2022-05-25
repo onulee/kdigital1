@@ -1,7 +1,13 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+  <head>
+  {% if not request.session.session_id %}
+  <script>
+    alert("로그인을 하셔야 글쓰기가 가능합니다.")
+    location.href="{% url 'member:login' %}"
+  </script>
+  {%endif%}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pages - Login</title>
