@@ -76,29 +76,31 @@ def fReply(request,nowpage,f_no):
 # 게시판 읽기 함수
 def fView(request,nowpage,f_no):
     qs = Fboard.objects.get(f_no=f_no)
-    # 게시판리스트- f_group역순정렬, f_step순차정렬
-    # qs = Fboard.objects.order_by('-f_group','f_step')
-    # 이전글
     try:
-        # 답글로 게시글이 등록될때 찾을수 있는 이전글검색
-        qs_prev = Fboard.objects.filter(f_group=qs.f_group,f_step__lt=qs.f_step).order_by('-f_group','f_step').last().f_no
-    except:  
-        # 순차적으로 게시글이 등록될대 찾을수 있는 이전글검색
+        qs_prev = Fboard.objects.filter(f_group=qs.f_group,f_step__lt=qs.f_step).order_by('-f_group','f_step').first().f_no
+        print("1")
+    except:
         try:
             qs_prev = Fboard.objects.filter(f_group__gt=qs.f_group).order_by('-f_group','f_step').last().f_no
         except:
-            # 마지막 게시글 선택시 에러 처리
-            qs_prev = Fboard.objects.order_by('-f_group','f_step').first().f_no
-    
-    # 다음글
-    
-            
-    print("qs_prev : ",qs_prev)
+            qs_prev = Fboard.objects.order_by('-f_group','f_step').first().f_no    
+        print("1_2")
+    print("이전글 f_no : ",qs_prev)
+    try:
+       qs_next = Fboard.objects.filter(f_group=qs.f_group,f_step__gt=qs.f_step).order_by('-f_group','f_step').last().f_no
+       print("2")
+    except:
+       try:
+           qs_next = Fboard.objects.filter(f_group__lt=qs.f_group).order_by('-f_group','f_step').first().f_no
+       except:
+           qs_next = Fboard.objects.order_by('-f_group','f_step').last().f_no  
+       print("2_2")
+    print("다음글 f_no : ",qs_next)
     qs.f_hit += 1
     qs.save()
     qsPrev = Fboard.objects.get(f_no=qs_prev)
-    # 이전글 게시글 검색
-    context={'board':qs,'boardPrev':qsPrev,'nowpage':nowpage}
+    qsNext = Fboard.objects.get(f_no=qs_next)
+    context={'board':qs,'board_prev':qsPrev,'board_next':qsNext,'nowpage':nowpage}
     return render(request,'fView.html',context)
 
 # 게시판 글쓰기 함수
@@ -113,8 +115,9 @@ def fWrite(request,nowpage):
         title = request.POST.get("title")
         content = request.POST.get("content")
         file = request.FILES.get('file',None)
+        file2 = request.FILES.get('file2',None)
         # db 저장
-        qs = Fboard(member=member,f_title=title,f_content=content,f_file=file)
+        qs = Fboard(member=member,f_title=title,f_content=content,f_file=file,f_file2=file2)
         qs.save()
         qs.f_group = qs.f_no
         qs.save()

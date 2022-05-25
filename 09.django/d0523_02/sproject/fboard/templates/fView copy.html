@@ -84,10 +84,19 @@
         </td>
       </tr>
       <tr>
-        <td><strong>다음글</strong> <span class="separator">|</span> <a href="{% url 'fboard:fView' nowpage boardPrev.f_no %}">{{boardPrev.f_title}}</a></td>
+        <td>
+          {% if board.f_file2 %}
+          <img src="{{board.f_file2.url}}">
+          {% else %}
+          <h4>이미지 없음</h4>
+          {% endif %}
+        </td>
       </tr>
       <tr>
-        <td><strong>이전글</strong> <span class="separator">|</span> [키즈잼] 2020년 1분기 정기 휴관일 안내</td>
+        <td><strong>다음글</strong> <span class="separator">|</span> {{board_prev.f_title}}</td>
+      </tr>
+      <tr>
+        <td><strong>이전글</strong> <span class="separator">|</span> {{board_next.f_title}}</td>
       </tr>
     </table>
 
