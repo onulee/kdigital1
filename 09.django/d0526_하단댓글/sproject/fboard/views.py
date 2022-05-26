@@ -3,6 +3,26 @@ from fboard.models import Fboard
 from member.models import Member
 from django.db.models import F 
 from django.core.paginator import Paginator
+import requests
+import json
+
+# 공공데이터
+def public_list(request):
+    # 인증키
+    m_serviceKey = '918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D'
+    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey={}&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=json'.format(m_serviceKey)
+    res = requests.get(url)
+    contents = res.text #글자 가져옴.
+    # Json타입으로 변경
+    json_contents = json.loads(contents)
+    print(type(json_contents))
+    body = json_contents['response']['body']['items']['item'][0]
+    print("-"*50)
+    print(body)
+    print("-"*50)
+    
+    return render(request,'public_list.html',body)
+
 
 # 게시판 수정 함수
 def fUpdate(request,nowpage,f_no):

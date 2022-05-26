@@ -12,4 +12,6 @@ urlpatterns = [
     path('<int:nowpage>/<str:f_no>/fDelete',views.fDelete,name='fDelete'),
     # 수정
     path('<int:nowpage>/<str:f_no>/fUpdate',views.fUpdate,name='fUpdate'),
+    # 공공데이터
+    path('public_list/',views.public_list,name='public_list'),
 ]

@@ -4,6 +4,7 @@ from member.models import Member
 from django.db.models import F,Q 
 from django.core.paginator import Paginator
 
+
 # 게시판 수정 함수
 def fUpdate(request,nowpage,category,searchword,f_no):
     if request.method == 'GET':
