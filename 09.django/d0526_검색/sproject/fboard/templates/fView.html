@@ -40,14 +40,14 @@
         </td>
       </tr>
       <tr>
-        <td><strong>다음글</strong> <span class="separator">|</span><a href="{% url 'fboard:fView' nowpage boardPrev.f_no %}">{{boardPrev.f_title}}</a></td>
+        <td><strong>다음글</strong> <span class="separator">|</span><a href="{% url 'fboard:fView' nowpage category searchword boardPrev.f_no %}">{{boardPrev.f_title}}</a></td>
       </tr>
       <tr>
-        <td><strong>이전글</strong> <span class="separator">|</span><a href="{% url 'fboard:fView' nowpage boardNext.f_no %}"> {{boardNext.f_title}}</a></td>
+        <td><strong>이전글</strong> <span class="separator">|</span><a href="{% url 'fboard:fView' nowpage category searchword boardNext.f_no %}"> {{boardNext.f_title}}</a></td>
       </tr>
     </table>
 
-    <a href="{% url 'fboard:fList' nowpage %}"><div class="list">목록</div></a>
+    <a href="{% url 'fboard:fList' nowpage category searchword  %}"><div class="list">목록</div></a>
     <div class="list"><a href="{% url 'fboard:fReply' nowpage board.f_no %}">답글</a></div>
     <div class="list" onclick="deleteBtn()">삭제</div>
     <div class="list"><a href="{% url 'fboard:fUpdate' nowpage board.f_no %}">수정</a></div>

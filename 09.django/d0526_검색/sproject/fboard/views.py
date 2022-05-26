@@ -74,7 +74,7 @@ def fReply(request,nowpage,f_no):
     
 
 # 게시판 읽기 함수
-def fView(request,nowpage,f_no):
+def fView(request,nowpage,category,searchword,f_no):
     qs = Fboard.objects.get(f_no=f_no)
     # 게시판리스트- f_group역순정렬, f_step순차정렬
     # qs = Fboard.objects.order_by('-f_group','f_step')
@@ -109,7 +109,7 @@ def fView(request,nowpage,f_no):
     qsPrev = Fboard.objects.get(f_no=qs_prev)
     qsNext = Fboard.objects.get(f_no=qs_next)
     # 이전글 게시글 검색
-    context={'board':qs,'boardPrev':qsPrev,'boardNext':qsNext,'nowpage':nowpage}
+    context={'board':qs,'boardPrev':qsPrev,'boardNext':qsNext,'nowpage':nowpage,'category':category,'searchword':searchword}
     return render(request,'fView.html',context)
 
 # 게시판 글쓰기 함수
@@ -134,36 +134,30 @@ def fWrite(request,nowpage):
         
 
 # 게시판 리스트 함수
-def fList(request,nowpage):
-    # get 페이지 호출
-    if request.method == 'GET':
-        qs = Fboard.objects.order_by('-f_group','f_step')
-        # 페이징 처리 - request:str타입
-        # page = int(request.GET.get('nowpage',1)) # page변수 전달, 없으면 1
-        print("nowpage : ",nowpage)
-        paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
-        fList = paginator.get_page(nowpage) # 요청한 페이지의 게시글 10개를 전달
-        print("count : ",qs.count)
-        context={'fList':fList,'count':qs.count,'nowpage':nowpage}
-        return render(request,'fList.html',context)
-    else:
-        # all,title,content
+def fList(request,nowpage,category,searchword):
+    # GET,POST 포함
+    # all,title,content
+    if request.method =='POST':
         category = request.POST.get('category')
         searchword = request.POST.get('searchword')
-        print("category : ",category,searchword)
-        # category분류
-        if category == 'title':
-            qs = Fboard.objects.filter(f_title__contains=searchword)
-        elif category == 'content':
-            qs = Fboard.objects.filter(f_content__contains=searchword)
-        else: # all
-            # or 검색 : title or content
-            qs = Fboard.objects.filter(Q(f_title__contains=searchword)|Q(f_content__contains=searchword))
-            # and 검색 : title and content
-            # qs = Fboard.objects.filter(f_title__contains=searchword,f_content__contains=searchword)    
-            
-        paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
-        fList = paginator.get_page(nowpage) # 요청한 페이지의 게시글 10개를 전달
-        print("count : ",qs.count)
-        context={'fList':fList,'count':qs.count,'nowpage':nowpage,'category':category,'searchword':searchword}
-        return render(request,'fList.html',context)
+        print("POST category : ",category,searchword)
+    
+    print("main category : ",category,searchword)
+    # category분류
+    if category == 'first':  # GET으로 들어옴.
+        qs = Fboard.objects.order_by('-f_group','f_step')
+    elif category == 'title':
+        qs = Fboard.objects.filter(f_title__contains=searchword)
+    elif category == 'content':
+        qs = Fboard.objects.filter(f_content__contains=searchword)
+    else: # all
+        # or 검색 : title or content
+        qs = Fboard.objects.filter(Q(f_title__contains=searchword)|Q(f_content__contains=searchword))
+        # and 검색 : title and content
+        # qs = Fboard.objects.filter(f_title__contains=searchword,f_content__contains=searchword)    
+    
+    paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
+    fList = paginator.get_page(nowpage) # 요청한 페이지의 게시글 10개를 전달
+    print("count : ",qs.count)
+    context={'fList':fList,'count':qs.count,'nowpage':nowpage,'category':category,'searchword':searchword}
+    return render(request,'fList.html',context)
