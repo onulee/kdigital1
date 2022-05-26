@@ -7,7 +7,7 @@
   <script>
     function deleteBtn(){
       if(confirm("데이터를 삭제하시겠습니까?")){
-        location.href="{% url 'fboard:fDelete' nowpage board.f_no %}"
+        location.href="{% url 'fboard:fDelete' nowpage category searchword board.f_no %}"
       }else{
         return false
       }
@@ -48,7 +48,7 @@
     </table>
 
     <a href="{% url 'fboard:fList' nowpage category searchword  %}"><div class="list">목록</div></a>
-    <div class="list"><a href="{% url 'fboard:fReply' nowpage board.f_no %}">답글</a></div>
+    <div class="list"><a href="{% url 'fboard:fReply' nowpage category searchword board.f_no %}">답글</a></div>
     <div class="list" onclick="deleteBtn()">삭제</div>
-    <div class="list"><a href="{% url 'fboard:fUpdate' nowpage board.f_no %}">수정</a></div>
+    <div class="list"><a href="{% url 'fboard:fUpdate' nowpage category searchword board.f_no %}">수정</a></div>
   {% endblock content-block %}

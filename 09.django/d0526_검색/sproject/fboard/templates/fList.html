@@ -5,7 +5,7 @@
       <link rel="stylesheet" href="{% static 'css/notice_list.css' %}">
       <script>
         function writeBtn(){
-          location.href="{% url 'fboard:fWrite' nowpage %}"
+          location.href="{% url 'fboard:fWrite' nowpage category searchword %}"
         }
 
         function searchBtn(){

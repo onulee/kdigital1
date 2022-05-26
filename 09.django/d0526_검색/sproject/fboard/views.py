@@ -5,10 +5,10 @@ from django.db.models import F,Q
 from django.core.paginator import Paginator
 
 # 게시판 수정 함수
-def fUpdate(request,nowpage,f_no):
+def fUpdate(request,nowpage,category,searchword,f_no):
     if request.method == 'GET':
         qs = Fboard.objects.get(f_no=f_no)
-        context = {'board':qs,'nowpage':nowpage}
+        context = {'board':qs,'nowpage':nowpage,'category':category,'searchword':searchword}
         return render(request,'fUpdate.html',context)
     else:
         # 수정form에서 데이터 전달
@@ -27,19 +27,19 @@ def fUpdate(request,nowpage,f_no):
         
            
         qs.save()
-        return redirect('fboard:fList',nowpage)
+        return redirect('fboard:fList',nowpage,category,searchword)
 
 # 게시판 삭제 함수
-def fDelete(request,nowpage,f_no):
+def fDelete(request,nowpage,category,searchword,f_no):
     qs = Fboard.objects.get(f_no=f_no)
     qs.delete()
-    return redirect('fboard:fList',nowpage)
+    return redirect('fboard:fList',nowpage,category,searchword)
 
 # 게시판 답글쓰기 함수
-def fReply(request,nowpage,f_no):
+def fReply(request,nowpage,category,searchword,f_no):
     if request.method == 'GET':
         qs = Fboard.objects.get(f_no=f_no) 
-        context={'board':qs,'nowpage':nowpage}
+        context={'board':qs,'nowpage':nowpage,'category':category,'searchword':searchword}
         return render(request,'fReply.html',context)
     else:
         # id = request.session.session_id
@@ -70,7 +70,7 @@ def fReply(request,nowpage,f_no):
             ,f_step=step+1,f_indent=indent+1,f_file=file)
         qs.save() # f_no
         
-        return redirect('fboard:fList',nowpage)
+        return redirect('fboard:fList',nowpage,category,searchword)
     
 
 # 게시판 읽기 함수
@@ -113,9 +113,9 @@ def fView(request,nowpage,category,searchword,f_no):
     return render(request,'fView.html',context)
 
 # 게시판 글쓰기 함수
-def fWrite(request,nowpage):
+def fWrite(request,nowpage,category,searchword):
     if request.method == 'GET':
-        context={"nowpage":nowpage}
+        context={"nowpage":nowpage,'category':category,'searchword':searchword}
         return render(request,'fWrite.html',context)
     else:
         # form넘어온 데이터
@@ -129,7 +129,7 @@ def fWrite(request,nowpage):
         qs.save()
         qs.f_group = qs.f_no
         qs.save()
-        return redirect('fboard:fList',nowpage)
+        return redirect('fboard:fList',nowpage,category,searchword)
         
         
 
