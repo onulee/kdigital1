@@ -7,6 +7,12 @@ body {
   font-size: 16px;
 }
 a{ text-decoration: none; }
+.a_color{color:white; font-size:13px; }
+.a_color:link{color:white; font-size:13px;}
+.a_color:visited{color:white; font-size:13px;}
+.a_color:hover{color:white; font-size:13px;}
+.a_color:active{color:white; font-size:13px;}
+
 
 
 button {cursor: pointer;}

@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
     {% block content-block  %}
+    <head>
+      <link rel="stylesheet" href="{% static 'css/notice_list.css' %}">
+      <script>
+        function writeBtn(){
+          location.href="{% url 'fboard:fWrite' nowpage %}"
+        }
+      </script>
+    </head>
     <h1 id="noticeH1">NOTICE</h1>
     <div class="wrapper">
       <form action="/search" name="search" method="post">

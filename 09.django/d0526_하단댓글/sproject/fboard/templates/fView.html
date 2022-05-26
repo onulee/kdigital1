@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
   {% block content-block %}
+  <head>
+    <link rel="stylesheet" href="{% static 'css/read.css' %}">
+  </head>
   <script>
     function deleteBtn(){
       if(confirm("데이터를 삭제하시겠습니까?")){
