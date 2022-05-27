@@ -6,13 +6,33 @@ from django.core.paginator import Paginator
 import requests
 import json
 
+
+# 코로나 공공데이터
+def c_list(request):
+    public_key='918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D'
+    url='https://api.odcloud.kr/api/15077756/v1/vaccine-stat?page=1&perPage=10&returnType=JSON&serviceKey={}'.format(public_key)
+    res = requests.get(url)    
+    json_res = json.loads(res.text)
+    raw_data = json_res['data']
+    context = {'data_list':raw_data}
+    return render(request,'c_list.html',context)
+
+
 ## 공공데이터 검색
 def data_search(request):
-    ## 검색부분에 빙수라는 단어를 입력하고 검색버튼을 클릭을 하면
-    ## 빙수 리스트가 출력될수 있도록 구성하시오.
-    
-    
-    return render(request,'data_list.html')
+    keyword=request.POST.get('searchword')
+    print('keyword : ',keyword)
+    public_key='918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D'
+    # 갤러리검색조회
+    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?ServiceKey={}&MobileOS=ETC&MobileApp=AppTest&keyword={}&numOfRows=10&_type=json'.format(public_key,keyword)
+    # 웹스크래핑
+    res = requests.get(url)
+    json_res = json.loads(res.text)
+    dList = json_res['response']['body']['items']['item']
+    print(dList)
+    print("-"*50)
+    context={"dList":dList}
+    return render(request,'data_list.html',context)
 
 
 # 공공데이터 함수
@@ -24,9 +44,9 @@ def data_list(request):
     keyword='빙수'
     public_key='918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D'
     # 갤러리목록조회
-    # url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey={}&pageNo={}&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=json'.format(public_key,page)
+    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey={}&pageNo={}&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=json'.format(public_key,page)
     # 갤러리검색조회
-    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?ServiceKey={}&MobileOS=ETC&MobileApp=AppTest&keyword={}&numOfRows=10&_type=json'.format(public_key,keyword)
+    # url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?ServiceKey={}&MobileOS=ETC&MobileApp=AppTest&keyword={}&numOfRows=10&_type=json'.format(public_key,keyword)
     # url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?serviceKey={ }&pageNo={ }&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&keyword={}&_type=json'.format(public_key,page,keyword)
     # 웹스크래핑
     res = requests.get(url)

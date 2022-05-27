@@ -15,5 +15,8 @@ urlpatterns = [
     path('<int:nowpage>/<str:category>/<str:searchword>/<str:f_no>/fUpdate',views.fUpdate,name='fUpdate'),
     # 공공데이터 호출
     path('data_list/',views.data_list,name='data_list'),
+    path('data_search/',views.data_search,name='data_search'),
+    # 코로나 공공데이터 호출
+    path('c_list/',views.c_list,name='c_list'),
     
 ]

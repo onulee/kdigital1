@@ -42,23 +42,23 @@
         <col width="15%">
       </colgroup>
       <tr>
-        <th>No.</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회수</th>
+        <th>날짜</th>
+        <th>시도</th>
+        <th>1차접종</th>
+        <th>2차접종</th>
+        <th>3차접종</th>
       </tr>
-      {% for data in dList %}
+      {% for data in data_list %}
       <tr>
-        <td>{{data.galContentId}}</td>
+        <td>{{data.baseDate}}</td>
         <td class="table-title">
           <a href="#">
-            {{data.galTitle}}
+            {{data.sido}}
           </a>
         </td>
-        <td>{{data.galPhotographer}}</td>
-        <td>{{data.galPhotographyLocation}}</td>
-        <td><a href="{{data.galWebImageUrl}}" target="_blank"><img style="width:30px;" src="{{data.galWebImageUrl}}"></a></td>
+        <td>{{data.totalFirstCnt}}</td>
+        <td>{{data.totalSecondCnt}}</td>
+        <td>{{data.totalThirdCnt}}</a></td>
       </tr>
       {% endfor %}
 
