@@ -6,6 +6,14 @@ from django.core.paginator import Paginator
 import requests
 import json
 
+# 이벤트
+def event(request):
+    return render(request,'event.html')
+
+# 이벤트 뷰페이지
+def event_view(request):
+    return render(request,'event_view.html')
+
 
 # 코로나 공공데이터
 def c_list(request):

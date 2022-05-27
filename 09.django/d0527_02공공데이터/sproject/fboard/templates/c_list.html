@@ -18,7 +18,7 @@
     </head>
     <h1 id="noticeH1">NOTICE : {{ count }}</h1>
     <div class="wrapper">
-      <form action="/fboard/data_search/" id="search" name="search" method="post">
+      <form action="/fboard/data_search" id="search" name="search" method="post">
         {% csrf_token %}
         <select name="category" id="category">
           <option value="all">전체</option>

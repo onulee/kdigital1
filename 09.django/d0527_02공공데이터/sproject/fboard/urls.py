@@ -18,5 +18,9 @@ urlpatterns = [
     path('data_search/',views.data_search,name='data_search'),
     # 코로나 공공데이터 호출
     path('c_list/',views.c_list,name='c_list'),
+    # 이벤트 호출
+    path('event/',views.event,name='event'),
+    # 이벤트 뷰페이지 호출
+    path('event_view/',views.event_view,name='event_view'),
     
 ]

@@ -19,3 +19,15 @@ class Fboard(models.Model):
     
     def __str__(self):
         return self.f_title
+    
+# 하단댓글 db    
+class Comment(models.Model):
+       c_no = models.AutoField(primary_key=True) 
+       member = models.ForeignKey(Member,on_delete=models.DO_NOTHING)
+       fboard = models.ForeignKey(Fboard,on_delete=models.CASCADE)
+       c_pw = models.CharField(max_length=10,blank=True)
+       c_content = models.TextField()
+       c_date = models.DateTimeField(default=datetime.now(),blank=True)
+       
+       def __str__(self):
+           return self.c_content
