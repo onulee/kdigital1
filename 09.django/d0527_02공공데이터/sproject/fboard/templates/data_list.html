@@ -41,26 +41,20 @@
         <th>작성일</th>
         <th>조회수</th>
       </tr>
-      
-      {% comment %} {% if dList %}
-      {% for data in dList %} {% endcomment %}
+      {% for data in dList %}
       <tr>
-        <td>{{galContentId}}</td>
+        <td>{{data.galContentId}}</td>
         <td class="table-title">
           <a href="#">
-            {{galTitle}}
+            {{data.galTitle}}
           </a>
         </td>
-        <td>{{galPhotographer}}</td>
-        <td>{{galPhotographyLocation}}</td>
-        <td><a href="{{galWebImageUrl}}" target="_blank"><img style="width:30px;" src="{{galWebImageUrl}}"></a></td>
+        <td>{{data.galPhotographer}}</td>
+        <td>{{data.galPhotographyLocation}}</td>
+        <td><a href="{{data.galWebImageUrl}}" target="_blank"><img style="width:30px;" src="{{data.galWebImageUrl}}"></a></td>
       </tr>
-      {% comment %} {% endfor %}
-      {% else %}
-      <tr>
-        <td colspan='5'>데이터가 없습니다.</td>
-      </tr>
-      {% endif %} {% endcomment %}
+      {% endfor %}
+
     </table>
     <!-- 페이징 처리 -->
     <!-- 이전페이지 처리 -->
@@ -68,8 +62,14 @@
       <li class="first"></li>
       <li class="prev"></li>
       <!-- 페이지순서 처리 -->
-      <a href="#">
-        <li class="num"><div></div></li>
+      <a href="/fboard/data_list?page=1">
+        <li class="num"><div>1</div></li>
+      </a>
+      <a href="/fboard/data_list?page=2">
+        <li class="num"><div>2</div></li>
+      </a>
+      <a href="/fboard/data_list?page=3">
+        <li class="num"><div>3</div></li>
       </a>
       <!-- 다음페이지 처리 -->
       <li class="next"></li>

@@ -6,17 +6,40 @@ from django.core.paginator import Paginator
 import requests
 import json
 
+## 공공데이터 검색
+def data_search(request):
+    ## 검색부분에 빙수라는 단어를 입력하고 검색버튼을 클릭을 하면
+    ## 빙수 리스트가 출력될수 있도록 구성하시오.
+    
+    
+    return render(request,'data_list.html')
+
+
 # 공공데이터 함수
 def data_list(request):
-    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey=918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=json'
+    page = request.GET.get('page')
+    if not page:
+        page=1
+    print("page : ",page)    
+    keyword='빙수'
+    public_key='918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D'
+    # 갤러리목록조회
+    # url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey={}&pageNo={}&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=json'.format(public_key,page)
+    # 갤러리검색조회
+    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?ServiceKey={}&MobileOS=ETC&MobileApp=AppTest&keyword={}&numOfRows=10&_type=json'.format(public_key,keyword)
+    # url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/gallerySearchList?serviceKey={ }&pageNo={ }&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&keyword={}&_type=json'.format(public_key,page,keyword)
     # 웹스크래핑
     res = requests.get(url)
     # json타입으로 변경
     json_res = json.loads(res.text)
-    dList = json_res['response']['body']['items']['item'][0]
+    # 10개 - list타입
+    dList = json_res['response']['body']['items']['item']
+    # 1개 가져오기
+    # dList = json_res['response']['body']['items']['item'][0]
     print(dList)
     print("-"*50)
-    return render(request,'data_list.html',dList)
+    context={"dList":dList}
+    return render(request,'data_list.html',context)
 
 
 
