@@ -4,12 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Pages - Login</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/notice_list.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/write.css' %}">
+  <script>
+    function cancelBtn(){
+      if (confirm('수정을 취소하시겠습니까?')){
+        location.href="{% url 'fboard:fList' %}"
+      }
+
+    }
+  </script>
 </head>
+
 <body>
   <header>
     <ul>
@@ -46,60 +54,67 @@
   </nav>
 
   <section>
-    <h1>공공데이터 출력</h1>
-    <div class="wrapper">
-      <form action="/search" name="search" method="post">
-        <select name="category" id="category">
-          <option value="0">전체</option>
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-        </select>
+    <h1>답글쓰기</h1>
+    <hr>
 
-        <div class="title">
-          <input type="text" size="16">
-        </div>
-  
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </form>
-    </div>
-
-    <table>
-      <colgroup>
-        <col width="15%">
-        <col width="35%">
-        <col width="15%">
-        <col width="15%">
-        <col width="20%">
-      </colgroup>
-      <tr>
-        <th>No.</th>
-        <th>제목</th>
-        <th>촬영자</th>
-        <th>촬영위치</th>
-        <th>촬영이미지</th>
-      </tr>
-      {% for data in dList %}
-      <tr>
-        <td>{{data.galContentId}}</td>
-        <td class="table-title">{{data.galTitle}}</td>
-        <td>{{data.galPhotographer}}</td>
-        <td>{{data.galPhotographyLocation}}</td>
-        <td><img style="width:50px;" src="{{data.galWebImageUrl}}"></td>
-      </tr>
-      {% endfor %}
-    </table>
-
-    <ul class="page-num">
-      <li class="first"></li>
-      <li class="prev"></li>
-      <li class="num">
-        <div>1</div>
-      </li>
-      <li class="next"></li>
-      <li class="last"></li>
-    </ul>
-
-    <div class="write">쓰기</div>
+    <form action="{% url 'fboard:fUpdate' board.f_no %}" name="write" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <table>
+        <colgroup>
+          <col width="15%">
+          <col width="85%">
+        </colgroup>
+        <tr>
+          <th>분류</th>
+          <td>
+            <div class="category-wrapper">
+              <select name="category" id="category">
+                <option value="notice">공지</option>
+                <option value="event">이벤트</option>
+              </select>  
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td>
+            <input type="text" name="title" id="title" value="{{board.f_title}}">
+          </td>
+        </tr>
+        <tr>
+          <th>아이디</th>
+          <td>{{request.session.session_id}}</td>
+          <input type='hidden' name='id' value="{{request.session.session_id}}">
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td>
+            <textarea name="content" id="text" cols="50" rows="10">{{board.f_content}}
+            </textarea>
+          </td>
+        </tr>
+        <tr>
+          <th>이미지 표시</th>
+          <td>
+            <input type="file" name="file" id="file">
+          </td>
+        </tr>
+        <tr>
+          <th>이미지 이름</th>
+          {% if board.f_file %}
+          <td>{{board.f_file}}</td>
+          <input type="hidden" name="refile" value="{{board.f_file}}">
+          {%else%}
+            <td>이미지 없음</td>
+          {%endif%}
+        </tr>
+      </table>
+      <hr>
+      <div class="button-wrapper">
+        <button type="submit" class="write">수정완료</button>
+        <button type="button" onclick="cancelBtn()" class="cancel">취소</button>
+      </div>
+    </form>
   </section>
 
   <footer>

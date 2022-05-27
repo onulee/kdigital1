@@ -4,12 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>product - 상품등록</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/notice_list.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/write.css' %}">
+  <script>
+    function cancelBtn(){
+      if (confirm('글쓰기를 취소하시겠습니까?')){
+        location.href="{% url 'fboard:fList' %}"
+      }
+    }
+  </script>
 </head>
+
 <body>
   <header>
     <ul>
@@ -46,60 +53,84 @@
   </nav>
 
   <section>
-    <h1>공공데이터 출력</h1>
-    <div class="wrapper">
-      <form action="/search" name="search" method="post">
-        <select name="category" id="category">
-          <option value="0">전체</option>
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-        </select>
+    <h1>상품등록</h1>
+    <hr>
 
-        <div class="title">
-          <input type="text" size="16">
-        </div>
-  
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </form>
-    </div>
-
-    <table>
-      <colgroup>
-        <col width="15%">
-        <col width="35%">
-        <col width="15%">
-        <col width="15%">
-        <col width="20%">
-      </colgroup>
-      <tr>
-        <th>No.</th>
-        <th>제목</th>
-        <th>촬영자</th>
-        <th>촬영위치</th>
-        <th>촬영이미지</th>
-      </tr>
-      {% for data in dList %}
-      <tr>
-        <td>{{data.galContentId}}</td>
-        <td class="table-title">{{data.galTitle}}</td>
-        <td>{{data.galPhotographer}}</td>
-        <td>{{data.galPhotographyLocation}}</td>
-        <td><img style="width:50px;" src="{{data.galWebImageUrl}}"></td>
-      </tr>
-      {% endfor %}
-    </table>
-
-    <ul class="page-num">
-      <li class="first"></li>
-      <li class="prev"></li>
-      <li class="num">
-        <div>1</div>
-      </li>
-      <li class="next"></li>
-      <li class="last"></li>
-    </ul>
-
-    <div class="write">쓰기</div>
+    <form action="{% url 'product:pWrite'%}" name="write" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <table>
+        <colgroup>
+          <col width="15%">
+          <col width="85%">
+        </colgroup>
+        <tr>
+          <th>상품명</th>
+          <td>
+            <input type="text" name="name" id="name">
+          </td>
+        </tr>
+        <tr>
+          <th>분류</th>
+          <td>
+            <div class="category-wrapper">
+              <select name="category" id="category">
+                <option value="요리">요리</option>
+                <option value="찌개">찌개</option>
+              </select>  
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>인분</th>
+          <td>
+            <div class="category-wrapper">
+              <select name="servings" id="servings">
+                <option value="1인분">1인분</option>
+                <option value="2인분" selected>2인분</option>
+                <option value="3인분">3인분</option>
+                <option value="4인분">4인분</option>
+                <option value="5인분">5인분</option>
+              </select>  
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>가격</th>
+          <td>
+            <input type="text" name="unitPrice" id="unitPrice">
+          </td>
+        </tr>
+        <tr>
+          <th>제조사</th>
+          <td>
+            <input type="text" name="manufacturer" id="manufacturer" value="CJONE">
+          </td>
+        </tr>
+        <tr>
+          <th>수량</th>
+          <td>
+            <input type="text" name="unit" id="unit" value="100">
+          </td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td>
+            <textarea name="description" id="text" cols="50" rows="10"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <th>이미지 표시</th>
+          <td>
+            <input type="file" name="fileName" id="fileName">
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <div class="button-wrapper">
+        <button type="submit" class="write">작성완료</button>
+        <button type="button" onclick="cancelBtn()" class="cancel">취소</button>
+      </div>
+    </form>
   </section>
 
   <footer>

@@ -7,8 +7,13 @@
   <title>Document</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/notice_list.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/notice_list.css' %}">
+  <script>
+    function writeBtn(){
+      location.href="{% url 'product:pWrite' %}"
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -17,13 +22,12 @@
       <li>로그인</li> <span>|</span>
       <li>고객행복센터</li> <span>|</span>
       <li>배송지역검색</li> <span>|</span>
-      <li>기프트카드 등록</li>
+      <li><a href="/admin">admin</a></li>
     </ul>
   </header>
 
   <nav>
-    <div class="logo"></div>
-
+    <a href="{% url 'index' %}"><div class="logo"></div></a>
     <div id="search">
       <div class="search"></div><br>
       <span>메뉴찾기</span>
@@ -46,9 +50,10 @@
   </nav>
 
   <section>
-    <h1>공공데이터 출력</h1>
+    <h1>NOTICE</h1>
     <div class="wrapper">
       <form action="/search" name="search" method="post">
+        {% csrf_token %}
         <select name="category" id="category">
           <option value="0">전체</option>
           <option value="title">제목</option>
@@ -58,7 +63,6 @@
         <div class="title">
           <input type="text" size="16">
         </div>
-  
         <button type="submit"><i class="fas fa-search"></i></button>
       </form>
     </div>
@@ -66,27 +70,52 @@
     <table>
       <colgroup>
         <col width="15%">
-        <col width="35%">
+        <col width="40%">
         <col width="15%">
         <col width="15%">
-        <col width="20%">
+        <col width="15%">
       </colgroup>
       <tr>
         <th>No.</th>
         <th>제목</th>
-        <th>촬영자</th>
-        <th>촬영위치</th>
-        <th>촬영이미지</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회수</th>
       </tr>
-      {% for data in dList %}
-      <tr>
-        <td>{{data.galContentId}}</td>
-        <td class="table-title">{{data.galTitle}}</td>
-        <td>{{data.galPhotographer}}</td>
-        <td>{{data.galPhotographyLocation}}</td>
-        <td><img style="width:50px;" src="{{data.galWebImageUrl}}"></td>
-      </tr>
-      {% endfor %}
+      {% comment %} <tr>
+        <td><span class="table-notice">NOTICE</span></td>
+        <td class="table-title">신종코로나바이러스 예방관련 운영 안내</td>
+        <td>2020-02-28</td>
+      </tr> {% endcomment %}
+      {% if fList %}
+        {% for board in fList %}
+        <tr>
+          <td>{{board.f_no}}</td>
+          <td class="table-title">
+            <a href="{% url 'fboard:fView' board.f_no %}">
+              {% if board.f_indent > 0 %}
+              {% comment %} board.f_indent 글자로 인식 {% endcomment %}
+              {% comment %} "x"|공백제거후 board.f_indent 만큼 리스트 처리 {% endcomment %}
+                {% for i in "x"|rjust:board.f_indent %}
+                  ▶
+                {% endfor %}  
+              {% endif %}
+              {{board.f_title}}
+              {% if board.f_file %}
+              <img src="/static/images/dicon1.png">
+              {% endif %}
+            </a>
+          </td>
+          <td>{{board.member.name}}</td>
+          <td>{{board.f_updatedate|date:'Y-m-d H:i'}}</td>
+          <td>{{board.f_hit}}</td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan='5'>데이터가 없습니다.</td>
+        </tr>
+      {% endif %}
     </table>
 
     <ul class="page-num">
@@ -99,7 +128,7 @@
       <li class="last"></li>
     </ul>
 
-    <div class="write">쓰기</div>
+    <div class="write" onclick="writeBtn()">쓰기</div>
   </section>
 
   <footer>

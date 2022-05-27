@@ -1,36 +1,30 @@
 from django.shortcuts import redirect, render
 from fboard.models import Fboard
 from member.models import Member
-from django.db.models import F 
+from django.db.models import F,Q 
 from django.core.paginator import Paginator
 import requests
 import json
 
-# 공공데이터
-def public_list(request):
-    # 인증키
-    m_serviceKey = '918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D'
-    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey={}&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=json'.format(m_serviceKey)
+# 공공데이터 함수
+def data_list(request):
+    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey=918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=json'
+    # 웹스크래핑
     res = requests.get(url)
-    contents = res.text #글자 가져옴.
-    # Json타입으로 변경
-    json_contents = json.loads(contents)
-    print(type(json_contents))
-    body = json_contents['response']['body']['items']['item']
-    # body = json_contents['response']['body']['items']['item'][0]
+    # json타입으로 변경
+    json_res = json.loads(res.text)
+    dList = json_res['response']['body']['items']['item'][0]
+    print(dList)
     print("-"*50)
-    print(body)
-    print("-"*50)
-    context={'dList':body}
-    return render(request,'public_list.html',context)
-    # return render(request,'public_list.html',body)
+    return render(request,'data_list.html',dList)
+
 
 
 # 게시판 수정 함수
-def fUpdate(request,nowpage,f_no):
+def fUpdate(request,nowpage,category,searchword,f_no):
     if request.method == 'GET':
         qs = Fboard.objects.get(f_no=f_no)
-        context = {'board':qs,'nowpage':nowpage}
+        context = {'board':qs,'nowpage':nowpage,'category':category,'searchword':searchword}
         return render(request,'fUpdate.html',context)
     else:
         # 수정form에서 데이터 전달
@@ -49,19 +43,19 @@ def fUpdate(request,nowpage,f_no):
         
            
         qs.save()
-        return redirect('fboard:fList',nowpage)
+        return redirect('fboard:fList',nowpage,category,searchword)
 
 # 게시판 삭제 함수
-def fDelete(request,nowpage,f_no):
+def fDelete(request,nowpage,category,searchword,f_no):
     qs = Fboard.objects.get(f_no=f_no)
     qs.delete()
-    return redirect('fboard:fList',nowpage)
+    return redirect('fboard:fList',nowpage,category,searchword)
 
 # 게시판 답글쓰기 함수
-def fReply(request,nowpage,f_no):
+def fReply(request,nowpage,category,searchword,f_no):
     if request.method == 'GET':
         qs = Fboard.objects.get(f_no=f_no) 
-        context={'board':qs,'nowpage':nowpage}
+        context={'board':qs,'nowpage':nowpage,'category':category,'searchword':searchword}
         return render(request,'fReply.html',context)
     else:
         # id = request.session.session_id
@@ -92,11 +86,11 @@ def fReply(request,nowpage,f_no):
             ,f_step=step+1,f_indent=indent+1,f_file=file)
         qs.save() # f_no
         
-        return redirect('fboard:fList',nowpage)
+        return redirect('fboard:fList',nowpage,category,searchword)
     
 
 # 게시판 읽기 함수
-def fView(request,nowpage,f_no):
+def fView(request,nowpage,category,searchword,f_no):
     qs = Fboard.objects.get(f_no=f_no)
     # 게시판리스트- f_group역순정렬, f_step순차정렬
     # qs = Fboard.objects.order_by('-f_group','f_step')
@@ -131,13 +125,13 @@ def fView(request,nowpage,f_no):
     qsPrev = Fboard.objects.get(f_no=qs_prev)
     qsNext = Fboard.objects.get(f_no=qs_next)
     # 이전글 게시글 검색
-    context={'board':qs,'boardPrev':qsPrev,'boardNext':qsNext,'nowpage':nowpage}
+    context={'board':qs,'boardPrev':qsPrev,'boardNext':qsNext,'nowpage':nowpage,'category':category,'searchword':searchword}
     return render(request,'fView.html',context)
 
 # 게시판 글쓰기 함수
-def fWrite(request,nowpage):
+def fWrite(request,nowpage,category,searchword):
     if request.method == 'GET':
-        context={"nowpage":nowpage}
+        context={"nowpage":nowpage,'category':category,'searchword':searchword}
         return render(request,'fWrite.html',context)
     else:
         # form넘어온 데이터
@@ -151,17 +145,35 @@ def fWrite(request,nowpage):
         qs.save()
         qs.f_group = qs.f_no
         qs.save()
-        return redirect('fboard:fList',nowpage)
+        return redirect('fboard:fList',nowpage,category,searchword)
         
         
 
 # 게시판 리스트 함수
-def fList(request,nowpage):
-    qs = Fboard.objects.order_by('-f_group','f_step')
-    # 페이징 처리 - request:str타입
-    # page = int(request.GET.get('nowpage',1)) # page변수 전달, 없으면 1
-    print("nowpage : ",nowpage)
+def fList(request,nowpage,category,searchword):
+    # GET,POST 포함
+    # all,title,content
+    if request.method =='POST':
+        category = request.POST.get('category')
+        searchword = request.POST.get('searchword')
+        print("POST category : ",category,searchword)
+    
+    print("main category : ",category,searchword)
+    # category분류
+    if category == 'first':  # GET으로 들어옴.
+        qs = Fboard.objects.order_by('-f_group','f_step')
+    elif category == 'title':
+        qs = Fboard.objects.filter(f_title__contains=searchword)
+    elif category == 'content':
+        qs = Fboard.objects.filter(f_content__contains=searchword)
+    else: # all
+        # or 검색 : title or content
+        qs = Fboard.objects.filter(Q(f_title__contains=searchword)|Q(f_content__contains=searchword))
+        # and 검색 : title and content
+        # qs = Fboard.objects.filter(f_title__contains=searchword,f_content__contains=searchword)    
+    
     paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
     fList = paginator.get_page(nowpage) # 요청한 페이지의 게시글 10개를 전달
-    context={'fList':fList,'nowpage':nowpage}
+    print("count : ",qs.count)
+    context={'fList':fList,'count':qs.count,'nowpage':nowpage,'category':category,'searchword':searchword}
     return render(request,'fList.html',context)

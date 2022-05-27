@@ -7,9 +7,19 @@
   <title>Document</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/notice_list.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/read.css' %}">
+  <script>
+    function deleteBtn(){
+      if(confirm("데이터를 삭제하시겠습니까?")){
+        location.href="{% url 'fboard:fDelete' board.f_no %}"
+      }else{
+        return false
+      }
+    }
+  </script>
 </head>
+
 <body>
   <header>
     <ul>
@@ -17,12 +27,12 @@
       <li>로그인</li> <span>|</span>
       <li>고객행복센터</li> <span>|</span>
       <li>배송지역검색</li> <span>|</span>
-      <li>기프트카드 등록</li>
+      <li><a href="/admin">admin</a></li>
     </ul>
   </header>
 
   <nav>
-    <div class="logo"></div>
+    <a href="{% url 'index' %}"><div class="logo"></div></a>
 
     <div id="search">
       <div class="search"></div><br>
@@ -46,60 +56,45 @@
   </nav>
 
   <section>
-    <h1>공공데이터 출력</h1>
-    <div class="wrapper">
-      <form action="/search" name="search" method="post">
-        <select name="category" id="category">
-          <option value="0">전체</option>
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-        </select>
-
-        <div class="title">
-          <input type="text" size="16">
-        </div>
-  
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </form>
-    </div>
+    <h1>NOTICE</h1>
 
     <table>
-      <colgroup>
-        <col width="15%">
-        <col width="35%">
-        <col width="15%">
-        <col width="15%">
-        <col width="20%">
-      </colgroup>
       <tr>
-        <th>No.</th>
-        <th>제목</th>
-        <th>촬영자</th>
-        <th>촬영위치</th>
-        <th>촬영이미지</th>
+        <th>{{board.f_title}}</th>
       </tr>
-      {% for data in dList %}
       <tr>
-        <td>{{data.galContentId}}</td>
-        <td class="table-title">{{data.galTitle}}</td>
-        <td>{{data.galPhotographer}}</td>
-        <td>{{data.galPhotographyLocation}}</td>
-        <td><img style="width:50px;" src="{{data.galWebImageUrl}}"></td>
+        <td>{{board.member.name}}</td>
       </tr>
-      {% endfor %}
+      <tr>
+        <td>{{board.f_updatedate|date:'Y-m-d H:i'}}</td>
+      </tr>
+      <tr>
+        <td>{{board.f_content}}</td>
+      </tr>
+      <tr>
+        <td>파일이름 |{{board.f_file}}</td>
+      </tr>
+      <tr>
+        <td>
+          {% if board.f_file %}
+          <img src="{{board.f_file.url}}">
+          {% else %}
+          <h4>이미지 없음</h4>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td><strong>다음글</strong> <span class="separator">|</span> [키즈잼] 2월 프로그램 안내</td>
+      </tr>
+      <tr>
+        <td><strong>이전글</strong> <span class="separator">|</span> [키즈잼] 2020년 1분기 정기 휴관일 안내</td>
+      </tr>
     </table>
 
-    <ul class="page-num">
-      <li class="first"></li>
-      <li class="prev"></li>
-      <li class="num">
-        <div>1</div>
-      </li>
-      <li class="next"></li>
-      <li class="last"></li>
-    </ul>
-
-    <div class="write">쓰기</div>
+    <a href="{% url 'fboard:fList' %}"><div class="list">목록</div></a>
+    <div class="list"><a href="{% url 'fboard:fReply' board.f_no %}">답글</a></div>
+    <div class="list" onclick="deleteBtn()">삭제</div>
+    <div class="list"><a href="{% url 'fboard:fUpdate' board.f_no %}">수정</a></div>
   </section>
 
   <footer>

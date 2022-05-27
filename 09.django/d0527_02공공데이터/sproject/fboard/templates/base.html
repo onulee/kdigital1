@@ -5,25 +5,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/notice_list.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  
 </head>
 <body>
   <header>
     <ul>
-      <li>회원가입</li> <span>|</span>
-      <li>로그인</li> <span>|</span>
-      <li>고객행복센터</li> <span>|</span>
-      <li>배송지역검색</li> <span>|</span>
-      <li>기프트카드 등록</li>
+      {% if not request.session.session_id %}
+      <li>회원가입</li><span>|</span>
+      <li><a href="{% url 'member:login' %}">로그인</a></li><span>|</span>
+      {% else %}
+      <li>{{request.session.session_nickname}}님</li><span>|</span>
+      <li><a class="a_color" href="{% url 'member:logout' %}">로그아웃</a></li><span>|</span>
+      {% endif %}
+      <li><a class="a_color" href="{% url 'fboard:fList' nowpage=1 category='first' searchword='first' %}">고객행복센터</a></li><span>|</span>
+      <li><a class="a_color" href="{% url 'product:pWrite' %}">상품등록</a></li><span>|</span>
+      <li><a class="a_color" href="/admin">admin</a></li>
     </ul>
   </header>
-
+  <!-- 메뉴 시작 -->
   <nav>
-    <div class="logo"></div>
-
+    <a href="{% url 'index' %}"><div class="logo"></div></a>
     <div id="search">
       <div class="search"></div><br>
       <span>메뉴찾기</span>
@@ -44,64 +49,12 @@
       </ul>  
     </div>
   </nav>
-
+  <!-- 메뉴 끝 -->
   <section>
-    <h1>공공데이터 출력</h1>
-    <div class="wrapper">
-      <form action="/search" name="search" method="post">
-        <select name="category" id="category">
-          <option value="0">전체</option>
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-        </select>
-
-        <div class="title">
-          <input type="text" size="16">
-        </div>
-  
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </form>
-    </div>
-
-    <table>
-      <colgroup>
-        <col width="15%">
-        <col width="35%">
-        <col width="15%">
-        <col width="15%">
-        <col width="20%">
-      </colgroup>
-      <tr>
-        <th>No.</th>
-        <th>제목</th>
-        <th>촬영자</th>
-        <th>촬영위치</th>
-        <th>촬영이미지</th>
-      </tr>
-      {% for data in dList %}
-      <tr>
-        <td>{{data.galContentId}}</td>
-        <td class="table-title">{{data.galTitle}}</td>
-        <td>{{data.galPhotographer}}</td>
-        <td>{{data.galPhotographyLocation}}</td>
-        <td><img style="width:50px;" src="{{data.galWebImageUrl}}"></td>
-      </tr>
-      {% endfor %}
-    </table>
-
-    <ul class="page-num">
-      <li class="first"></li>
-      <li class="prev"></li>
-      <li class="num">
-        <div>1</div>
-      </li>
-      <li class="next"></li>
-      <li class="last"></li>
-    </ul>
-
-    <div class="write">쓰기</div>
+    {% block content-block %}
+    {% endblock content-block %} 
   </section>
-
+  <!-- 하단 부분 시작 -->
   <footer>
     <div class="wrapper">
       <div class="footer-left">

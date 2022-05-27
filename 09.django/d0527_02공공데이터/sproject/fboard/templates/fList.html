@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block content-block  %}
+    <head>
+      <link rel="stylesheet" href="{% static 'css/notice_list.css' %}">
+      <script>
+        function writeBtn(){
+          location.href="{% url 'fboard:fWrite' nowpage category searchword %}"
+        }
+
+        function searchBtn(){
+          if($("#searchword").val().length<=1){
+            alert('2글자 이상 입력하셔야 검색이 가능합니다.')
+            $("#searchword").focus()
+            return false
+          }
+          document.search.submit()
+        }
+      </script>
+    </head>
+    <h1 id="noticeH1">NOTICE : {{ count }}</h1>
+    <div class="wrapper">
+      <form action="{% url 'fboard:fList' nowpage=1 category=category searchword=searchword %}" id="search" name="search" method="post">
+        {% csrf_token %}
+        <select name="category" id="category">
+          <option value="all">전체</option>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
+        </select>
+        
+        <div class="title">
+          <input type="text" name="searchword" id="searchword" size="16">
+        </div>
+        <button type="button" onclick='searchBtn()'><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+    
+    <table>
+      <colgroup>
+        <col width="15%">
+        <col width="40%">
+        <col width="15%">
+        <col width="15%">
+        <col width="15%">
+      </colgroup>
+      <tr>
+        <th>No.</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회수</th>
+      </tr>
+      {% comment %} <tr>
+        <td><span class="table-notice">NOTICE</span></td>
+        <td class="table-title">신종코로나바이러스 예방관련 운영 안내</td>
+        <td>2020-02-28</td>
+      </tr> {% endcomment %}
+      {% if fList %}
+      {% for board in fList %}
+      <tr>
+        <td>{{board.f_no}}</td>
+        <td class="table-title">
+          <a href="{% url 'fboard:fView' nowpage category searchword board.f_no %}">
+            {% if board.f_indent > 0 %}
+            {% comment %} board.f_indent 글자로 인식 {% endcomment %}
+            {% comment %} "x"|공백제거후 board.f_indent 만큼 리스트 처리 {% endcomment %}
+            {% for i in "x"|rjust:board.f_indent %}
+            ▶
+            {% endfor %}  
+            {% endif %}
+            {{board.f_title}}
+            {% if board.f_file %}
+            <img src="/static/images/dicon1.png">
+            {% endif %}
+          </a>
+        </td>
+        <td>{{board.member.name}}</td>
+        <td>{{board.f_updatedate|date:'Y-m-d H:i'}}</td>
+        <td>{{board.f_hit}}</td>
+      </tr>
+      {% endfor %}
+      {% else %}
+      <tr>
+        <td colspan='5'>데이터가 없습니다.</td>
+      </tr>
+      {% endif %}
+    </table>
+    <!-- 페이징 처리 -->
+    <!-- 이전페이지 처리 -->
+    <ul class="page-num">
+      {% if fList.has_previous %}
+      <a href="{% url 'fboard:fList' nowpage=1 category=category searchword=searchword  %}"><li class="first"></li></a>
+      <a href="{% url 'fboard:fList' nowpage=fList.previous_page_number category=category searchword=searchword %}"><li class="prev"></li></a>
+      {%else%}
+      <li class="first"></li>
+      <li class="prev"></li>
+      {%endif%}
+      <!-- 페이지순서 처리 -->
+      {% for page in fList.paginator.page_range %}
+      {% if page != nowpage %}
+      <a href="{% url 'fboard:fList' nowpage=page category=category searchword=searchword  %}">
+        <li class="num"><div>{{page}}</div></li>
+      </a>
+      {% else %}
+      <li class="num on"><div>{{page}}</div></li>
+      {% endif %}
+      {% endfor %}  
+      
+      <!-- 다음페이지 처리 -->
+      {% if fList.has_next %}
+      <a href="{% url 'fboard:fList' nowpage=fList.next_page_number category=category searchword=searchword %}"><li class="next"></li></a>
+      <a href="{% url 'fboard:fList' nowpage=fList.paginator.num_pages category=category searchword=searchword %}"><li class="last"></li></a>
+      {% else %}
+      <li class="next"></li>
+      <li class="last"></li>
+      {% endif %}
+      
+    </ul>
+    
+    <div class="write" onclick="writeBtn()">쓰기</div>
+    {% endblock content-block  %}
+  

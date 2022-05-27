@@ -4,13 +4,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Pages - Login</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/notice_list.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    function loginBtn(){
+      if($("#id").val()==''){
+        alert('아이디가 입력되지 않았습니다. 아이디를 입력해주세요.')
+        $("#id").focus()
+        return false
+      }
+      if($("#pw").val()==''){
+        alert('패스워드가 입력되지 않았습니다. 패스워드를 입력해주세요.')
+        $("#pw").focus()
+        return false
+      }
+
+      return $("#login").submit()
+    }
+  </script>
 </head>
 <body>
+  {% if msg %}
+    <script>alert('{{ msg }}')</script>
+  {% endif %}
   <header>
     <ul>
       <li>회원가입</li> <span>|</span>
@@ -46,60 +65,48 @@
   </nav>
 
   <section>
-    <h1>공공데이터 출력</h1>
-    <div class="wrapper">
-      <form action="/search" name="search" method="post">
-        <select name="category" id="category">
-          <option value="0">전체</option>
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-        </select>
+    <h1>로그인</h1>
 
-        <div class="title">
-          <input type="text" size="16">
-        </div>
+    <article id="category">
+      <ul>
+        <li class="selected">회원 로그인</li>
+        <li>비회원 주문조회</li>
+      </ul>  
+    </article>
+
+    <form action="{% url 'member:login' %}" id='login' name="login" method="post">
+      {% csrf_token %}
+      <div class="id">
+        <input type="text" name="id" id='id' size="30" placeholder="CJ ONE 통합아이디 6~20자">
+      </div>
+      <div class="pw">
+        <input type="text" name="pw" id='pw' size="45" placeholder="비밀번호 영문, 특수문자, 숫자혼합 8~12자">
+      </div>
+
+      <div id="save">
+        <div class="save"></div>
+        <span>아이디 저장</span>
+      </div>
   
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </form>
-    </div>
+      <div id="find">
+        <span>아이디 찾기</span> <span class="separator">|</span> <span>비밀번호 찾기</span>
+      </div>
 
-    <table>
-      <colgroup>
-        <col width="15%">
-        <col width="35%">
-        <col width="15%">
-        <col width="15%">
-        <col width="20%">
-      </colgroup>
-      <tr>
-        <th>No.</th>
-        <th>제목</th>
-        <th>촬영자</th>
-        <th>촬영위치</th>
-        <th>촬영이미지</th>
-      </tr>
-      {% for data in dList %}
-      <tr>
-        <td>{{data.galContentId}}</td>
-        <td class="table-title">{{data.galTitle}}</td>
-        <td>{{data.galPhotographer}}</td>
-        <td>{{data.galPhotographyLocation}}</td>
-        <td><img style="width:50px;" src="{{data.galWebImageUrl}}"></td>
-      </tr>
-      {% endfor %}
-    </table>
+      <button type="button" onclick='loginBtn()'>로그인</button>
+    </form>
 
-    <ul class="page-num">
-      <li class="first"></li>
-      <li class="prev"></li>
-      <li class="num">
-        <div>1</div>
-      </li>
-      <li class="next"></li>
-      <li class="last"></li>
+    <ul class="login-icons">
+      <li class="phone"></li>
+      <li class="kakao"></li>
+      <li class="naver"></li>
+      <li class="facebook"></li>
     </ul>
 
-    <div class="write">쓰기</div>
+    <div class="sign-up-info">
+      <h3>CJ ONE 통합회원이 아니신가요?</h3>
+      <p>CJ ONE 통합회원으로 가입하시면 CJ제일제당의 다양한 서비스(COOKIT, CJ THE MARKET, CJ제일제당 홈페이지)를 이용하실 수 있습니다.</p>
+      <div class="sign-up">CJ ONE 통합회원 신규가입하기 <div class="arrow">&emsp;</div></div>
+    </div>
   </section>
 
   <footer>
