@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,th,td{border:1px solid black; border-collapse:collapse;}
+    </style>
+</head>
+<body>
+    <h2>fboard페이지</h2>
+    <h4>개수 : {{ count }}</h4>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>날짜</th>
+        </tr>
+        {% for fboard in fList %}
+        <tr>
+            <td>{{fboard.f_no}}</td>
+            <td>{{fboard.f_title}}</td>
+            <td>{{fboard.member}}</td>
+            <td>{{fboard.f_updatedate|date:'Y-m-d H:i'}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>
