@@ -13,5 +13,9 @@ urlpatterns = [
     path('<int:nowpage>/<str:category>/<str:searchword>/<str:f_no>/fDelete',views.fDelete,name='fDelete'),
     # 수정
     path('<int:nowpage>/<str:category>/<str:searchword>/<str:f_no>/fUpdate',views.fUpdate,name='fUpdate'),
+    # 이벤트
+    path('event/',views.event,name='event'),
+    # 이벤트 view
+    path('event_view/',views.event_view,name='event_view'),
     
 ]

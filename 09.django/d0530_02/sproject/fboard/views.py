@@ -4,6 +4,15 @@ from member.models import Member
 from django.db.models import F,Q 
 from django.core.paginator import Paginator
 
+# 이벤트
+def event(request):
+    return render(request,'event.html')
+
+# 이벤트 뷰
+def event_view(request):
+    print("f_no : ",request.GET.get('f_no'))
+    return render(request,'event_view.html')
+
 
 # 게시판 수정 함수
 def fUpdate(request,nowpage,category,searchword,f_no):

@@ -19,3 +19,13 @@ class Fboard(models.Model):
     
     def __str__(self):
         return self.f_title
+    
+class Comment(models.Model):
+    # c_no:댓글번호, member:회원아이디, fboard:게시글번호
+    # c_pw:댓글비밀번호, c_content:댓글내용, c_date:날짜
+    c_no = models.AutoField(primary_key=True)
+    member = models.ForeignKey(Member,on_delete=models.DO_NOTHING,null=True)
+    fboard = models.ForeignKey(Fboard,on_delete=models.CASCADE)
+    c_pw = models.CharField(max_length=100,blank=True)
+    c_content = models.TextField()
+    c_date = models.DateTimeField(default=datetime.now(),blank=True)    
