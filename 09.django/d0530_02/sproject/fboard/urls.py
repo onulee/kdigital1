@@ -19,5 +19,7 @@ urlpatterns = [
     path('event_view/',views.event_view,name='event_view'),
     # 댓글 list
     path('commList/',views.commList,name='commList'),
+    # 댓글 write
+    path('commWrite/',views.commWrite,name='commWrite'),
     
 ]

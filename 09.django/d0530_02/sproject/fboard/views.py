@@ -1,3 +1,4 @@
+import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from fboard.models import Fboard,Comment
@@ -5,7 +6,22 @@ from member.models import Member
 from django.db.models import F,Q 
 from django.core.paginator import Paginator
 
-# 댓글 list
+# 댓글 write - Query : dic타입
+def commWrite(request):
+    # html페이지에서 데이터 가져오기
+    f_no = request.GET.get('f_no')
+    pw = request.GET.get('pw')
+    content = request.GET.get('content')
+    id = request.session.session_id
+    
+    # 저장데이터 : c_no,member,fboard,c_pw,c_content,c_date
+    
+    
+    context={}
+    return JsonResponse(context)
+
+
+# 댓글 list - QuerySet : List타입
 def commList(request):
     f_no = request.GET.get('f_no')
     print("f_no commList : ",f_no)

@@ -3,6 +3,7 @@ html{overflow-y:scroll; width:100%;}
 #allwrap{position:relative; width:100%; overflow:hidden;}
 #wrap{}
 
+a{cursor: pointer;}
 
 /* 하위브라우저 체크 */
 #ieUser{width:100%; height:83px; background:#083457; overflow:hidden;}
