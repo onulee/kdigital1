@@ -17,5 +17,7 @@ urlpatterns = [
     path('event/',views.event,name='event'),
     # 이벤트 view
     path('event_view/',views.event_view,name='event_view'),
+    # 댓글 list
+    path('commList/',views.commList,name='commList'),
     
 ]

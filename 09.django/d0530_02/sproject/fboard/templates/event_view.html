@@ -192,20 +192,26 @@
 						//jquery선언
 						$(function(){
 							//ajax선언
-							alert("f_no : "+{{f_no}})
+							alert("f_no ajax : "+{{f_no}})
 							$.ajax({
-								url:"",
+								url:"{% url 'fboard:commList' %}",
 								type:"GET",
-								data:{ 'f_no':{{f_no}} },
+								data:{ 'f_no':{{f_no}} }, //view 보냄.
 								dataType:"json",
 								success:function(data){
 									//f_no:1 해당되는 댓글을 가져옴.
-
-
-
-
-
-
+									var html_data = ""
+									for(var i in data){
+										html_data += "<ul>"
+										html_data += "<li class='name'>"+data[i].member_id+"<span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>"
+										html_data += "<li class='txt'>대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>"
+										html_data += "<li class='btn'>"
+										html_data += "<a href='#' class='rebtn'>수정</a>"
+										html_data += "<a href='#' class='rebtn'>삭제</a>"
+										html_data += "</li>"
+										html_data += "</ul>"
+									}
+									$(".replyBox").html(html_data)
 								},
 								error:function(){
 									alert('에러!')
@@ -230,6 +236,7 @@
 					<!--글쓰기 부분 끝 -->
 
 					<div class="replyBox">
+						
 						<!-- 수정버튼 클릭시 나타나는 페이지 시작 
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
@@ -241,14 +248,6 @@
 						</ul>
 						끝   -->
 
-						<ul>
-							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
-							<li class="txt">대박!!! 이거 저한테 완전 필요한 이벤트였어요!!</li>
-							<li class="btn">
-								<a href="#" class="rebtn">수정</a>
-								<a href="#" class="rebtn">삭제</a>
-							</li>
-						</ul>
 						<!-- 비밀글 시작 
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>

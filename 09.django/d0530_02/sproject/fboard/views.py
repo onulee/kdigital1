@@ -1,8 +1,19 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
-from fboard.models import Fboard
+from fboard.models import Fboard,Comment
 from member.models import Member
 from django.db.models import F,Q 
 from django.core.paginator import Paginator
+
+# 댓글 list
+def commList(request):
+    f_no = request.GET.get('f_no')
+    print("f_no commList : ",f_no)
+    # f_no 하단댓글을 검색
+    qs = Comment.objects.filter(fboard=f_no)
+    clist = list(qs.values()) # [0:q1,1:q2,2:q3]
+    return JsonResponse(clist,safe=False) #safe=False list타입모양으로 리턴
+
 
 # 이벤트
 def event(request):
