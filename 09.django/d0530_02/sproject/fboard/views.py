@@ -11,7 +11,9 @@ def event(request):
 # 이벤트 뷰
 def event_view(request):
     print("f_no : ",request.GET.get('f_no'))
-    return render(request,'event_view.html')
+    # GET으로 받은 f_no를 넘겨줌.
+    context={'f_no':request.GET.get('f_no')}
+    return render(request,'event_view.html',context)
 
 
 # 게시판 수정 함수

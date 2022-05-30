@@ -188,8 +188,34 @@
 					</div>
 					<!-- //이전다음글 -->
 
+					<script>
+						//jquery선언
+						$(function(){
+							//ajax선언
+							alert("f_no : "+{{f_no}})
+							$.ajax({
+								url:"",
+								type:"GET",
+								data:{ 'f_no':{{f_no}} },
+								dataType:"json",
+								success:function(data){
+									//f_no:1 해당되는 댓글을 가져옴.
+
+
+
+
+
+
+								},
+								error:function(){
+									alert('에러!')
+								}
+							})//ajax
+						})//function
+					</script>
 
 					<!-- 댓글-->
+					<!--글쓰기 부분 시작 -->
 					<div class="replyWrite">
 						<ul>
 							<li class="in">
@@ -201,16 +227,19 @@
 						</ul>
 						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
 					</div>
+					<!--글쓰기 부분 끝 -->
 
 					<div class="replyBox">
+						<!-- 수정버튼 클릭시 나타나는 페이지 시작 
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
 							<li class="txt"><textarea class="replyType"></textarea></li>
 							<li class="btn">
-								<a href="#" class="rebtn">수정</a>
-								<a href="#" class="rebtn">삭제</a>
+								<a href="#" class="rebtn">완료</a>
+								<a href="#" class="rebtn">취소</a>
 							</li>
 						</ul>
+						끝   -->
 
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
@@ -220,13 +249,14 @@
 								<a href="#" class="rebtn">삭제</a>
 							</li>
 						</ul>
-
+						<!-- 비밀글 시작 
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
 							<li class="txt">
 								<a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
 							</li>
 						</ul>
+						끝 -->
 					</div>
 					<!-- //댓글 -->
 
