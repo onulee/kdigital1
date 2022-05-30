@@ -223,7 +223,6 @@
 						function commWriteBtn(){
 							//1. input에 있는 데이터 가져오기
 							alert($(".replynum").val())
-							alert($(".replyType").val())
 							//2. views.py 전송,db저장,views 가져오기
 							$.ajax({
 								url:"{% url 'fboard:commWrite' %}",
@@ -231,7 +230,17 @@
 								data:{"f_no":{{f_no}},"pw":$(".replynum").val(),"content":$(".replyType").val()},
 								dataType:"json",
 								success:function(data){
-
+									var html_data=""
+									//1.html 2.prepend 3.append
+									html_data += "<ul>"
+									html_data += "<li class='name'>"+'{{request.session.session_id}}'+"<span>["+data.c_date+"]</span></li>"
+									html_data += "<li class='txt'>"+data.c_content+"</li>"
+									html_data += "<li class='btn'>"
+									html_data += "<a href='#' class='rebtn'>수정</a>&nbsp"
+									html_data += "<a href='#' class='rebtn'>삭제</a>"
+									html_data += "</li>"
+									html_data += "</ul>"
+									$(".replyBox").prepend(html_data)
 								},
 								error:function(){
 									alert("에러!!")
@@ -240,15 +249,7 @@
 
 							})
 							//5. html에 넣기
-							
-
-
-
-
 						}
-
-
-
 					</script>
 
 					<!-- 댓글-->

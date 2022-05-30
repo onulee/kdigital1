@@ -5,19 +5,25 @@ from fboard.models import Fboard,Comment
 from member.models import Member
 from django.db.models import F,Q 
 from django.core.paginator import Paginator
+from django.core import serializers
 
 # 댓글 write - Query : dic타입
 def commWrite(request):
     # html페이지에서 데이터 가져오기
+    id = request.session.get('session_id')
+    member = Member.objects.get(id=id)
     f_no = request.GET.get('f_no')
+    fboard = Fboard.objects.get(f_no=f_no)
     pw = request.GET.get('pw')
     content = request.GET.get('content')
-    id = request.session.session_id
-    
+    # db에 저장
+    qs = Comment(member=member,fboard=fboard,c_pw=pw,c_content=content)
+    qs.save()
+    # 댓글번호 넘겨줌
+    c_no = qs.c_no
+    c_date = qs.c_date
     # 저장데이터 : c_no,member,fboard,c_pw,c_content,c_date
-    
-    
-    context={}
+    context={"c_no":c_no,"f_no":f_no,"c_pw":pw,"c_content":content,"c_date":c_date}
     return JsonResponse(context)
 
 
@@ -26,9 +32,13 @@ def commList(request):
     f_no = request.GET.get('f_no')
     print("f_no commList : ",f_no)
     # f_no 하단댓글을 검색
-    qs = Comment.objects.filter(fboard=f_no)
+    qs = Comment.objects.filter(fboard=f_no).order_by('-c_no')
     clist = list(qs.values()) # [0:q1,1:q2,2:q3]
     return JsonResponse(clist,safe=False) #safe=False list타입모양으로 리턴
+
+    # queryset_json = serializers.serialize('json',qs)
+    # context={"clist":queryset_json}
+    # return JsonResponse(context) #safe=False list타입모양으로 리턴
 
 
 # 이벤트
