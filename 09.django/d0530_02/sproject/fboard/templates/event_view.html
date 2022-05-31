@@ -18,6 +18,7 @@
 <script type="text/javascript" src="/static/js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/static/js/idangerous.swiper-2.1.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery.anchor.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 <body>
 <div id="allwrap">
@@ -192,7 +193,7 @@
 						//jquery선언
 						$(function(){
 							//ajax선언 - 댓글list 출력하기
-							alert("f_no ajax : "+{{f_no}})
+							alert({{f_no}}+"번 게시글 댓글을 출력합니다.")
 							$.ajax({
 								url:"{% url 'fboard:commList' %}",
 								type:"GET",
@@ -200,14 +201,15 @@
 								dataType:"json",
 								success:function(data){
 									//f_no:1 해당되는 댓글을 가져옴.
+									
 									var html_data = ""
 									for(var i in data){
-										html_data += "<ul>"
-										html_data += "<li class='name'>"+data[i].member_id+"<span>["+data[i].c_date+"]</span></li>"
+										html_data += "<ul id='"+data[i].c_no+"'>"
+										html_data += "<li class='name'>"+data[i].member_id+"<span>["+moment(data[i].c_date).format("YYYY-MM-DD HH:mm:ss")+"]</span></li>"
 										html_data += "<li class='txt'>"+data[i].c_content+"</li>"
 										html_data += "<li class='btn'>"
 										html_data += "<a href='#' class='rebtn'>수정</a>&nbsp"
-										html_data += "<a href='#' class='rebtn'>삭제</a>"
+										html_data += "<a onclick='commDeleteBtn("+data[i].c_no+")' class='rebtn'>삭제</a>"
 										html_data += "</li>"
 										html_data += "</ul>"
 									}
@@ -219,10 +221,18 @@
 							})//ajax
 						})//function
 
+
+						//댓글 삭제
+						function commDeleteBtn(c_no){
+							alert('댓글삭제 테스트 : '+c_no)
+
+						}
+
+
 						// 댓글쓰기
 						function commWriteBtn(){
 							//1. input에 있는 데이터 가져오기
-							alert($(".replynum").val())
+							//alert($(".replynum").val())
 							//2. views.py 전송,db저장,views 가져오기
 							$.ajax({
 								url:"{% url 'fboard:commWrite' %}",
@@ -232,8 +242,8 @@
 								success:function(data){
 									var html_data=""
 									//1.html 2.prepend 3.append
-									html_data += "<ul>"
-									html_data += "<li class='name'>"+'{{request.session.session_id}}'+"<span>["+data.c_date+"]</span></li>"
+									html_data += "<ul id='"+data.c_no+"'>"
+									html_data += "<li class='name'>"+'{{request.session.session_id}}'+"<span>["+moment(data.c_date).format("YYYY-MM-DD HH:mm:ss")+"]</span></li>"
 									html_data += "<li class='txt'>"+data.c_content+"</li>"
 									html_data += "<li class='btn'>"
 									html_data += "<a href='#' class='rebtn'>수정</a>&nbsp"
@@ -241,6 +251,7 @@
 									html_data += "</li>"
 									html_data += "</ul>"
 									$(".replyBox").prepend(html_data)
+									alert('댓글이 등록되었습니다.')
 								},
 								error:function(){
 									alert("에러!!")

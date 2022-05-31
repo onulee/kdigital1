@@ -1,68 +1,36 @@
-import json
-from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
-from fboard.models import Fboard,Comment
+from fboard.models import Fboard
 from member.models import Member
-from django.db.models import F,Q 
+from django.db.models import F 
 from django.core.paginator import Paginator
-from django.core import serializers
+import requests
+import json
 
-# 댓글 write - Query : dic타입
-def commWrite(request):
-    # html페이지에서 데이터 가져오기
-    id = request.session.get('session_id')
-    member = Member.objects.get(id=id)
-    f_no = request.GET.get('f_no')
-    fboard = Fboard.objects.get(f_no=f_no)
-    pw = request.GET.get('pw')
-    content = request.GET.get('content')
-    # db에 저장
-    qs = Comment(member=member,fboard=fboard,c_pw=pw,c_content=content)
-    qs.save()
-    # 댓글번호 넘겨줌
-    c_no = qs.c_no
-    c_date = qs.c_date
-    # 저장데이터 : c_no,member,fboard,c_pw,c_content,c_date
-    context={"c_no":c_no,"f_no":f_no,"c_pw":pw,"c_content":content,"c_date":c_date}
-    return JsonResponse(context)
-
-
-# 댓글 list - QuerySet : List타입
-def commList(request):
-    f_no = request.GET.get('f_no')
-    print("f_no commList : ",f_no)
-    # f_no 하단댓글을 검색
-    qs = Comment.objects.filter(fboard=f_no).order_by('-c_no')
-    # list타입으로 전송 : safe=False
-    clist = list(qs.values()) # [0:q1,1:q2,2:q3]
-    return JsonResponse(clist,safe=False) 
-
-    # HttpResponse : json타입 - dic타입
-    # clist = serializers.serialize('json',qs)
-    # return HttpResponse(clist,content_type='text/json-comment-filtered')
-    
-    # JsonResponse : dic타입으로 전송
-    # context={"clist":clist}
-    # # context={'reload_all':False,"clist":clist}
-    # return JsonResponse(context) 
-
-# 이벤트
-def event(request):
-    return render(request,'event.html')
-
-# 이벤트 뷰
-def event_view(request):
-    print("f_no : ",request.GET.get('f_no'))
-    # GET으로 받은 f_no를 넘겨줌.
-    context={'f_no':request.GET.get('f_no')}
-    return render(request,'event_view.html',context)
+# 공공데이터
+def public_list(request):
+    # 인증키
+    m_serviceKey = '918RE13GA7OY7ZEmUzApgbOeAcQoZ%2FaHsXWcqPAKQ9YNNPj83KOstRMRIUrCFIAcm9qj2R6b7NFZjp%2FYsYzJLg%3D%3D'
+    url='http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList?serviceKey={}&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=json'.format(m_serviceKey)
+    res = requests.get(url)
+    contents = res.text #글자 가져옴.
+    # Json타입으로 변경
+    json_contents = json.loads(contents)
+    print(type(json_contents))
+    body = json_contents['response']['body']['items']['item']
+    # body = json_contents['response']['body']['items']['item'][0]
+    print("-"*50)
+    print(body)
+    print("-"*50)
+    context={'dList':body}
+    return render(request,'public_list.html',context)
+    # return render(request,'public_list.html',body)
 
 
 # 게시판 수정 함수
-def fUpdate(request,nowpage,category,searchword,f_no):
+def fUpdate(request,nowpage,f_no):
     if request.method == 'GET':
         qs = Fboard.objects.get(f_no=f_no)
-        context = {'board':qs,'nowpage':nowpage,'category':category,'searchword':searchword}
+        context = {'board':qs,'nowpage':nowpage}
         return render(request,'fUpdate.html',context)
     else:
         # 수정form에서 데이터 전달
@@ -81,19 +49,19 @@ def fUpdate(request,nowpage,category,searchword,f_no):
         
            
         qs.save()
-        return redirect('fboard:fList',nowpage,category,searchword)
+        return redirect('fboard:fList',nowpage)
 
 # 게시판 삭제 함수
-def fDelete(request,nowpage,category,searchword,f_no):
+def fDelete(request,nowpage,f_no):
     qs = Fboard.objects.get(f_no=f_no)
     qs.delete()
-    return redirect('fboard:fList',nowpage,category,searchword)
+    return redirect('fboard:fList',nowpage)
 
 # 게시판 답글쓰기 함수
-def fReply(request,nowpage,category,searchword,f_no):
+def fReply(request,nowpage,f_no):
     if request.method == 'GET':
         qs = Fboard.objects.get(f_no=f_no) 
-        context={'board':qs,'nowpage':nowpage,'category':category,'searchword':searchword}
+        context={'board':qs,'nowpage':nowpage}
         return render(request,'fReply.html',context)
     else:
         # id = request.session.session_id
@@ -124,11 +92,11 @@ def fReply(request,nowpage,category,searchword,f_no):
             ,f_step=step+1,f_indent=indent+1,f_file=file)
         qs.save() # f_no
         
-        return redirect('fboard:fList',nowpage,category,searchword)
+        return redirect('fboard:fList',nowpage)
     
 
 # 게시판 읽기 함수
-def fView(request,nowpage,category,searchword,f_no):
+def fView(request,nowpage,f_no):
     qs = Fboard.objects.get(f_no=f_no)
     # 게시판리스트- f_group역순정렬, f_step순차정렬
     # qs = Fboard.objects.order_by('-f_group','f_step')
@@ -163,13 +131,13 @@ def fView(request,nowpage,category,searchword,f_no):
     qsPrev = Fboard.objects.get(f_no=qs_prev)
     qsNext = Fboard.objects.get(f_no=qs_next)
     # 이전글 게시글 검색
-    context={'board':qs,'boardPrev':qsPrev,'boardNext':qsNext,'nowpage':nowpage,'category':category,'searchword':searchword}
+    context={'board':qs,'boardPrev':qsPrev,'boardNext':qsNext,'nowpage':nowpage}
     return render(request,'fView.html',context)
 
 # 게시판 글쓰기 함수
-def fWrite(request,nowpage,category,searchword):
+def fWrite(request,nowpage):
     if request.method == 'GET':
-        context={"nowpage":nowpage,'category':category,'searchword':searchword}
+        context={"nowpage":nowpage}
         return render(request,'fWrite.html',context)
     else:
         # form넘어온 데이터
@@ -183,35 +151,17 @@ def fWrite(request,nowpage,category,searchword):
         qs.save()
         qs.f_group = qs.f_no
         qs.save()
-        return redirect('fboard:fList',nowpage,category,searchword)
+        return redirect('fboard:fList',nowpage)
         
         
 
 # 게시판 리스트 함수
-def fList(request,nowpage,category,searchword):
-    # GET,POST 포함
-    # all,title,content
-    if request.method =='POST':
-        category = request.POST.get('category')
-        searchword = request.POST.get('searchword')
-        print("POST category : ",category,searchword)
-    
-    print("main category : ",category,searchword)
-    # category분류
-    if category == 'first':  # GET으로 들어옴.
-        qs = Fboard.objects.order_by('-f_group','f_step')
-    elif category == 'title':
-        qs = Fboard.objects.filter(f_title__contains=searchword)
-    elif category == 'content':
-        qs = Fboard.objects.filter(f_content__contains=searchword)
-    else: # all
-        # or 검색 : title or content
-        qs = Fboard.objects.filter(Q(f_title__contains=searchword)|Q(f_content__contains=searchword))
-        # and 검색 : title and content
-        # qs = Fboard.objects.filter(f_title__contains=searchword,f_content__contains=searchword)    
-    
+def fList(request,nowpage):
+    qs = Fboard.objects.order_by('-f_group','f_step')
+    # 페이징 처리 - request:str타입
+    # page = int(request.GET.get('nowpage',1)) # page변수 전달, 없으면 1
+    print("nowpage : ",nowpage)
     paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
     fList = paginator.get_page(nowpage) # 요청한 페이지의 게시글 10개를 전달
-    print("count : ",qs.count)
-    context={'fList':fList,'count':qs.count,'nowpage':nowpage,'category':category,'searchword':searchword}
+    context={'fList':fList,'nowpage':nowpage}
     return render(request,'fList.html',context)
