@@ -7,6 +7,7 @@ from member.models import Member
 from django.db.models import F,Q 
 from django.core.paginator import Paginator
 from django.core import serializers
+import cx_Oracle as ora
 
 # 댓글 수정 저장 update
 def commUpdateOk(request):
@@ -241,3 +242,30 @@ def fList(request,nowpage,category,searchword):
     print("count : ",qs.count)
     context={'fList':fList,'count':qs.count,'nowpage':nowpage,'category':category,'searchword':searchword}
     return render(request,'fList.html',context)
+
+# oracle db연결
+def connections():
+    try:
+        conn = ora.connect('ora_user/1234@localhost:1521/xe')
+    except:
+        print('error')
+    return conn   
+
+def makeDictFactory(cursor):
+    columnNames = [d[0] for d in cursor.description] 
+    def createRow(*args):
+        return dict(zip(columnNames,args))   
+    return createRow 
+
+
+# 게시판2 리스트 : oracle sql구문 사용
+def fList2(request,nowpage,category,searchword):
+    conn = connections()
+    cursor = conn.cursor() 
+    cursor.execute("select * from fboard_fboard")
+    # list(튜플)형태를 dic타입으로 변경
+    cursor.rowfactory = makeDictFactory(cursor)
+    rows = cursor.fetchall()
+    conn.close()
+    context={'fList':rows}
+    return render(request,'fList2.html',context)
