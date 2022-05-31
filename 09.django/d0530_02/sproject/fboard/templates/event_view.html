@@ -224,8 +224,48 @@
 						//댓글 수정입력창 생성
 						function commUpdateBtn(c_no,c_date,c_content){
 							alert('수정입력창 테스트 : '+c_no+c_date+c_content)
+							var html_data=''
+							html_data +="<li class='name'>"+ '{{request.session.session_id}}' +" <span>["+moment(c_date).format("YYYY-MM-DD HH:mm:ss")+"]</span></li>"
+							html_data +="<li class='txt'><textarea class='replyType'>"+c_content+"</textarea></li>"
+							html_data +="<li class='btn'>"
+							html_data +="<a onclick='commUpdateOkBtn("+c_no+")' class='rebtn'>완료</a>&nbsp"
+							html_data +="<a onclick='commCencelBtn("+c_no+",\""+c_date+"\",\""+c_content +"\")' class='rebtn'>취소</a>"
+							html_data +="</li>"
+							//id 안의 html데이터를 모두 지우고 추가	
+							$("#"+c_no).html(html_data)
+						}//function
 
 
+						//댓글수정 저장
+						function commUpdateOkBtn(c_no){
+							alert('댓글수정 저장 테스트 : '+c_no)
+							$.ajax({
+								url:"{% url 'fboard:commUpdateOk' %}",
+								type:'GET',
+								data:{'c_no':c_no,'c_content':$("#"+c_no+" .replyType").val()},
+								dataType:'json',
+								success:function(data){
+
+								},
+								error:function(){
+									alert('error!!')
+								}
+							})//ajax
+						}//function
+
+
+						// 댓글수정 취소
+						function commCencelBtn(c_no,c_date,c_content){
+							alert("댓글수정 취소 테스트 : "+c_no+c_date+c_content)
+							html_data = ""
+							html_data += "<li class='name'>"+'{{request.session.session_id}}'+"<span>["+moment(c_date).format("YYYY-MM-DD HH:mm:ss")+"]</span></li>"
+							html_data += "<li class='txt'>"+c_content+"</li>"
+							html_data += "<li class='btn'>"
+							html_data += "<a onclick='commUpdateBtn("+c_no+",\""+c_date+"\",\""+c_content +"\")' class='rebtn'>수정</a>&nbsp"
+							html_data += "<a onclick='commDeleteBtn("+c_no+")' class='rebtn'>삭제</a>"
+							html_data += "</li>"
+							//id 안의 html데이터를 모두 지우고 추가	
+							$("#"+c_no).html(html_data)
 						}//function
 
 

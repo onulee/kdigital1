@@ -23,5 +23,7 @@ urlpatterns = [
     path('commWrite/',views.commWrite,name='commWrite'),
     # 댓글 delete
     path('commDelete/',views.commDelete,name='commDelete'),
+    # 댓글수정저장 updateOk
+    path('commUpdateOk/',views.commUpdateOk,name='commUpdateOk'),
     
 ]

@@ -7,6 +7,17 @@ from django.db.models import F,Q
 from django.core.paginator import Paginator
 from django.core import serializers
 
+# 댓글 수정 저장 update
+def commUpdateOk(request):
+    c_no = request.GET.get('c_no')
+    c_content = request.GET.get('c_content')
+    id = request.session.get('session_id')
+    
+    
+    
+    return
+
+
 # 댓글 delete
 def commDelete(request):
     c_no = request.GET.get('c_no')
