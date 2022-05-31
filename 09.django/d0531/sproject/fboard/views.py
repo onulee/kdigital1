@@ -251,19 +251,19 @@ def connections():
         print('error')
     return conn   
 
+# list타입을 dic타입으로 변경
 def makeDictFactory(cursor):
     columnNames = [d[0] for d in cursor.description] 
     def createRow(*args):
         return dict(zip(columnNames,args))   
     return createRow 
 
-
 # 게시판2 리스트 : oracle sql구문 사용
 def fList2(request,nowpage,category,searchword):
     conn = connections()
     cursor = conn.cursor() 
     cursor.execute("select * from fboard_fboard")
-    # list(튜플)형태를 dic타입으로 변경
+    # list(튜플)타입에서 dic타입으로 변경
     cursor.rowfactory = makeDictFactory(cursor)
     rows = cursor.fetchall()
     conn.close()

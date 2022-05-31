@@ -77,9 +77,9 @@
       {% if fList %}
         {% for fboard in fList %}
           <tr>
-            <td>{{fboard}}</td>
-            <td class="table-title"><a href="#">{{fboard}}</a></td>
-            <td>{{fboard.f_createdate|date:'Y-m-d H:i'}}</td>
+            <td>{{fboard.F_NO}}</td>
+            <td class="table-title"><a href="#">{{fboard.F_TITLE}}</a></td>
+            <td>{{fboard.F_CREATEDATE|date:'Y-m-d H:i'}}</td>
           </tr>
         {% endfor %}
       {% else %}
