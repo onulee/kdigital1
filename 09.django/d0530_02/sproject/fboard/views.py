@@ -7,6 +7,15 @@ from django.db.models import F,Q
 from django.core.paginator import Paginator
 from django.core import serializers
 
+# 댓글 delete
+def commDelete(request):
+    c_no = request.GET.get('c_no')
+    qs = Comment.objects.get(c_no=c_no)
+    qs.delete()
+    context={'result':'댓글이 삭제되었습니다.'}
+    return JsonResponse(context)
+
+
 # 댓글 write - Query : dic타입
 def commWrite(request):
     # html페이지에서 데이터 가져오기

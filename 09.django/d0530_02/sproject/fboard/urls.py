@@ -21,5 +21,7 @@ urlpatterns = [
     path('commList/',views.commList,name='commList'),
     # 댓글 write
     path('commWrite/',views.commWrite,name='commWrite'),
+    # 댓글 delete
+    path('commDelete/',views.commDelete,name='commDelete'),
     
 ]

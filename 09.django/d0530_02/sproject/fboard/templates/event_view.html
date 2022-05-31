@@ -208,7 +208,7 @@
 										html_data += "<li class='name'>"+data[i].member_id+"<span>["+moment(data[i].c_date).format("YYYY-MM-DD HH:mm:ss")+"]</span></li>"
 										html_data += "<li class='txt'>"+data[i].c_content+"</li>"
 										html_data += "<li class='btn'>"
-										html_data += "<a href='#' class='rebtn'>수정</a>&nbsp"
+										html_data += "<a onclick='commUpdateBtn("+data[i].c_no+",\""+data[i].c_date+"\",\""+data[i].c_content +"\")' class='rebtn'>수정</a>&nbsp"
 										html_data += "<a onclick='commDeleteBtn("+data[i].c_no+")' class='rebtn'>삭제</a>"
 										html_data += "</li>"
 										html_data += "</ul>"
@@ -221,12 +221,34 @@
 							})//ajax
 						})//function
 
+						//댓글 수정입력창 생성
+						function commUpdateBtn(c_no,c_date,c_content){
+							alert('수정입력창 테스트 : '+c_no+c_date+c_content)
+
+
+						}//function
+
 
 						//댓글 삭제
 						function commDeleteBtn(c_no){
-							alert('댓글삭제 테스트 : '+c_no)
-
-						}
+							
+							if (confirm('댓글을 삭제하시겠습니까?')){
+								alert('댓글삭제 테스트 : '+c_no)
+								$.ajax({
+									url:"{% url 'fboard:commDelete' %}",
+									type:'GET',
+									data:{'c_no':c_no},
+									dataType:'json',
+									success:function(data){
+										alert(data.result)
+										$("#"+c_no).remove()
+									},
+									error:function(){
+										alert('error!!')
+									}
+								})//ajax
+							}//confirm
+						}//function
 
 
 						// 댓글쓰기
@@ -234,6 +256,10 @@
 							//1. input에 있는 데이터 가져오기
 							//alert($(".replynum").val())
 							//2. views.py 전송,db저장,views 가져오기
+							if($(".replyType").val().length<2){
+								alert('2글자 이상 입력하셔야 등록이 가능합니다.')
+								return false 
+							}
 							$.ajax({
 								url:"{% url 'fboard:commWrite' %}",
 								type:"GET",
@@ -247,17 +273,17 @@
 									html_data += "<li class='txt'>"+data.c_content+"</li>"
 									html_data += "<li class='btn'>"
 									html_data += "<a href='#' class='rebtn'>수정</a>&nbsp"
-									html_data += "<a href='#' class='rebtn'>삭제</a>"
+									html_data += "<a onclick='commDeleteBtn("+data.c_no+")' class='rebtn'>삭제</a>"
 									html_data += "</li>"
 									html_data += "</ul>"
 									$(".replyBox").prepend(html_data)
 									alert('댓글이 등록되었습니다.')
+									$(".replynum").val('')
+									$(".replyType").val('')
 								},
 								error:function(){
 									alert("에러!!")
 								}
-
-
 							})
 							//5. html에 넣기
 						}
