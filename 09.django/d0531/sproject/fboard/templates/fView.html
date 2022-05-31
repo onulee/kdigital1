@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+  {% block content-block %}
+  <head>
+    <link rel="stylesheet" href="{% static 'css/read.css' %}">
+  </head>
+  <script>
+    function deleteBtn(){
+      if(confirm("데이터를 삭제하시겠습니까?")){
+        location.href="{% url 'fboard:fDelete' nowpage category searchword board.f_no %}"
+      }else{
+        return false
+      }
+    }
+  </script>
+    <h1>NOTICE</h1>
+    <table>
+      <tr>
+        <th>{{board.f_title}}</th>
+      </tr>
+      <tr>
+        <td>{{board.member.name}}</td>
+      </tr>
+      <tr>
+        <td>{{board.f_updatedate|date:'Y-m-d H:i'}}</td>
+      </tr>
+      <tr>
+        <td>{{board.f_content}}</td>
+      </tr>
+      <tr>
+        <td>파일이름 |{{board.f_file}}</td>
+      </tr>
+      <tr>
+        <td>
+          {% if board.f_file %}
+          <img src="{{board.f_file.url}}">
+          {% else %}
+          <h4>이미지 없음</h4>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td><strong>다음글</strong> <span class="separator">|</span><a href="{% url 'fboard:fView' nowpage category searchword boardPrev.f_no %}">{{boardPrev.f_title}}</a></td>
+      </tr>
+      <tr>
+        <td><strong>이전글</strong> <span class="separator">|</span><a href="{% url 'fboard:fView' nowpage category searchword boardNext.f_no %}"> {{boardNext.f_title}}</a></td>
+      </tr>
+    </table>
+
+    <a href="{% url 'fboard:fList' nowpage category searchword  %}"><div class="list">목록</div></a>
+    <div class="list"><a href="{% url 'fboard:fReply' nowpage category searchword board.f_no %}">답글</a></div>
+    <div class="list" onclick="deleteBtn()">삭제</div>
+    <div class="list"><a href="{% url 'fboard:fUpdate' nowpage category searchword board.f_no %}">수정</a></div>
+  {% endblock content-block %}

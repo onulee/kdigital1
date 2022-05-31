@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from fboard.models import Fboard
 from member.models import Member
@@ -5,6 +6,14 @@ from django.db.models import F
 from django.core.paginator import Paginator
 import requests
 import json
+import cx_Oracle as ora
+
+
+
+
+
+
+
 
 # 공공데이터
 def public_list(request):
@@ -154,14 +163,44 @@ def fWrite(request,nowpage):
         return redirect('fboard:fList',nowpage)
         
         
+# rowfactory 를 통해 데이터 타입 변경 
+def makeDictFactory(cursor):
+   columnNames = [d[0] for d in cursor.description]
+   def createRow(*args):
+      return dict(zip(columnNames, args))
+   return createRow
+
+# db연결부분 함수로 정의
+def connections():
+    try:
+        conn= ora.connect('ora_user/1234@localhost:1521/xe')
+    except Exception as e:
+        msg="예외발생"
+        print(msg)
+    return conn
 
 # 게시판 리스트 함수
 def fList(request,nowpage):
-    qs = Fboard.objects.order_by('-f_group','f_step')
-    # 페이징 처리 - request:str타입
-    # page = int(request.GET.get('nowpage',1)) # page변수 전달, 없으면 1
-    print("nowpage : ",nowpage)
-    paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
-    fList = paginator.get_page(nowpage) # 요청한 페이지의 게시글 10개를 전달
-    context={'fList':fList,'nowpage':nowpage}
-    return render(request,'fList.html',context)
+    conn = connections()
+    cursor = conn.cursor()
+    cursor.execute("select * from fboard_fboard")
+    cursor.rowfactory = makeDictFactory(cursor)
+    rows = cursor.fetchall()
+    for row in rows :
+        print(row)
+    print(rows)    
+    conn.close()
+    context={'fList':rows,'nowpage':1}
+    return render(request,'fList2.html',context)
+
+    
+    
+    
+    # qs = Fboard.objects.order_by('-f_group','f_step')
+    # # 페이징 처리 - request:str타입
+    # # page = int(request.GET.get('nowpage',1)) # page변수 전달, 없으면 1
+    # print("nowpage : ",nowpage)
+    # paginator = Paginator(qs,10)     # 1페이지 나타낼수 있는 게시글 수 설정.  
+    # fList = paginator.get_page(nowpage) # 요청한 페이지의 게시글 10개를 전달
+    # context={'fList':fList,'nowpage':nowpage}
+    # return render(request,'fList.html',context)
