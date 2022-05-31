@@ -26,5 +26,9 @@ urlpatterns = [
     path('commDelete/',views.commDelete,name='commDelete'),
     # 댓글수정저장 updateOk
     path('commUpdateOk/',views.commUpdateOk,name='commUpdateOk'),
+    # 차트그리기 chart01
+    path('chart01/',views.chart01,name='chart01'),
+    # 차트그리기 데이터 가져오기
+    path('chart_data/',views.chart_data,name='chart_data'),
     
 ]

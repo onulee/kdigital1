@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.db import models
+from django.forms import IntegerField
 from member.models import Member
 
 class Fboard(models.Model):
@@ -29,3 +30,8 @@ class Comment(models.Model):
     c_pw = models.CharField(max_length=100,blank=True)
     c_content = models.TextField()
     c_date = models.DateTimeField(default=datetime.now(),blank=True)    
+
+
+class income(models.Model):
+    iyear = models.CharField(max_length=4)
+    iincome = models.IntegerField(default=0)

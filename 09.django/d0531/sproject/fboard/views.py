@@ -2,12 +2,27 @@ from datetime import datetime
 import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
-from fboard.models import Fboard,Comment
+from fboard.models import Fboard,Comment,income
 from member.models import Member
 from django.db.models import F,Q 
 from django.core.paginator import Paginator
 from django.core import serializers
 import cx_Oracle as ora
+
+
+# 차트그리기
+def chart01(request):
+    return render(request,'chart01.html')
+
+# 차트그리기 데이터 가져오기
+def chart_data(request):
+    qs = income.objects.all()
+    chart_data = list(qs.values()) # [0:q1,1:q2,2:q3]
+    return JsonResponse(chart_data,safe=False) 
+
+
+
+
 
 # 댓글 수정 저장 update
 def commUpdateOk(request):
