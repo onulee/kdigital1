@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -12,10 +13,15 @@ def commUpdateOk(request):
     c_no = request.GET.get('c_no')
     c_content = request.GET.get('c_content')
     id = request.session.get('session_id')
-    
-    
-    
-    return
+    print("commUpdateOk : ",c_no,c_content,id)
+    # 해당데이터 검색
+    qs = Comment.objects.get(c_no=c_no)
+    qs.c_content = c_content
+    qs.c_date=datetime.now()
+    qs.save()
+    # ajax으로 전송
+    context={'c_no':c_no,'c_content':c_content,'c_date':qs.c_date,'result':'댓글이 수정되었습니다.'}
+    return JsonResponse(context)
 
 
 # 댓글 delete
